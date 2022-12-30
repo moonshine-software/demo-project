@@ -1,0 +1,20 @@
+// Breakpoints
+@mixin media-breakpoint-down($screen)
+	@if $screen == 'xs'
+		@media (max-width: 369.98px)
+			@content
+	@if $screen == 'sm'
+		@media (max-width: 539.98px)
+			@content
+	@if $screen == 'md'
+		@media (max-width: 719.98px)
+			@content
+	@if $screen == 'lg'
+		@media (max-width: 959.98px)
+			@content
+	@if $screen == 'xl'
+		@media (max-width: 1139.98px)
+			@content
+	@if $screen == '2xl'
+		@media (max-width: 1549.98px)
+			@content

@@ -1,0 +1,149 @@
+@mixin font($font_name, $font_style, $font_weight, $font_file)
+	@font-face
+		font-family: $font_name
+		font-style: $font_style
+		font-weight: $font_weight
+		font-display: swap
+		src: url('../fonts/#{$font_file}.woff2') format('woff2')
+
+@include font('Gilroy', normal, 400, 'Gilroy-Regular')
+@include font('Gilroy', normal, 500, 'Gilroy-Medium')
+@include font('Gilroy', normal, 600, 'Gilroy-SemiBold')
+@include font('Gilroy', normal, 700, 'Gilroy-Bold')
+@include font('Gilroy', normal, 900, 'Gilroy-Black')
+
+// Vars
+$white:    #FFF
+$purple:   #7843E9
+$pink:     #EC4176
+$dark:     #222
+$gray:     #454545
+$darkblue: #1E1F43
+$trsp:     transparent
+$trs:      .3s ease
+
+// Imports
+@import mixins
+@import components
+
+// Basic rules
+::selection
+	background-color: $pink
+	color: $white
+
+body
+	min-width: 320px
+	background-color: $darkblue
+	color: $white
+a
+	transition: $trs
+
+// Error inputs
+input._is-error,
+textarea._is-error
+	border-color: $pink
+
+// Header
+.header-actions .profile,
+.mmenu-inner .profile
+	.profile-text::after
+		content: ''
+		position: absolute
+		left: 0
+		right: 0
+		bottom: 0
+		height: 2px
+		background-color: $purple
+		opacity: 0
+		transition: $trs
+	&:hover
+		.profile-text::after
+			opacity: 1
+
+// Filters
+.filters
+	&-value
+		&._is-active
+			pointer-events: none
+			border-color: $pink
+			background-color: $pink
+			color: $white
+
+// Tasks card
+.tasks-card
+	&-photo
+		clip-path: content-box
+		> img
+			transform: scale(1.01)
+			transition: transform .5s ease
+	&:hover
+		.tasks-card-photo
+			> img
+				transform: scale(1.1)
+
+// Circle progress bar
+.radial-progress
+	position: relative
+	display: inline-grid
+	height: var(--size)
+	width: var(--size)
+	place-content: center
+	border-radius: 9999px
+	background-color: transparent
+	vertical-align: middle
+	box-sizing: content-box
+	// border: 8px solid rgba($white, 0.3)
+	box-shadow: inset 0 0 0 8px rgba($white, 0.3)
+	--size: 9rem
+	--thickness: 8px
+	+media-breakpoint-down(xl)
+		--size: 8rem
+	+media-breakpoint-down(lg)
+		--size: 7rem
+	+media-breakpoint-down(md)
+		--size: 6rem
+	+media-breakpoint-down(sm)
+		--size: 5rem
+		--thickness: 6px
+		box-shadow: inset 0 0 0 6px rgba($white, 0.3)
+	&::before,
+	&::after
+		content: ''
+		position: absolute
+		border-radius: 9999px
+	&::before
+		top: 0
+		right: 0
+		bottom: 0
+		left: 0
+		background: radial-gradient(farthest-side,currentColor 98%, #0000) top/var(--thickness) var(--thickness) no-repeat, conic-gradient(currentColor calc(var(--value) * 1%),#0000 0)
+		mask: radial-gradient(farthest-side, #0000 calc(99% - var(--thickness)),#000 calc(100% - var(--thickness)))
+	&::after
+		inset: calc(50% - var(--thickness)/2)
+		transform: rotate(calc(var(--value) * 3.6deg - 90deg)) translate(calc(var(--size)/2 - 50%))
+		background-color: currentColor
+
+// Lesson
+.lesson
+	.accordion-header
+		&-title
+			padding-left: 32px
+		&::before
+			content: ''
+			position: absolute
+			top: 3px
+			left: 0
+			flex: 0 0 auto
+			width: 20px
+			height: 20px
+			background-repeat: no-repeat
+			background-size: contain
+			margin-right: 12px
+		&._is-done::before
+			background-image: url('../images/icons/done.svg')
+		&._is-checking::before
+			background-image: url('../images/icons/checking.svg')
+		&._is-progress::before
+			background-image: url('../images/icons/progress.svg')
+		&._is-pending::before
+			background-image: url('../images/icons/time-forward.svg')
