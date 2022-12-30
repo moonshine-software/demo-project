@@ -7,4 +7,5 @@
 - php artisan migrate --seed
 - php artisan moonshine:user
 - php artisan serve
-- go to /admin
+- Переходите /admin
+- Опционально можно настроить github и tinymce api ключи

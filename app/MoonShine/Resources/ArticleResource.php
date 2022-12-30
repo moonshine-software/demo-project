@@ -16,6 +16,7 @@ use Leeto\MoonShine\Filters\BelongsToFilter;
 use Leeto\MoonShine\Filters\BelongsToManyFilter;
 use Leeto\MoonShine\Filters\TextFilter;
 use Leeto\MoonShine\ItemActions\ItemAction;
+use Leeto\MoonShine\Metrics\ValueMetric;
 use Leeto\MoonShine\Resources\Resource;
 
 class ArticleResource extends Resource
@@ -72,6 +73,14 @@ class ArticleResource extends Resource
                 ->hideOnIndex(),
         ];
 	}
+
+    public function metrics(): array
+    {
+       return [
+           ValueMetric::make('Articles')
+               ->value(Article::query()->count())
+       ];
+    }
 
     public function query(): Builder
     {

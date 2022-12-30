@@ -1,9 +1,11 @@
 <?php
 
 return [
+    'profile' => 'Profile',
     'dashboard' => 'Dashboard',
     'add' => 'Add',
     'create' => 'Create',
+    'edit' => 'Edit',
     'save' => 'Save',
     'saved' => 'Saved',
     'saved_error' => 'Error',
@@ -31,6 +33,12 @@ return [
     'field' => 'Field',
     'before' => 'Before',
     'after' => 'After',
+    'loading' => 'Loading ...',
+    'notifications' => [
+        'title' => 'Notifications',
+        'mark_as_read_all' => 'Mark all as read',
+        'mark_as_read' => 'Mark as read',
+    ],
     'login' => [
         'authorization' => 'Authorization',
         'remember_me' => 'Remember me',
@@ -39,8 +47,9 @@ return [
         'email' => 'E-mail',
         'password' => 'Password',
     ],
-    'base_resource' => [
-        'role' => 'Role',
+    'resource' => [
+        'system' => 'System',
+        'role' => 'Roles',
         'name' => 'Name',
         'email' => 'E-mail',
         'password' => 'Password',
@@ -50,5 +59,20 @@ return [
         'admins_title' => 'Admins',
         'role_title' => 'Roles',
         'role_name' => 'Title',
+
+        'link_socialite' => 'Link account',
+        'linked_socialite' => 'Account linked',
+
+        'queued' => 'Queued',
+
+        'export' => [
+            'exported' => 'File exported',
+        ],
+
+        'import' => [
+            'imported' => 'Imported',
+            'file_required' => 'File is required',
+            'extension_not_supported' => 'File extension not supported'
+        ]
     ]
 ];

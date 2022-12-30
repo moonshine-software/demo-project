@@ -1,9 +1,11 @@
 <?php
 
 return [
+    'profile' => 'Профиль',
     'dashboard' => 'Панель',
     'add' => 'Добавить',
     'create' => 'Создать',
+    'edit' => 'Редактировать',
     'save' => 'Сохранить',
     'saved' => 'Сохранено',
     'saved_error' => 'Произошла ошибка',
@@ -31,6 +33,12 @@ return [
     'field' => 'Поле',
     'before' => 'До',
     'after' => 'После',
+    'loading' => 'Загрузка ...',
+    'notifications' => [
+        'title' => 'Уведомления',
+        'mark_as_read_all' => 'Все прочитано',
+        'mark_as_read' => 'Прочитано',
+    ],
     'login' => [
         'authorization' => 'Авторизация',
         'remember_me' => 'Запомнить',
@@ -40,7 +48,8 @@ return [
         'password' => 'Пароль',
     ],
     'resource' => [
-        'role' => 'Роль',
+        'system' => 'Система',
+        'role' => 'Роли',
         'name' => 'Имя',
         'email' => 'E-mail',
         'password' => 'Пароль',
@@ -49,5 +58,20 @@ return [
         'created_at' => 'Дата создания',
         'admins_title' => 'Администраторы',
         'role_name' => 'Название',
+
+        'link_socialite' => 'Привязать аккаунты',
+        'linked_socialite' => 'Привязанные аккаунты',
+
+        'queued' => 'Поставлен в очередь',
+
+        'export' => [
+            'exported' => 'File exported',
+        ],
+
+        'import' => [
+            'imported' => 'Импортирован',
+            'file_required' => 'Файл обязателен',
+            'extension_not_supported' => 'Расширения не поддерживается'
+        ]
     ]
 ];
