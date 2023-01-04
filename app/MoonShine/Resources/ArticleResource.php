@@ -58,6 +58,7 @@ class ArticleResource extends Resource
                 ->hideOnIndex(),
 
             Image::make('Thumbnail')
+                ->disk('public')
                 ->dir('articles'),
 
             BelongsToMany::make('Categories')
@@ -151,6 +152,7 @@ class ArticleResource extends Resource
                 ->canSee(fn() => auth('moonshine')->user()->moonshine_user_role_id === 1),
             TextFilter::make('Slug'),
             BelongsToManyFilter::make('Categories')
+                ->select()
         ];
     }
 
