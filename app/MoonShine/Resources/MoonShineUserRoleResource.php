@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Resources;
 
+use Leeto\MoonShine\Decorations\Block;
 use Leeto\MoonShine\Fields\ID;
 use Leeto\MoonShine\Fields\Text;
 use Leeto\MoonShine\Filters\TextFilter;
@@ -30,9 +31,11 @@ class MoonShineUserRoleResource extends Resource
     public function fields(): array
     {
         return [
-            ID::make()->sortable()->showOnExport(),
-            Text::make(trans('moonshine::ui.resource.role_name'), 'name')
-                ->required()->showOnExport(),
+            Block::make('', [
+                ID::make()->sortable()->showOnExport(),
+                Text::make(trans('moonshine::ui.resource.role_name'), 'name')
+                    ->required()->showOnExport(),
+            ])
         ];
     }
 

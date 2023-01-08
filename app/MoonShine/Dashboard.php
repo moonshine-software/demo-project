@@ -4,6 +4,7 @@ namespace App\MoonShine;
 
 use App\Models\Article;
 use App\MoonShine\Resources\ArticleResource;
+use App\MoonShine\Resources\CommentResource;
 use Leeto\MoonShine\Dashboard\DashboardBlock;
 use Leeto\MoonShine\Dashboard\DashboardScreen;
 use Leeto\MoonShine\Dashboard\ResourcePreview;
@@ -27,7 +28,9 @@ class Dashboard extends DashboardScreen
                         ->with(['author'])
                         ->latest()
                         ->limit(2)
-                )
+                ),
+
+                ResourcePreview::make(new CommentResource(), 'Latest comments'),
             ])
         ];
 	}

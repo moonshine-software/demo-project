@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\MoonShine\Resources;
 
 use Leeto\MoonShine\Actions\ExportAction;
+use Leeto\MoonShine\Decorations\Block;
 use Leeto\MoonShine\Decorations\Heading;
 use Leeto\MoonShine\Decorations\Tab;
+use Leeto\MoonShine\Decorations\Tabs;
 use Leeto\MoonShine\Fields\BelongsTo;
 use Leeto\MoonShine\Fields\Date;
 use Leeto\MoonShine\Fields\Email;
@@ -36,53 +38,57 @@ class MoonShineUserResource extends Resource
     public function fields(): array
     {
         return [
-            Tab::make('Main', [
-                ID::make()
-                    ->sortable()
-                    ->showOnExport(),
+            Block::make('', [
+                Tabs::make([
+                    Tab::make('Main', [
+                        ID::make()
+                            ->sortable()
+                            ->showOnExport(),
 
-                BelongsTo::make(
-                    trans('moonshine::ui.resource.role'),
-                    'moonshine_user_role_id',
-                    new MoonShineUserRoleResource()
-                )
-                    ->showOnExport(),
+                        BelongsTo::make(
+                            trans('moonshine::ui.resource.role'),
+                            'moonshine_user_role_id',
+                            new MoonShineUserRoleResource()
+                        )
+                            ->showOnExport(),
 
-                Text::make(trans('moonshine::ui.resource.name'), 'name')
-                    ->required()
-                    ->showOnExport(),
+                        Text::make(trans('moonshine::ui.resource.name'), 'name')
+                            ->required()
+                            ->showOnExport(),
 
-                Image::make(trans('moonshine::ui.resource.avatar'), 'avatar')
-                    ->removable()
-                    ->showOnExport()
-                    ->disk('public')
-                    ->dir('moonshine_users')
-                    ->allowedExtensions(['jpg', 'png', 'jpeg', 'gif']),
+                        Image::make(trans('moonshine::ui.resource.avatar'), 'avatar')
+                            ->removable()
+                            ->showOnExport()
+                            ->disk('public')
+                            ->dir('moonshine_users')
+                            ->allowedExtensions(['jpg', 'png', 'jpeg', 'gif']),
 
-                Date::make(trans('moonshine::ui.resource.created_at'), 'created_at')
-                    ->format("d.m.Y")
-                    ->default(now()->toDateTimeString())
-                    ->sortable()
-                    ->hideOnForm()
-                    ->showOnExport(),
+                        Date::make(trans('moonshine::ui.resource.created_at'), 'created_at')
+                            ->format("d.m.Y")
+                            ->default(now()->toDateTimeString())
+                            ->sortable()
+                            ->hideOnForm()
+                            ->showOnExport(),
 
-                Email::make(trans('moonshine::ui.resource.email'), 'email')
-                    ->sortable()
-                    ->showOnExport()
-                    ->required(),
-            ]),
+                        Email::make(trans('moonshine::ui.resource.email'), 'email')
+                            ->sortable()
+                            ->showOnExport()
+                            ->required(),
+                    ]),
 
-            Tab::make(trans('moonshine::ui.resource.password'), [
-                Heading::make('Test'),
+                    Tab::make(trans('moonshine::ui.resource.password'), [
+                        Heading::make('Change password'),
 
-                Password::make(trans('moonshine::ui.resource.password'), 'password')
-                    ->customAttributes(['autocomplete' => 'new-password'])
-                    ->hideOnIndex(),
+                        Password::make(trans('moonshine::ui.resource.password'), 'password')
+                            ->customAttributes(['autocomplete' => 'new-password'])
+                            ->hideOnIndex(),
 
-                PasswordRepeat::make(trans('moonshine::ui.resource.repeat_password'), 'password_repeat')
-                    ->customAttributes(['autocomplete' => 'confirm-password'])
-                    ->hideOnIndex(),
-            ]),
+                        PasswordRepeat::make(trans('moonshine::ui.resource.repeat_password'), 'password_repeat')
+                            ->customAttributes(['autocomplete' => 'confirm-password'])
+                            ->hideOnIndex(),
+                    ]),
+                ]),
+            ])
         ];
     }
 

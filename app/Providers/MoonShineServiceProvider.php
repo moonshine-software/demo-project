@@ -2,9 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\Comment;
 use App\MoonShine\Resources\ArticleResource;
 use App\MoonShine\Resources\CategoryResource;
+use App\MoonShine\Resources\CommentResource;
 use App\MoonShine\Resources\DictionaryResource;
+use App\MoonShine\Resources\UserResource;
 use Illuminate\Support\ServiceProvider;
 use Leeto\MoonShine\MoonShine;
 use Leeto\MoonShine\Menu\MenuGroup;
@@ -27,7 +30,11 @@ class MoonShineServiceProvider extends ServiceProvider
             MenuGroup::make('Blog', [
                 MenuItem::make('Categories', new CategoryResource()),
                 MenuItem::make('Articles', new ArticleResource()),
+                MenuItem::make('Comments', new CommentResource())
+                    ->badge(fn() => Comment::query()->count()),
             ], 'bookmark'),
+
+            MenuItem::make('Users', new UserResource(), 'users'),
 
 
             MenuItem::make('Dictionary', new DictionaryResource(), 'clip')

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Cache;
 use Leeto\MoonShine\Models\MoonshineUser;
 use Leeto\MoonShine\Traits\Models\HasMoonShineChangeLog;
@@ -35,5 +36,10 @@ class Article extends Model
     public function author(): BelongsTo
     {
         return $this->belongsTo(MoonshineUser::class);
+    }
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
     }
 }

@@ -7,6 +7,7 @@ use App\MoonShine\Fields\CKEditor;
 use App\MoonShine\Fields\Quill;
 use Illuminate\Database\Eloquent\Model;
 
+use Leeto\MoonShine\Decorations\Block;
 use Leeto\MoonShine\Fields\Image;
 use Leeto\MoonShine\Fields\Text;
 use Leeto\MoonShine\Fields\TinyMce;
@@ -26,13 +27,15 @@ class DictionaryResource extends Resource
 	public function fields(): array
 	{
 		return [
-            ID::make()->sortable(),
-            Text::make('Title')->required(),
-            Text::make('Slug')->required(),
+            Block::make('', [
+                ID::make()->sortable(),
+                Text::make('Title')->required(),
+                Text::make('Slug')->required(),
 
-            TinyMce::make('Description')
-                ->required()
-                ->hideOnIndex(),
+                TinyMce::make('Description')
+                    ->required()
+                    ->hideOnIndex(),
+            ])
         ];
 	}
 

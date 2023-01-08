@@ -3,11 +3,23 @@
 namespace App\MoonShine\Resources;
 
 use App\Models\Article;
+use App\Models\Comment;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Leeto\MoonShine\Actions\ExportAction;
+use Leeto\MoonShine\Actions\ImportAction;
+use Leeto\MoonShine\Dashboard\DashboardBlock;
+use Leeto\MoonShine\Dashboard\ResourcePreview;
+use Leeto\MoonShine\Decorations\Block;
+use Leeto\MoonShine\Decorations\Button;
+use Leeto\MoonShine\Decorations\Flex;
+use Leeto\MoonShine\Decorations\Grid;
 use Leeto\MoonShine\Decorations\Heading;
+use Leeto\MoonShine\Decorations\Tab;
+use Leeto\MoonShine\Decorations\Tabs;
 use Leeto\MoonShine\Fields\BelongsTo;
 use Leeto\MoonShine\Fields\BelongsToMany;
+use Leeto\MoonShine\Fields\HasMany;
 use Leeto\MoonShine\Fields\ID;
 use Leeto\MoonShine\Fields\Image;
 use Leeto\MoonShine\Fields\Text;
@@ -21,9 +33,9 @@ use Leeto\MoonShine\Resources\Resource;
 
 class ArticleResource extends Resource
 {
-	public static string $model = Article::class;
+    public static string $model = Article::class;
 
-	public static string $title = 'Articles';
+    public static string $title = 'Articles';
 
     public static string $orderField = 'created_at';
 
@@ -32,55 +44,98 @@ class ArticleResource extends Resource
     public static bool $withPolicy = true;
 
     public static array $with = [
-        'author'
+        'author',
+        'comments'
     ];
 
-	public function fields(): array
-	{
-		return [
-            ID::make()->sortable(),
+    public string $titleField = 'title';
 
-            BelongsTo::make('Author', resource: 'name')
-                ->canSee(fn() => auth('moonshine')->user()->moonshine_user_role_id === 1)
-                ->required(),
+    public function fields(): array
+    {
+        return [
+            ID::make()
+                ->useOnImport()
+                ->showOnExport()
+                ->sortable(),
 
-            Text::make('Title')->required(),
+            Flex::make('flex-blocks', [
+                Block::make('form-left', [
+                    Button::make(
+                        'Link to article',
+                        $this->getItem() ? route('articles.show', $this->getItem()) : '/',
+                        true
+                    )->icon('clip'),
 
-            Text::make('Slug')
+                    BelongsTo::make('Author', resource: 'name')
+                        ->canSee(fn() => auth('moonshine')->user()->moonshine_user_role_id === 1)
+                        ->required(),
+
+                    Heading::make('Title/Slug'),
+
+                    Flex::make('flex-titles', [
+                        Text::make('Title')
+                            ->fieldContainer(false)
+                            ->required(),
+
+                        Text::make('Slug')
+                            ->hideOnIndex()
+                            ->fieldContainer(false)
+                            ->required(),
+                    ])
+                        ->withoutSpace()
+                        ->justifyAlign('start')
+                        ->itemsAlign('start'),
+
+                    Image::make('Thumbnail')
+                        ->disk('public')
+                        ->dir('articles'),
+
+
+                ]),
+
+                Block::make('form-right', [
+                    Tabs::make([
+                        Tab::make('Seo', [
+                            Text::make('Seo title')
+                                ->hideOnIndex(),
+
+                            Text::make('Seo description')
+                                ->hideOnIndex(),
+
+                            TinyMce::make('Description')
+                                ->commentAuthor('Danil Shutsky')
+                                ->addPlugins('code codesample')
+                                ->addToolbar(' | code codesample')
+                                ->required()
+                                ->hideOnIndex(),
+                        ]),
+                        Tab::make('Categories', [
+                            BelongsToMany::make('Categories')
+                                ->valuesQuery(fn(Builder $query) => $query)
+                                ->hideOnIndex(),
+                        ])
+                    ])
+
+
+                ]),
+            ]),
+
+
+            HasMany::make('Comments')
                 ->hideOnIndex()
-                ->required(),
-
-            TinyMce::make('Description')
-                ->commentAuthor('Danil Shutsky')
-                ->addPlugins('code codesample')
-                ->addToolbar(' | code codesample')
-                ->required()
-                ->hideOnIndex(),
-
-            Image::make('Thumbnail')
-                ->disk('public')
-                ->dir('articles'),
-
-            BelongsToMany::make('Categories')
-                ->valuesQuery(fn(Builder $query) => $query)
-                ->hideOnIndex(),
-
-            Heading::make('Seo'),
-
-            Text::make('Seo title')
-                ->hideOnIndex(),
-
-            Text::make('Seo description')
-                ->hideOnIndex(),
+                ->resourceMode()
         ];
-	}
+    }
 
     public function metrics(): array
     {
-       return [
-           ValueMetric::make('Articles')
-               ->value(Article::query()->count())
-       ];
+        return [
+            ValueMetric::make('Articles')
+                ->value(Article::query()->count()),
+
+            ValueMetric::make('Comments')
+                ->value(Comment::query()->count()),
+        ];
     }
 
     public function query(): Builder
@@ -93,7 +148,7 @@ class ArticleResource extends Resource
 
     public function trStyles(Model $item, int $index): string
     {
-        if($item->author?->moonshine_user_role_id == 2) {
+        if ($item->author?->moonshine_user_role_id == 2) {
             return 'background-color: rgba(118 101 255 / 0.2);';
         }
 
@@ -101,8 +156,8 @@ class ArticleResource extends Resource
     }
 
     public function rules(Model $item): array
-	{
-	    return [
+    {
+        return [
             'title' => ['required', 'string', 'min:1'],
             'slug' => ['required', 'string', 'min:1'],
             'description' => ['required', 'string', 'min:1'],
@@ -112,7 +167,7 @@ class ArticleResource extends Resource
 
     protected function beforeCreating(Model $item)
     {
-        if(auth('moonshine')->user()->moonshine_user_role_id !== 1) {
+        if (auth('moonshine')->user()->moonshine_user_role_id !== 1) {
             request()->merge([
                 'author_id' => auth('moonshine')->id()
             ]);
@@ -121,7 +176,7 @@ class ArticleResource extends Resource
 
     protected function beforeUpdating(Model $item)
     {
-        if(auth('moonshine')->user()->moonshine_user_role_id !== 1) {
+        if (auth('moonshine')->user()->moonshine_user_role_id !== 1) {
             request()->merge([
                 'author_id' => auth('moonshine')->id()
             ]);
@@ -132,7 +187,7 @@ class ArticleResource extends Resource
     {
         return [
             ItemAction::make('Go to', function (Article $model) {
-                header("Location: " . route('articles.show', $model));
+                header("Location: ".route('articles.show', $model));
 
                 die();
             })->icon('clip')
@@ -158,6 +213,17 @@ class ArticleResource extends Resource
 
     public function actions(): array
     {
-        return [];
+        return [
+            ExportAction::make('Export')
+                ->disk('public')
+                ->dir('exports')
+                ->queue(),
+
+            ImportAction::make('Import')
+                ->disk('public')
+                ->dir('imports')
+                ->deleteAfter()
+                ->queue()
+        ];
     }
 }
