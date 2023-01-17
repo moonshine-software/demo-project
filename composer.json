@@ -14,7 +14,7 @@
         "laravel/socialite": "^5.5",
         "laravel/tinker": "^2.5",
         "lee-to/laravel-thumbnails": "^1.0",
-        "lee-to/moonshine": "^1.22"
+        "lee-to/moonshine": "^1.24"
     },
     "require-dev": {
         "spatie/laravel-ignition": "^1.0",

@@ -22,11 +22,13 @@ use Leeto\MoonShine\Fields\BelongsToMany;
 use Leeto\MoonShine\Fields\HasMany;
 use Leeto\MoonShine\Fields\ID;
 use Leeto\MoonShine\Fields\Image;
+use Leeto\MoonShine\Fields\Number;
 use Leeto\MoonShine\Fields\Text;
 use Leeto\MoonShine\Fields\TinyMce;
 use Leeto\MoonShine\Filters\BelongsToFilter;
 use Leeto\MoonShine\Filters\BelongsToManyFilter;
 use Leeto\MoonShine\Filters\TextFilter;
+use Leeto\MoonShine\FormActions\FormAction;
 use Leeto\MoonShine\ItemActions\ItemAction;
 use Leeto\MoonShine\Metrics\ValueMetric;
 use Leeto\MoonShine\Resources\Resource;
@@ -70,6 +72,9 @@ class ArticleResource extends Resource
                         ->canSee(fn() => auth('moonshine')->user()->moonshine_user_role_id === 1)
                         ->required(),
 
+                    Number::make('Comments', 'comments_count')
+                        ->hideOnForm(),
+
                     Heading::make('Title/Slug'),
 
                     Flex::make('flex-titles', [
@@ -97,9 +102,11 @@ class ArticleResource extends Resource
                     Tabs::make([
                         Tab::make('Seo', [
                             Text::make('Seo title')
+                                ->fieldContainer(false)
                                 ->hideOnIndex(),
 
                             Text::make('Seo description')
+                                ->fieldContainer(false)
                                 ->hideOnIndex(),
 
                             TinyMce::make('Description')
@@ -140,10 +147,12 @@ class ArticleResource extends Resource
 
     public function query(): Builder
     {
-        return parent::query()->when(
-            auth('moonshine')->user()->moonshine_user_role_id !== 1,
-            fn($q) => $q->where('author_id', auth('moonshine')->id())
-        );
+        return parent::query()
+            ->withCount('comments')
+            ->when(
+                auth('moonshine')->user()->moonshine_user_role_id !== 1,
+                fn($q) => $q->where('author_id', auth('moonshine')->id())
+            );
     }
 
     public function trStyles(Model $item, int $index): string
@@ -187,6 +196,21 @@ class ArticleResource extends Resource
     {
         return [
             ItemAction::make('Go to', function (Article $model) {
+                header("Location: ".route('articles.show', $model));
+
+                die();
+            })->icon('clip')
+        ];
+    }
+
+    public function formActions(): array
+    {
+        return [
+            FormAction::make('Delete', function (Article $model) {
+                $model->delete();
+            })->icon('delete'),
+
+            FormAction::make('Preview', function (Article $model) {
                 header("Location: ".route('articles.show', $model));
 
                 die();
