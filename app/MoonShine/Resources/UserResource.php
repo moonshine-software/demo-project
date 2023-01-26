@@ -58,7 +58,7 @@ class UserResource extends Resource
 
     public function search(): array
     {
-        return ['id', 'text'];
+        return ['id'];
     }
 
     public function filters(): array

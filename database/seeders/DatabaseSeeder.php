@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Article;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -18,5 +19,7 @@ class DatabaseSeeder extends Seeder
             'id' => 2,
             'name' => 'Author'
         ]);
+
+        Article::factory(100)->create();
     }
 }

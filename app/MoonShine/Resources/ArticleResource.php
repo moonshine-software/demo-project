@@ -22,6 +22,7 @@ use Leeto\MoonShine\Fields\BelongsToMany;
 use Leeto\MoonShine\Fields\HasMany;
 use Leeto\MoonShine\Fields\ID;
 use Leeto\MoonShine\Fields\Image;
+use Leeto\MoonShine\Fields\NoInput;
 use Leeto\MoonShine\Fields\Number;
 use Leeto\MoonShine\Fields\Text;
 use Leeto\MoonShine\Fields\TinyMce;
@@ -29,6 +30,7 @@ use Leeto\MoonShine\Filters\BelongsToFilter;
 use Leeto\MoonShine\Filters\BelongsToManyFilter;
 use Leeto\MoonShine\Filters\TextFilter;
 use Leeto\MoonShine\FormActions\FormAction;
+use Leeto\MoonShine\QueryTags\QueryTag;
 use Leeto\MoonShine\ItemActions\ItemAction;
 use Leeto\MoonShine\Metrics\ValueMetric;
 use Leeto\MoonShine\Resources\Resource;
@@ -92,9 +94,11 @@ class ArticleResource extends Resource
                         ->itemsAlign('start'),
 
                     Image::make('Thumbnail')
+                        ->fullWidth()
                         ->disk('public')
                         ->dir('articles'),
 
+                    NoInput::make('No input field', 'no_input', fn() => fake()->realText())
 
                 ]),
 
@@ -131,6 +135,21 @@ class ArticleResource extends Resource
             HasMany::make('Comments')
                 ->hideOnIndex()
                 ->resourceMode()
+        ];
+    }
+
+    public function queryTags(): array
+    {
+        return [
+            QueryTag::make(
+                'Article with author',
+                Article::query()->whereNotNull('author_id')
+            ),
+
+            QueryTag::make(
+                'Article without an author',
+                Article::query()->whereNull('author_id')
+            )->icon('users')
         ];
     }
 
@@ -228,6 +247,7 @@ class ArticleResource extends Resource
         return [
             TextFilter::make('Title'),
             BelongsToFilter::make('Author', resource: 'name')
+                ->nullable()
                 ->canSee(fn() => auth('moonshine')->user()->moonshine_user_role_id === 1),
             TextFilter::make('Slug'),
             BelongsToManyFilter::make('Categories')

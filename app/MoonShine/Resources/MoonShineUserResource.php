@@ -18,8 +18,10 @@ use Leeto\MoonShine\Fields\Password;
 use Leeto\MoonShine\Fields\PasswordRepeat;
 use Leeto\MoonShine\Fields\Text;
 use Leeto\MoonShine\Filters\TextFilter;
+use Leeto\MoonShine\FormComponents\PermissionFormComponent;
 use Leeto\MoonShine\ItemActions\ItemAction;
 use Leeto\MoonShine\Models\MoonshineUser;
+use Leeto\MoonShine\Models\MoonshineUserRole;
 use Leeto\MoonShine\Resources\Resource;
 
 class MoonShineUserResource extends Resource
@@ -29,6 +31,8 @@ class MoonShineUserResource extends Resource
     public string $titleField = 'name';
 
     public static bool $withPolicy = true;
+
+    protected static bool $system = true;
 
     public function title(): string
     {
@@ -89,6 +93,14 @@ class MoonShineUserResource extends Resource
                     ]),
                 ]),
             ])
+        ];
+    }
+
+    public function components(): array
+    {
+        return [
+            PermissionFormComponent::make('Permissions')
+                ->canSee(fn($user) => $user->moonshine_user_role_id === MoonshineUserRole::DEFAULT_ROLE_ID)
         ];
     }
 
