@@ -99,6 +99,7 @@ class ArticleResource extends Resource
                         ->dir('articles'),
 
                     NoInput::make('No input field', 'no_input', fn() => fake()->realText())
+                        ->hideOnIndex()
 
                 ]),
 
@@ -118,6 +119,7 @@ class ArticleResource extends Resource
                                 ->addPlugins('code codesample')
                                 ->addToolbar(' | code codesample')
                                 ->required()
+                                ->fullWidth()
                                 ->hideOnIndex(),
                         ]),
                         Tab::make('Categories', [
