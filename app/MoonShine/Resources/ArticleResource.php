@@ -12,6 +12,7 @@ use Leeto\MoonShine\Dashboard\DashboardBlock;
 use Leeto\MoonShine\Dashboard\ResourcePreview;
 use Leeto\MoonShine\Decorations\Block;
 use Leeto\MoonShine\Decorations\Button;
+use Leeto\MoonShine\Decorations\Collapse;
 use Leeto\MoonShine\Decorations\Flex;
 use Leeto\MoonShine\Decorations\Grid;
 use Leeto\MoonShine\Decorations\Heading;
@@ -77,21 +78,23 @@ class ArticleResource extends Resource
                     Number::make('Comments', 'comments_count')
                         ->hideOnForm(),
 
-                    Heading::make('Title/Slug'),
+                    Collapse::make('Title/Slug', [
+                        Heading::make('Title/Slug'),
 
-                    Flex::make('flex-titles', [
-                        Text::make('Title')
-                            ->fieldContainer(false)
-                            ->required(),
+                        Flex::make('flex-titles', [
+                            Text::make('Title')
+                                ->fieldContainer(false)
+                                ->required(),
 
-                        Text::make('Slug')
-                            ->hideOnIndex()
-                            ->fieldContainer(false)
-                            ->required(),
-                    ])
-                        ->withoutSpace()
-                        ->justifyAlign('start')
-                        ->itemsAlign('start'),
+                            Text::make('Slug')
+                                ->hideOnIndex()
+                                ->fieldContainer(false)
+                                ->required(),
+                        ])
+                            ->withoutSpace()
+                            ->justifyAlign('start')
+                            ->itemsAlign('start'),
+                    ]),
 
                     Image::make('Thumbnail')
                         ->fullWidth()
