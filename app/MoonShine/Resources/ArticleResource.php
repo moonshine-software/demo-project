@@ -79,8 +79,6 @@ class ArticleResource extends Resource
                         ->hideOnForm(),
 
                     Collapse::make('Title/Slug', [
-                        Heading::make('Title/Slug'),
-
                         Flex::make('flex-titles', [
                             Text::make('Title')
                                 ->fieldContainer(false)
