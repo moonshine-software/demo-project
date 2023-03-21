@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use Leeto\MoonShine\Decorations\Block;
 use Leeto\MoonShine\Fields\BelongsTo;
+use Leeto\MoonShine\Fields\Image;
 use Leeto\MoonShine\Fields\Text;
 use Leeto\MoonShine\Filters\TextFilter;
 use Leeto\MoonShine\Resources\Resource;

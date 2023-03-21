@@ -110,7 +110,6 @@ class ArticleResource extends Resource
                         ]),
 
                         Image::make('Thumbnail')
-                            ->fullWidth()
                             ->removable()
                             ->disk('public')
                             ->dir('articles'),
@@ -163,13 +162,18 @@ class ArticleResource extends Resource
                                 BelongsTo::make('Article'),
                                 BelongsTo::make('User'),
                                 Text::make('Text')->required(),
+                                Image::make('Files')
+                                    ->multiple()
+                                    ->removable()
+                                    ->disk('public')
+                                    ->dir('comments'),
                             ])
                             ->removable()
                             ->hideOnIndex()
                             ->fullPage(),
                     ]),
 
-                    Block::make([
+                   /* Block::make([
                         HasOne::make('Comment')
                             ->fields([
                                 ID::make()->sortable(),
@@ -180,7 +184,7 @@ class ArticleResource extends Resource
                             ->removable()
                             ->hideOnIndex()
                             ->fullPage()
-                    ]),
+                    ]),*/
 
                     Block::make('Seo and categories', [
                         Tabs::make([

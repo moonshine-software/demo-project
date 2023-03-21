@@ -14,7 +14,7 @@
         "laravel/socialite": "^5.5",
         "laravel/tinker": "^2.5",
         "lee-to/laravel-thumbnails": "^1.0",
-        "lee-to/moonshine": "1.50.0-rc1",
+        "lee-to/moonshine": "1.50.0-rc2",
         "unisharp/laravel-filemanager": "^2.6"
     },
     "require-dev": {

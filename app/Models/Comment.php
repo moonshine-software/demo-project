@@ -13,7 +13,12 @@ class Comment extends Model
     protected $fillable = [
         'article_id',
         'user_id',
-        'text'
+        'text',
+        'files'
+    ];
+
+    protected $casts = [
+        'files' => 'collection'
     ];
 
     public function user(): BelongsTo
