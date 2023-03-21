@@ -33,7 +33,7 @@ class DictionaryResource extends Resource
                 Text::make('Slug')->required(),
 
                 TinyMce::make('Description')
-                    ->required()
+                    //->required()
                     ->hideOnIndex(),
             ])
         ];

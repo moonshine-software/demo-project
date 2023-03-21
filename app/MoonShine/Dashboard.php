@@ -3,6 +3,7 @@
 namespace App\MoonShine;
 
 use App\Models\Article;
+use App\Models\Comment;
 use App\MoonShine\Resources\ArticleResource;
 use App\MoonShine\Resources\CommentResource;
 use Leeto\MoonShine\Dashboard\DashboardBlock;
@@ -18,8 +19,24 @@ class Dashboard extends DashboardScreen
 		return [
             DashboardBlock::make([
                 ValueMetric::make('Articles')
+                    ->columnSpan(6)
                     ->value(Article::query()->count()),
+
+                ValueMetric::make('Comments')
+                    ->columnSpan(6)
+                    ->value(Comment::query()->count()),
             ]),
+
+            DashboardBlock::make([
+                ValueMetric::make('Articles')
+                    ->columnSpan(6)
+                    ->value(Article::query()->count()),
+
+                ValueMetric::make('Comments')
+                    ->columnSpan(6)
+                    ->value(Comment::query()->count()),
+            ]),
+
             DashboardBlock::make([
                 ResourcePreview::make(
                     new ArticleResource(),
@@ -28,9 +45,12 @@ class Dashboard extends DashboardScreen
                         ->with(['author'])
                         ->latest()
                         ->limit(2)
-                ),
+                )->columnSpan(6),
 
-                ResourcePreview::make(new CommentResource(), 'Latest comments'),
+                ResourcePreview::make(
+                    new CommentResource(),
+                    'Latest comments'
+                )->columnSpan(6),
             ])
         ];
 	}

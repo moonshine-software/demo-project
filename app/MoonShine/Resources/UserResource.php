@@ -6,7 +6,9 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 use Leeto\MoonShine\Decorations\Block;
+use Leeto\MoonShine\Decorations\Column;
 use Leeto\MoonShine\Decorations\Flex;
+use Leeto\MoonShine\Decorations\Grid;
 use Leeto\MoonShine\Fields\BelongsTo;
 use Leeto\MoonShine\Fields\Email;
 use Leeto\MoonShine\Fields\Password;
@@ -26,20 +28,23 @@ class UserResource extends Resource
 	public function fields(): array
 	{
 		return [
-            Flex::make('', [
-                Block::make('left', [
-                    ID::make()->sortable(),
-                    Text::make('Name'),
-                    Email::make('E-mail', 'email'),
-                ]),
-                Block::make('right', [
-                    Password::make('Password')
-                        ->customAttributes(['autocomplete' => 'new-password'])
-                        ->hideOnIndex(),
+            Grid::make([
+                Column::make([
+                    Block::make('Contact information', [
+                        ID::make()->sortable(),
+                        Text::make('Name'),
+                        Email::make('E-mail', 'email'),
+                    ]),
 
-                    PasswordRepeat::make('Password repeat')
-                        ->customAttributes(['autocomplete' => 'confirm-password'])
-                        ->hideOnIndex(),
+                    Block::make('Change password', [
+                        Password::make('Password')
+                            ->customAttributes(['autocomplete' => 'new-password'])
+                            ->hideOnIndex(),
+
+                        PasswordRepeat::make('Password repeat')
+                            ->customAttributes(['autocomplete' => 'confirm-password'])
+                            ->hideOnIndex(),
+                    ])
                 ])
             ])
         ];

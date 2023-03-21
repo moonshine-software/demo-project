@@ -6,6 +6,7 @@ use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
 
 use Leeto\MoonShine\Decorations\Block;
+use Leeto\MoonShine\Fields\BelongsTo;
 use Leeto\MoonShine\Fields\Text;
 use Leeto\MoonShine\Filters\TextFilter;
 use Leeto\MoonShine\Resources\Resource;
@@ -25,11 +26,15 @@ class CategoryResource extends Resource
 
     protected bool $editInModal = true;
 
+    public static array $with = ['category'];
+
 	public function fields(): array
 	{
 		return [
             Block::make('', [
                 ID::make()->sortable(),
+                BelongsTo::make('Category')
+                    ->nullable(),
                 Text::make('Title')->required(),
             ])
         ];

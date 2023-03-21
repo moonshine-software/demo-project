@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Resources;
 
+use Illuminate\Validation\Rule;
 use Leeto\MoonShine\Actions\ExportAction;
 use Leeto\MoonShine\Decorations\Block;
 use Leeto\MoonShine\Decorations\Heading;
@@ -61,7 +62,6 @@ class MoonShineUserResource extends Resource
                             ->showOnExport(),
 
                         Image::make(trans('moonshine::ui.resource.avatar'), 'avatar')
-                            ->removable()
                             ->showOnExport()
                             ->disk('public')
                             ->dir('moonshine_users')
@@ -118,8 +118,14 @@ class MoonShineUserResource extends Resource
         return [
             'name' => 'required',
             'moonshine_user_role_id' => 'required',
-            'email' => 'sometimes|bail|required|email|unique:moonshine_users,email'.($item->exists ? ",$item->id" : ''),
-            'password' => !$item->exists
+            'email' => [
+                'sometimes',
+                'bail',
+                'required',
+                'email',
+                Rule::unique('moonshine_users')->ignoreModel($item)
+            ],
+            'password' => ! $item->exists
                 ? 'required|min:6|required_with:password_repeat|same:password_repeat'
                 : 'sometimes|nullable|min:6|required_with:password_repeat|same:password_repeat',
         ];

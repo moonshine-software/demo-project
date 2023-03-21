@@ -28,7 +28,7 @@ class MoonShineServiceProvider extends ServiceProvider
             }),
 
             MenuGroup::make('Blog', [
-                MenuItem::make('Categories', new CategoryResource()),
+                MenuItem::make('Categories', new CategoryResource(), 'heroicons.document'),
                 MenuItem::make('Articles', new ArticleResource(), 'heroicons.newspaper'),
                 MenuItem::make('Comments', new CommentResource(), 'heroicons.chat-bubble-left')
                     ->badge(fn() => Comment::query()->count()),
@@ -37,7 +37,13 @@ class MoonShineServiceProvider extends ServiceProvider
             MenuItem::make('Users', new UserResource(), 'heroicons.users'),
 
 
-            MenuItem::make('Dictionary', new DictionaryResource(), 'heroicons.document-duplicate')
+            MenuItem::make('Dictionary', new DictionaryResource(), 'heroicons.document-duplicate'),
+
+            MenuItem::make(
+                'Documentation',
+                'https://moonshine.cutcode.dev',
+                'heroicons.document-duplicate'
+            )->badge(static fn() => 'New design')
         ]);
     }
 }

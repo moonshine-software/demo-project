@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Leeto\MoonShine\Models\MoonshineUser;
 use Leeto\MoonShine\Traits\Models\HasMoonShineChangeLog;
 use Leeto\Thumbnails\Traits\WithThumbnails;
@@ -25,7 +25,22 @@ class Article extends Model
         'slug',
         'seo_title',
         'seo_description',
-        'author_id'
+        'author_id',
+        'rating',
+        'link',
+        'age_from',
+        'age_to',
+        'active',
+        'color',
+        'files',
+        'data',
+        'code'
+    ];
+
+    protected $casts = [
+        'files' => 'collection',
+        'data' => 'collection',
+        'active' => 'bool'
     ];
 
     public function categories(): BelongsToMany
@@ -41,5 +56,10 @@ class Article extends Model
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function comment(): HasOne
+    {
+        return $this->hasOne(Comment::class)->latestOfMany();
     }
 }

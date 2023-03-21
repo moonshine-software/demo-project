@@ -26,10 +26,14 @@ return [
             ],
         ],
     ],
+    'locales' => [
+        'en', 'ru'
+    ],
     'extensions' => [
         //
     ],
     'tinymce' => [
+        'file_manager' => 'laravel-filemanager',
         'token' => ''
     ],
 
