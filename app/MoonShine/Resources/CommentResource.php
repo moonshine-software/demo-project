@@ -23,7 +23,7 @@ class CommentResource extends Resource
 	public function fields(): array
 	{
 		return [
-            Block::make('', [
+            Block::make([
                 ID::make()->sortable(),
                 BelongsTo::make('Article'),
                 BelongsTo::make('User'),

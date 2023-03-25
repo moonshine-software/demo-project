@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Resources;
 
+use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\Rule;
 use Leeto\MoonShine\Actions\ExportAction;
 use Leeto\MoonShine\Decorations\Block;
@@ -20,6 +21,7 @@ use Leeto\MoonShine\Fields\PasswordRepeat;
 use Leeto\MoonShine\Fields\Text;
 use Leeto\MoonShine\Filters\TextFilter;
 use Leeto\MoonShine\FormComponents\PermissionFormComponent;
+use Leeto\MoonShine\Http\Controllers\PermissionController;
 use Leeto\MoonShine\ItemActions\ItemAction;
 use Leeto\MoonShine\Models\MoonshineUser;
 use Leeto\MoonShine\Models\MoonshineUserRole;
@@ -148,5 +150,18 @@ class MoonShineUserResource extends Resource
         return [
             ExportAction::make(trans('moonshine::ui.export')),
         ];
+    }
+
+    public function resolveRoutes(): void
+    {
+        parent::resolveRoutes();
+
+        Route::prefix('resource')->group(function () {
+            Route::post(
+                "{$this->uriKey()}/{".$this->routeParam()."}/permissions",
+                PermissionController::class
+            )
+                ->name("{$this->routeNameAlias()}.permissions");
+        });
     }
 }

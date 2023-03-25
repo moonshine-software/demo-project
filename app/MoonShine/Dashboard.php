@@ -10,6 +10,9 @@ use Leeto\MoonShine\Dashboard\DashboardBlock;
 use Leeto\MoonShine\Dashboard\DashboardScreen;
 use Leeto\MoonShine\Dashboard\ResourcePreview;
 use Leeto\MoonShine\Dashboard\ResourceTable;
+use Leeto\MoonShine\Dashboard\TextBlock;
+use Leeto\MoonShine\Metrics\DonutChartMetric;
+use Leeto\MoonShine\Metrics\LineChartMetric;
 use Leeto\MoonShine\Metrics\ValueMetric;
 
 class Dashboard extends DashboardScreen
@@ -17,6 +20,13 @@ class Dashboard extends DashboardScreen
 	public function blocks(): array
 	{
 		return [
+            DashboardBlock::make([
+                TextBlock::make(
+                    'Welcome to MoonShine!',
+                    'Demo version'
+                )
+            ]),
+
             DashboardBlock::make([
                 ValueMetric::make('Articles')
                     ->columnSpan(6)
@@ -28,13 +38,24 @@ class Dashboard extends DashboardScreen
             ]),
 
             DashboardBlock::make([
-                ValueMetric::make('Articles')
+                DonutChartMetric::make('Подписчики')
                     ->columnSpan(6)
-                    ->value(Article::query()->count()),
+                    ->values(['CutCode' => 10000, 'Apple' => 9999]),
 
-                ValueMetric::make('Comments')
-                    ->columnSpan(6)
-                    ->value(Comment::query()->count()),
+                LineChartMetric::make('Заказы')
+                    ->line([
+                        'Выручка 1' => [
+                            now()->format('Y-m-d') => 100,
+                            now()->addDay()->format('Y-m-d') => 200
+                        ]
+                    ])
+                    ->line([
+                        'Выручка 2' => [
+                            now()->format('Y-m-d') => 300,
+                            now()->addDay()->format('Y-m-d') => 400
+                        ]
+                    ], '#EC4176')
+                    ->columnSpan(6),
             ]),
 
             DashboardBlock::make([

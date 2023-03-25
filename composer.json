@@ -14,16 +14,17 @@
         "laravel/socialite": "^5.5",
         "laravel/tinker": "^2.5",
         "lee-to/laravel-thumbnails": "^1.0",
-        "lee-to/moonshine": "1.50.0-rc2",
+        "lee-to/moonshine": "1.50.0-rc3",
         "unisharp/laravel-filemanager": "^2.6"
     },
     "require-dev": {
-        "spatie/laravel-ignition": "^1.0",
+        "barryvdh/laravel-debugbar": "^3.8",
         "fakerphp/faker": "^1.9.1",
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^6.1",
-        "phpunit/phpunit": "^9.5.10"
+        "phpunit/phpunit": "^9.5.10",
+        "spatie/laravel-ignition": "^1.0"
     },
     "autoload": {
         "psr-4": {

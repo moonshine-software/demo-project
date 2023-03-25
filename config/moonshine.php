@@ -25,6 +25,7 @@ return [
                 'model'  => MoonshineUser::class,
             ],
         ],
+        'footer' => ''
     ],
     'locales' => [
         'en', 'ru'

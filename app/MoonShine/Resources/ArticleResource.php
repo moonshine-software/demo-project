@@ -8,8 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Leeto\MoonShine\Actions\ExportAction;
 use Leeto\MoonShine\Actions\ImportAction;
-use Leeto\MoonShine\Dashboard\DashboardBlock;
-use Leeto\MoonShine\Dashboard\ResourcePreview;
+use Leeto\MoonShine\BulkActions\BulkAction;
 use Leeto\MoonShine\Decorations\Block;
 use Leeto\MoonShine\Decorations\Button;
 use Leeto\MoonShine\Decorations\Collapse;
@@ -21,12 +20,9 @@ use Leeto\MoonShine\Decorations\Tab;
 use Leeto\MoonShine\Decorations\Tabs;
 use Leeto\MoonShine\Fields\BelongsTo;
 use Leeto\MoonShine\Fields\BelongsToMany;
-use Leeto\MoonShine\Fields\CKEditor;
-use Leeto\MoonShine\Fields\Code;
 use Leeto\MoonShine\Fields\Color;
 use Leeto\MoonShine\Fields\File;
 use Leeto\MoonShine\Fields\HasMany;
-use Leeto\MoonShine\Fields\HasOne;
 use Leeto\MoonShine\Fields\ID;
 use Leeto\MoonShine\Fields\Image;
 use Leeto\MoonShine\Fields\Json;
@@ -86,6 +82,7 @@ class ArticleResource extends Resource
                         )->icon('clip'),
 
                         BelongsTo::make('Author', resource: 'name')
+                            ->searchable()
                             ->canSee(fn() => auth('moonshine')->user()->moonshine_user_role_id === 1)
                             ->required(),
 
@@ -135,9 +132,11 @@ class ArticleResource extends Resource
                             ->hint('From 0 to 5')
                             ->min(0)
                             ->max(5)
+                            ->addLink('CutCode', 'https://cutcode.dev', true)
                             ->stars(),
 
                         Url::make('Link')
+                            ->hint('Url')
                             ->addLink('CutCode', 'https://cutcode.dev', true)
                             ->expansion('url'),
 
@@ -277,10 +276,21 @@ class ArticleResource extends Resource
     public function rules(Model $item): array
     {
         return [
-            'title' => ['required', 'string', 'min:1'],
+            'title' => ['required', 'string', 'min:2'],
             'slug' => ['required', 'string', 'min:1'],
             'description' => ['required', 'string', 'min:1'],
             'thumbnail' => ['image']
+        ];
+    }
+
+    public function bulkActions(): array
+    {
+        return [
+            BulkAction::make('Active', function (Article $article) {
+                $article->update([
+                    'active' => true
+                ]);
+            })->icon('heroicons.check-circle')
         ];
     }
 

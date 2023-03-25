@@ -43,7 +43,7 @@ class CategoryResource extends Resource
 	public function rules(Model $item): array
 	{
 	    return [
-            'title' => ['required', 'string', 'min:1'],
+            'title' => ['required', 'string', 'min:5'],
         ];
     }
 
