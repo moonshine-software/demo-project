@@ -40,9 +40,9 @@ use Leeto\MoonShine\Filters\SlideFilter;
 use Leeto\MoonShine\Filters\SwitchBooleanFilter;
 use Leeto\MoonShine\Filters\TextFilter;
 use Leeto\MoonShine\FormActions\FormAction;
-use Leeto\MoonShine\QueryTags\QueryTag;
 use Leeto\MoonShine\ItemActions\ItemAction;
 use Leeto\MoonShine\Metrics\ValueMetric;
+use Leeto\MoonShine\QueryTags\QueryTag;
 use Leeto\MoonShine\Resources\Resource;
 
 class ArticleResource extends Resource
@@ -172,18 +172,18 @@ class ArticleResource extends Resource
                             ->fullPage(),
                     ]),
 
-                   /* Block::make([
-                        HasOne::make('Comment')
-                            ->fields([
-                                ID::make()->sortable(),
-                                BelongsTo::make('Article'),
-                                BelongsTo::make('User'),
-                                Text::make('Text')->required(),
-                            ])
-                            ->removable()
-                            ->hideOnIndex()
-                            ->fullPage()
-                    ]),*/
+                    /* Block::make([
+                         HasOne::make('Comment')
+                             ->fields([
+                                 ID::make()->sortable(),
+                                 BelongsTo::make('Article'),
+                                 BelongsTo::make('User'),
+                                 Text::make('Text')->required(),
+                             ])
+                             ->removable()
+                             ->hideOnIndex()
+                             ->fullPage()
+                     ]),*/
 
                     Block::make('Seo and categories', [
                         Tabs::make([
@@ -201,18 +201,12 @@ class ArticleResource extends Resource
                                     ->addPlugins('code codesample')
                                     ->addToolbar(' | code codesample')
                                     ->required()
-                                    ->fullWidth()
                                     ->hideOnIndex(),
                             ]),
 
                             Tab::make('Categories', [
                                 BelongsToMany::make('Categories')
                                     ->tree('category_id')
-                                    ->fields([
-                                        Text::make('Text'),
-                                        Text::make('Value')
-                                    ])
-                                    ->valuesQuery(fn(Builder $query) => $query)
                                     ->hideOnIndex(),
                             ])
                         ])

@@ -19,7 +19,7 @@ class MoonShineServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
-        app(MoonShine::class)->registerResources([
+        app(MoonShine::class)->menu([
             MenuGroup::make('System', [
                 MenuItem::make('Admins', new MoonShineUserResource(), 'heroicons.users'),
                 MenuItem::make('Roles', new MoonShineUserRoleResource(), 'heroicons.shield-exclamation'),
