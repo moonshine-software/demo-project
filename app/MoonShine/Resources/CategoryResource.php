@@ -5,12 +5,12 @@ namespace App\MoonShine\Resources;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
 
-use Leeto\MoonShine\Decorations\Block;
-use Leeto\MoonShine\Fields\BelongsTo;
-use Leeto\MoonShine\Fields\Text;
-use Leeto\MoonShine\Filters\TextFilter;
-use Leeto\MoonShine\Resources\Resource;
-use Leeto\MoonShine\Fields\ID;
+use MoonShine\Decorations\Block;
+use MoonShine\Fields\BelongsTo;
+use MoonShine\Fields\Text;
+use MoonShine\Filters\TextFilter;
+use MoonShine\Resources\Resource;
+use MoonShine\Fields\ID;
 
 class CategoryResource extends Resource
 {

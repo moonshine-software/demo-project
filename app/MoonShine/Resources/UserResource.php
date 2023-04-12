@@ -5,17 +5,17 @@ namespace App\MoonShine\Resources;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
-use Leeto\MoonShine\Decorations\Block;
-use Leeto\MoonShine\Decorations\Column;
-use Leeto\MoonShine\Decorations\Flex;
-use Leeto\MoonShine\Decorations\Grid;
-use Leeto\MoonShine\Fields\BelongsTo;
-use Leeto\MoonShine\Fields\Email;
-use Leeto\MoonShine\Fields\Password;
-use Leeto\MoonShine\Fields\PasswordRepeat;
-use Leeto\MoonShine\Fields\Text;
-use Leeto\MoonShine\Resources\Resource;
-use Leeto\MoonShine\Fields\ID;
+use MoonShine\Decorations\Block;
+use MoonShine\Decorations\Column;
+use MoonShine\Decorations\Flex;
+use MoonShine\Decorations\Grid;
+use MoonShine\Fields\BelongsTo;
+use MoonShine\Fields\Email;
+use MoonShine\Fields\Password;
+use MoonShine\Fields\PasswordRepeat;
+use MoonShine\Fields\Text;
+use MoonShine\Resources\Resource;
+use MoonShine\Fields\ID;
 
 class UserResource extends Resource
 {

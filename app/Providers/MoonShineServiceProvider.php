@@ -11,9 +11,9 @@ use App\MoonShine\Resources\MoonShineUserResource;
 use App\MoonShine\Resources\MoonShineUserRoleResource;
 use App\MoonShine\Resources\UserResource;
 use Illuminate\Support\ServiceProvider;
-use Leeto\MoonShine\MoonShine;
-use Leeto\MoonShine\Menu\MenuGroup;
-use Leeto\MoonShine\Menu\MenuItem;
+use MoonShine\MoonShine;
+use MoonShine\Menu\MenuGroup;
+use MoonShine\Menu\MenuItem;
 
 class MoonShineServiceProvider extends ServiceProvider
 {

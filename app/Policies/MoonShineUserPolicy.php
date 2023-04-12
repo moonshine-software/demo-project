@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use Leeto\MoonShine\Models\MoonShineUser;
+use MoonShine\Models\MoonShineUser;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class MoonShineUserPolicy

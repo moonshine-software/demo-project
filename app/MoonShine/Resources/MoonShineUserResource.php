@@ -6,26 +6,26 @@ namespace App\MoonShine\Resources;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\Rule;
-use Leeto\MoonShine\Actions\ExportAction;
-use Leeto\MoonShine\Decorations\Block;
-use Leeto\MoonShine\Decorations\Heading;
-use Leeto\MoonShine\Decorations\Tab;
-use Leeto\MoonShine\Decorations\Tabs;
-use Leeto\MoonShine\Fields\BelongsTo;
-use Leeto\MoonShine\Fields\Date;
-use Leeto\MoonShine\Fields\Email;
-use Leeto\MoonShine\Fields\ID;
-use Leeto\MoonShine\Fields\Image;
-use Leeto\MoonShine\Fields\Password;
-use Leeto\MoonShine\Fields\PasswordRepeat;
-use Leeto\MoonShine\Fields\Text;
-use Leeto\MoonShine\Filters\TextFilter;
-use Leeto\MoonShine\FormComponents\PermissionFormComponent;
-use Leeto\MoonShine\Http\Controllers\PermissionController;
-use Leeto\MoonShine\ItemActions\ItemAction;
-use Leeto\MoonShine\Models\MoonshineUser;
-use Leeto\MoonShine\Models\MoonshineUserRole;
-use Leeto\MoonShine\Resources\Resource;
+use MoonShine\Actions\ExportAction;
+use MoonShine\Decorations\Block;
+use MoonShine\Decorations\Heading;
+use MoonShine\Decorations\Tab;
+use MoonShine\Decorations\Tabs;
+use MoonShine\Fields\BelongsTo;
+use MoonShine\Fields\Date;
+use MoonShine\Fields\Email;
+use MoonShine\Fields\ID;
+use MoonShine\Fields\Image;
+use MoonShine\Fields\Password;
+use MoonShine\Fields\PasswordRepeat;
+use MoonShine\Fields\Text;
+use MoonShine\Filters\TextFilter;
+use MoonShine\FormComponents\PermissionFormComponent;
+use MoonShine\Http\Controllers\PermissionController;
+use MoonShine\ItemActions\ItemAction;
+use MoonShine\Models\MoonshineUser;
+use MoonShine\Models\MoonshineUserRole;
+use MoonShine\Resources\Resource;
 
 class MoonShineUserResource extends Resource
 {

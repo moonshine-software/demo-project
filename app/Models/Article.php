@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Leeto\MoonShine\Models\MoonshineUser;
-use Leeto\MoonShine\Traits\Models\HasMoonShineChangeLog;
+use MoonShine\Models\MoonshineUser;
+use MoonShine\Traits\Models\HasMoonShineChangeLog;
 use Leeto\Thumbnails\Traits\WithThumbnails;
 
 class Article extends Model

@@ -3,18 +3,15 @@
 namespace App\MoonShine\Resources;
 
 use App\Models\Dictionary;
-use App\MoonShine\Fields\CKEditor;
-use App\MoonShine\Fields\Quill;
 use Illuminate\Database\Eloquent\Model;
 
-use Leeto\MoonShine\Decorations\Block;
-use Leeto\MoonShine\Fields\Image;
-use Leeto\MoonShine\Fields\Text;
-use Leeto\MoonShine\Fields\TinyMce;
-use Leeto\MoonShine\Fields\WYSIWYG;
-use Leeto\MoonShine\Filters\TextFilter;
-use Leeto\MoonShine\Resources\Resource;
-use Leeto\MoonShine\Fields\ID;
+use MoonShine\Decorations\Block;
+use MoonShine\Fields\Image;
+use MoonShine\Fields\Text;
+use MoonShine\Fields\TinyMce;
+use MoonShine\Filters\TextFilter;
+use MoonShine\Resources\Resource;
+use MoonShine\Fields\ID;
 
 class DictionaryResource extends Resource
 {

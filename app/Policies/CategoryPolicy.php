@@ -4,7 +4,7 @@ namespace App\Policies;
 
 use App\Models\Category;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Leeto\MoonShine\Models\MoonshineUser;
+use MoonShine\Models\MoonshineUser;
 
 class CategoryPolicy
 {

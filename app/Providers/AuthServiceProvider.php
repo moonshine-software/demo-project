@@ -6,8 +6,8 @@ use App\Policies\MoonShineUserPolicy;
 use App\Policies\MoonShineUserRolePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
-use Leeto\MoonShine\Models\MoonshineUser;
-use Leeto\MoonShine\Models\MoonshineUserRole;
+use MoonShine\Models\MoonshineUser;
+use MoonShine\Models\MoonshineUserRole;
 
 class AuthServiceProvider extends ServiceProvider
 {

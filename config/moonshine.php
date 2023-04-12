@@ -1,6 +1,6 @@
 <?php
 
-use Leeto\MoonShine\Models\MoonshineUser;
+use MoonShine\Models\MoonshineUser;
 
 return [
     'title' => env('MOONSHINE_TITLE', 'MoonShine'),
