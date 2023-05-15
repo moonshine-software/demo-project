@@ -1,5 +1,6 @@
 <?php
 
+use MoonShine\Exceptions\MoonShineNotFoundException;
 use MoonShine\Models\MoonshineUser;
 
 return [
@@ -8,10 +9,20 @@ return [
 
     'route' => [
         'prefix' => env('MOONSHINE_ROUTE_PREFIX', 'admin'),
-        'middleware' => ['web', 'moonshine'],
+        'middleware' => ['moonshine'],
+        'custom_page_slug' => 'custom_page',
+        'notFoundHandler' => MoonShineNotFoundException::class
     ],
-
+    'use_migrations' => true,
+    'use_notifications' => true,
     'auth' => [
+        'enable' => true,
+        'fields' => [
+            'username' => 'email',
+            'password' => 'password',
+            'name' => 'name',
+            'avatar' => 'avatar'
+        ],
         'guard' => 'moonshine',
         'guards' => [
             'moonshine' => [
@@ -30,15 +41,23 @@ return [
     'locales' => [
         'en', 'ru'
     ],
-    'extensions' => [
-        //
-    ],
+    'middlewares' => [],
     'tinymce' => [
-        'file_manager' => 'laravel-filemanager',
-        'token' => ''
+        'file_manager' => false, // or 'laravel-filemanager' prefix for lfm
+        'token' => env('MOONSHINE_TINYMCE_TOKEN', ''),
+        'version' => env('MOONSHINE_TINYMCE_VERSION', '6')
     ],
 
     'socialite' => [
         'github' => '/images/icons/github-mark.svg'
+    ],
+    'header' => null, // blade path
+    'footer' => [
+        'copyright' => 'Made with ❤️ by <a href="https://cutcode.dev" class="font-semibold text-purple hover:text-pink" target="_blank">CutCode</a>',
+        'nav' => [
+            'https://github.com/moonshine-software/moonshine/blob/1.5.x/LICENSE.md' => 'License',
+            'https://moonshine.cutcode.dev' => 'Documentation',
+            'https://github.com/moonshine-software/moonshine' => 'GitHub',
+        ],
     ]
 ];

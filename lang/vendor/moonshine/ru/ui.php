@@ -21,7 +21,7 @@ return [
     'cancel' => 'Отмена',
     'confirm' => 'Подтвердить',
     'close' => 'Закрыть',
-    'confirm_delete' => 'Вы уверены, что хотите удалить запись?',
+    'confirm_message' => 'Вы уверены, что хотите удалить запись?',
     'back' => 'Вернуться назад',
     'more' => 'Перейти',
     'all_sections' => 'Все разделы',
@@ -34,18 +34,25 @@ return [
     'before' => 'До',
     'after' => 'После',
     'loading' => 'Загрузка ...',
+    'notfound' => 'Пока записей нет',
+    'collapse_menu' => 'Свернуть меню',
+    '404' => 'Хьюстон! У нас проблема - страница не найдена',
     'notifications' => [
         'title' => 'Уведомления',
         'mark_as_read_all' => 'Все прочитано',
         'mark_as_read' => 'Прочитано',
     ],
     'login' => [
+        'title' => 'Добро пожаловать в :moonshine_title!',
+        'description' => 'Пожалуйста, войдите в свою учетную запись',
         'authorization' => 'Авторизация',
         'remember_me' => 'Запомнить',
         'login' => 'Войти',
         'logout' => 'Выйти',
+        'username' => 'Логин',
         'email' => 'E-mail',
         'password' => 'Пароль',
+        'or_socials' => 'или',
     ],
     'resource' => [
         'system' => 'Система',
@@ -57,7 +64,11 @@ return [
         'avatar' => 'Аватар',
         'created_at' => 'Дата создания',
         'admins_title' => 'Администраторы',
+        'role_title' => 'Роли',
         'role_name' => 'Название',
+
+        'main_information' => 'Основная информация',
+        'change_password' => 'Изменить пароль',
 
         'link_socialite' => 'Привязать аккаунты',
         'linked_socialite' => 'Привязанные аккаунты',
@@ -65,7 +76,7 @@ return [
         'queued' => 'Поставлен в очередь',
 
         'export' => [
-            'exported' => 'File exported',
+            'exported' => 'Экспортирован',
         ],
 
         'import' => [

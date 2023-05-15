@@ -40,6 +40,7 @@ use MoonShine\Filters\SlideFilter;
 use MoonShine\Filters\SwitchBooleanFilter;
 use MoonShine\Filters\TextFilter;
 use MoonShine\FormActions\FormAction;
+use MoonShine\FormComponents\ChangeLogFormComponent;
 use MoonShine\ItemActions\ItemAction;
 use MoonShine\Metrics\ValueMetric;
 use MoonShine\QueryTags\QueryTag;
@@ -220,6 +221,13 @@ class ArticleResource extends Resource
         ];
     }
 
+    public function components(): array
+    {
+        return [
+            ChangeLogFormComponent::make('ChangeLog'),
+        ];
+    }
+
     public function queryTags(): array
     {
         return [
@@ -258,13 +266,13 @@ class ArticleResource extends Resource
             );
     }
 
-    public function trStyles(Model $item, int $index): string
+    public function trClass(Model $item, int $index): string
     {
-        if ($item->author?->moonshine_user_role_id === 2) {
+        if ($this->getItem()->author?->moonshine_user_role_id === 2) {
             return 'green';
         }
 
-        return parent::trStyles($item, $index);
+        return parent::trClass($item, $index);
     }
 
     public function rules(Model $item): array
