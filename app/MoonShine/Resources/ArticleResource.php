@@ -4,6 +4,9 @@ namespace App\MoonShine\Resources;
 
 use App\Models\Article;
 use App\Models\Comment;
+use App\MoonShine\DetailComponents\ExampleDetailComponent;
+use App\MoonShine\FormComponents\ExampleFormComponent;
+use App\MoonShine\IndexComponents\ExampleIndexComponent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use MoonShine\Actions\ExportAction;
@@ -23,12 +26,15 @@ use MoonShine\Fields\BelongsToMany;
 use MoonShine\Fields\Color;
 use MoonShine\Fields\File;
 use MoonShine\Fields\HasMany;
+use MoonShine\Fields\HasOne;
 use MoonShine\Fields\ID;
 use MoonShine\Fields\Image;
 use MoonShine\Fields\Json;
 use MoonShine\Fields\NoInput;
 use MoonShine\Fields\Number;
 use MoonShine\Fields\SlideField;
+use MoonShine\Fields\Slug;
+use MoonShine\Fields\StackFields;
 use MoonShine\Fields\SwitchBoolean;
 use MoonShine\Fields\Text;
 use MoonShine\Fields\TinyMce;
@@ -83,8 +89,8 @@ class ArticleResource extends Resource
                         )->icon('clip'),
 
                         BelongsTo::make('Author', resource: 'name')
-                            ->searchable()
-                            ->canSee(fn() => auth('moonshine')->user()->moonshine_user_role_id === 1)
+                            ->asyncSearch()
+                            ->canSee(fn() => auth()->user()->moonshine_user_role_id === 1)
                             ->required(),
 
                         Number::make('Comments', 'comments_count')
@@ -98,7 +104,10 @@ class ArticleResource extends Resource
                                     ->fieldContainer(false)
                                     ->required(),
 
-                                Text::make('Slug')
+                                Slug::make('Slug')
+                                    ->from('title')
+                                    ->unique()
+                                    ->separator('-')
                                     ->hideOnIndex()
                                     ->fieldContainer(false)
                                     ->required(),
@@ -107,16 +116,18 @@ class ArticleResource extends Resource
                                 ->itemsAlign('start'),
                         ]),
 
-                        Image::make('Thumbnail')
-                            ->removable()
-                            ->disk('public')
-                            ->dir('articles'),
+                        StackFields::make('Files')->fields([
+                            Image::make('Thumbnail')
+                                ->removable()
+                                ->disk('public')
+                                ->dir('articles'),
 
-                        File::make('Files')
-                            ->disk('public')
-                            ->multiple()
-                            ->removable()
-                            ->dir('articles'),
+                            File::make('Files')
+                                ->disk('public')
+                                ->multiple()
+                                ->removable()
+                                ->dir('articles'),
+                        ]),
 
                         NoInput::make('No input field', 'no_input', static fn() => fake()->realText())
                             ->hideOnIndex(),
@@ -217,6 +228,11 @@ class ArticleResource extends Resource
 
             HasMany::make('Comments')
                 ->hideOnIndex()
+                ->resourceMode(),
+
+
+            HasOne::make('Comment')
+                ->hideOnIndex()
                 ->resourceMode()
         ];
     }
@@ -224,6 +240,9 @@ class ArticleResource extends Resource
     public function components(): array
     {
         return [
+            ExampleIndexComponent::make('Example IndexComponent'),
+            ExampleFormComponent::make('Example FormComponent'),
+            ExampleDetailComponent::make('Example DetailComponent'),
             ChangeLogFormComponent::make('ChangeLog'),
         ];
     }
@@ -233,12 +252,12 @@ class ArticleResource extends Resource
         return [
             QueryTag::make(
                 'Article with author',
-                Article::query()->whereNotNull('author_id')
+                static fn(Builder $q) => $q->whereNotNull('author_id')
             ),
 
             QueryTag::make(
                 'Article without an author',
-                Article::query()->whereNull('author_id')
+                static fn(Builder $q) => $q->whereNull('author_id')
             )->icon('users')
         ];
     }
@@ -261,8 +280,8 @@ class ArticleResource extends Resource
         return parent::query()
             ->withCount('comments')
             ->when(
-                auth('moonshine')->user()->moonshine_user_role_id !== 1,
-                fn($q) => $q->where('author_id', auth('moonshine')->id())
+                auth()->user()->moonshine_user_role_id !== 1,
+                fn($q) => $q->where('author_id', auth()->id())
             );
     }
 
@@ -298,18 +317,18 @@ class ArticleResource extends Resource
 
     protected function beforeCreating(Model $item)
     {
-        if (auth('moonshine')->user()->moonshine_user_role_id !== 1) {
+        if (auth()->user()->moonshine_user_role_id !== 1) {
             request()->merge([
-                'author_id' => auth('moonshine')->id()
+                'author_id' => auth()->id()
             ]);
         }
     }
 
     protected function beforeUpdating(Model $item)
     {
-        if (auth('moonshine')->user()->moonshine_user_role_id !== 1) {
+        if (auth()->user()->moonshine_user_role_id !== 1) {
             request()->merge([
-                'author_id' => auth('moonshine')->id()
+                'author_id' => auth()->id()
             ]);
         }
     }
@@ -352,7 +371,7 @@ class ArticleResource extends Resource
 
             BelongsToFilter::make('Author', resource: 'name')
                 ->nullable()
-                ->canSee(fn() => auth('moonshine')->user()->moonshine_user_role_id === 1),
+                ->canSee(fn() => auth()->user()->moonshine_user_role_id === 1),
 
             TextFilter::make('Slug'),
 

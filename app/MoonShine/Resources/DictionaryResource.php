@@ -3,6 +3,9 @@
 namespace App\MoonShine\Resources;
 
 use App\Models\Dictionary;
+use App\MoonShine\AbstractResources\SeparateResource;
+use App\MoonShine\FieldSets\DictionaryFormFields;
+use App\MoonShine\FieldSets\DictionaryIndexFields;
 use Illuminate\Database\Eloquent\Model;
 
 use MoonShine\Decorations\Block;
@@ -13,7 +16,7 @@ use MoonShine\Filters\TextFilter;
 use MoonShine\Resources\Resource;
 use MoonShine\Fields\ID;
 
-class DictionaryResource extends Resource
+class DictionaryResource extends SeparateResource
 {
 	public static string $model = Dictionary::class;
 
@@ -21,20 +24,24 @@ class DictionaryResource extends Resource
 
     public static bool $withPolicy = true;
 
-	public function fields(): array
-	{
-		return [
-            Block::make('', [
-                ID::make()->sortable(),
-                Text::make('Title')->required(),
-                Text::make('Slug')->required(),
+    public function indexFields(): array
+    {
+        return (new DictionaryIndexFields)($this);
+    }
 
-                TinyMce::make('Description')
-                    //->required()
-                    ->hideOnIndex(),
-            ])
+    public function formFields(): array
+    {
+        return (new DictionaryFormFields)($this);
+    }
+
+    public function detailFields(): array
+    {
+        return [
+            ID::make(),
+            Text::make('Title')->required(),
+            Text::make('Slug')->required(),
         ];
-	}
+    }
 
 	public function rules(Model $item): array
 	{

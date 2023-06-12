@@ -5,6 +5,7 @@ namespace App\MoonShine\Resources;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
 
+use Leeto\MoonShineTree\Resources\TreeResource;
 use MoonShine\Decorations\Block;
 use MoonShine\Fields\BelongsTo;
 use MoonShine\Fields\Text;
@@ -12,7 +13,7 @@ use MoonShine\Filters\TextFilter;
 use MoonShine\Resources\Resource;
 use MoonShine\Fields\ID;
 
-class CategoryResource extends Resource
+class CategoryResource extends TreeResource
 {
 	public static string $model = Category::class;
 
@@ -27,6 +28,18 @@ class CategoryResource extends Resource
     protected bool $editInModal = true;
 
     public static array $with = ['category'];
+
+    public static string $orderField = 'sorting';
+
+    public function treeKey(): ?string
+    {
+        return 'category_id';
+    }
+
+    public function sortKey(): string
+    {
+        return 'sorting';
+    }
 
 	public function fields(): array
 	{
