@@ -7,6 +7,7 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
+use UniSharp\LaravelFilemanager\Lfm;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -42,6 +43,10 @@ class RouteServiceProvider extends ServiceProvider
                 ->middleware('api')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/api.php'));
+
+            Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['moonshine', 'auth.moonshine']], function () {
+                Lfm::routes();
+            });
 
             Route::middleware('web')
                 ->namespace($this->namespace)

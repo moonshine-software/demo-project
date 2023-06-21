@@ -3,16 +3,11 @@
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\DictionaryController;
 use Illuminate\Support\Facades\Route;
-use UniSharp\LaravelFilemanager\Lfm;
 
 
 Route::get('/', function () {
     return view('home');
 })->name('home');
-
-Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['moonshine']], function () {
-    Lfm::routes();
-});
 
 Route::controller(ArticleController::class)
     ->name('articles.')
