@@ -311,7 +311,9 @@ class ArticleResource extends Resource
                 $article->update([
                     'active' => true
                 ]);
-            })->icon('heroicons.check-circle')
+            })
+                ->withConfirm('Active', 'Are you sure?', 'Yes')
+                ->icon('heroicons.check-circle')
         ];
     }
 
@@ -336,11 +338,10 @@ class ArticleResource extends Resource
     public function itemActions(): array
     {
         return [
-            ItemAction::make('Go to', function (Article $model) {
-                header("Location: ".route('articles.show', $model));
-
-                die();
-            })->icon('clip')
+            ItemAction::make(
+                'Go to',
+                static fn (Article $model) => to_route('articles.show', $model)
+            )->icon('clip')
         ];
     }
 
@@ -351,11 +352,10 @@ class ArticleResource extends Resource
                 $model->delete();
             })->icon('delete'),
 
-            FormAction::make('Preview', function (Article $model) {
-                header("Location: ".route('articles.show', $model));
-
-                die();
-            })->icon('clip')
+            FormAction::make(
+                'Preview',
+                static fn (Article $model) => to_route('articles.show', $model)
+            )->icon('clip')
         ];
     }
 
