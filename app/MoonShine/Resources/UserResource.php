@@ -3,9 +3,7 @@
 namespace App\MoonShine\Resources;
 
 use App\Models\User;
-use App\MoonShine\Controllers\UserFetchController;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Route;
 use MoonShine\Decorations\Block;
 use MoonShine\Decorations\Column;
 use MoonShine\Decorations\Grid;
@@ -14,15 +12,15 @@ use MoonShine\Fields\ID;
 use MoonShine\Fields\Password;
 use MoonShine\Fields\PasswordRepeat;
 use MoonShine\Fields\Text;
-use MoonShine\Resources\Resource;
+use MoonShine\Resources\ModelResource;
 
-class UserResource extends Resource
+class UserResource extends ModelResource
 {
-    public static string $model = User::class;
+    protected string $model = User::class;
 
-    public static string $title = 'Users';
+    protected string $title = 'Users';
 
-    public string $titleField = 'name';
+    protected string $column = 'name';
 
     public function fields(): array
     {
@@ -58,28 +56,5 @@ class UserResource extends Resource
                 ? 'required|min:6|required_with:password_repeat|same:password_repeat'
                 : 'sometimes|nullable|min:6|required_with:password_repeat|same:password_repeat',
         ];
-    }
-
-    public function search(): array
-    {
-        return ['id'];
-    }
-
-    public function filters(): array
-    {
-        return [];
-    }
-
-    public function actions(): array
-    {
-        return [];
-    }
-
-    public function resolveRoutes(): void
-    {
-        parent::resolveRoutes();
-
-        Route::get('fetch-users', UserFetchController::class)
-            ->name('fetch-users');
     }
 }

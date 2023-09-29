@@ -4,19 +4,18 @@ namespace App\MoonShine\Resources;
 
 use App\Models\Setting;
 use Illuminate\Database\Eloquent\Model;
-use MoonShine\Actions\FiltersAction;
 use MoonShine\Decorations\Block;
 use MoonShine\Fields\Email;
 use MoonShine\Fields\ID;
 use MoonShine\Fields\Phone;
 use MoonShine\Fields\Text;
-use MoonShine\Resources\SingletonResource;
+use MoonShine\Resources\ModelResource;
 
-class SettingResource extends SingletonResource
+class SettingResource extends ModelResource
 {
-    public static string $model = Setting::class;
+    protected string $model = Setting::class;
 
-    public static string $title = 'Setting';
+    protected string $title = 'Setting';
 
     public function fields(): array
     {
@@ -38,22 +37,5 @@ class SettingResource extends SingletonResource
     public function search(): array
     {
         return ['id'];
-    }
-
-    public function filters(): array
-    {
-        return [];
-    }
-
-    public function actions(): array
-    {
-        return [
-            FiltersAction::make(trans('moonshine::ui.filters')),
-        ];
-    }
-
-    public function getId(): int|string
-    {
-        return 1;
     }
 }

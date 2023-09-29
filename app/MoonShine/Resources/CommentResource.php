@@ -6,20 +6,19 @@ use App\Models\Comment;
 use Illuminate\Database\Eloquent\Model;
 
 use MoonShine\Decorations\Block;
-use MoonShine\Fields\BelongsTo;
-use MoonShine\Fields\Image;
+use MoonShine\Fields\Relationships\BelongsTo;
 use MoonShine\Fields\Text;
-use MoonShine\Filters\TextFilter;
-use MoonShine\Resources\Resource;
+use MoonShine\Resources\ModelResource;
 use MoonShine\Fields\ID;
 
-class CommentResource extends Resource
+class CommentResource extends ModelResource
 {
-	public static string $model = Comment::class;
+    protected string $model = Comment::class;
 
-	public static string $title = 'Comments';
+    protected string $title = 'Comments';
 
-    public static array $with = ['user', 'article'];
+    protected array $with = ['user', 'article'];
+
 	public function fields(): array
 	{
 		return [
@@ -42,15 +41,5 @@ class CommentResource extends Resource
     public function search(): array
     {
         return ['id', 'text'];
-    }
-
-    public function filters(): array
-    {
-        return [];
-    }
-
-    public function actions(): array
-    {
-        return [];
     }
 }

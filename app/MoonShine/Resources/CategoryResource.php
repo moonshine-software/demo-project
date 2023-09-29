@@ -5,41 +5,29 @@ namespace App\MoonShine\Resources;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
 
-use Leeto\MoonShineTree\Resources\TreeResource;
 use MoonShine\Decorations\Block;
-use MoonShine\Fields\BelongsTo;
+use MoonShine\Fields\Relationships\BelongsTo;
 use MoonShine\Fields\Text;
-use MoonShine\Filters\TextFilter;
-use MoonShine\Resources\Resource;
+use MoonShine\Resources\ModelResource;
 use MoonShine\Fields\ID;
 
-class CategoryResource extends TreeResource
+class CategoryResource extends ModelResource
 {
-	public static string $model = Category::class;
+    protected string $model = Category::class;
 
-	public static string $title = 'Category';
+    protected string $title = 'Category';
 
-    public string $titleField = 'title';
+    protected string $column = 'title';
 
-    public static bool $withPolicy = true;
+    protected bool $withPolicy = true;
 
     protected bool $createInModal = true;
 
     protected bool $editInModal = true;
 
-    public static array $with = ['category'];
+    protected array $with = ['category'];
 
-    public static string $orderField = 'sorting';
-
-    public function treeKey(): ?string
-    {
-        return 'category_id';
-    }
-
-    public function sortKey(): string
-    {
-        return 'sorting';
-    }
+    protected string $sortColumn = 'sorting';
 
 	public function fields(): array
 	{
@@ -63,17 +51,5 @@ class CategoryResource extends TreeResource
     public function search(): array
     {
         return ['id', 'title'];
-    }
-
-    public function filters(): array
-    {
-        return [
-            TextFilter::make('Title')
-        ];
-    }
-
-    public function actions(): array
-    {
-        return [];
     }
 }

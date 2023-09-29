@@ -7,20 +7,19 @@ use App\MoonShine\Resources\ArticleResource;
 use App\MoonShine\Resources\CategoryResource;
 use App\MoonShine\Resources\CommentResource;
 use App\MoonShine\Resources\DictionaryResource;
-use App\MoonShine\Resources\MoonShineUserResource;
-use App\MoonShine\Resources\MoonShineUserRoleResource;
 use App\MoonShine\Resources\SettingResource;
 use App\MoonShine\Resources\UserResource;
-use Illuminate\Support\ServiceProvider;
-use MoonShine\MoonShine;
 use MoonShine\Menu\MenuGroup;
 use MoonShine\Menu\MenuItem;
+use MoonShine\Providers\MoonShineApplicationServiceProvider;
+use MoonShine\Resources\MoonShineUserResource;
+use MoonShine\Resources\MoonShineUserRoleResource;
 
-class MoonShineServiceProvider extends ServiceProvider
+class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
 {
-    public function boot(): void
+    protected function menu(): array
     {
-        app(MoonShine::class)->menu([
+        return [
             MenuGroup::make('System', [
                 MenuItem::make('Settings', new SettingResource(), 'heroicons.outline.adjustments-vertical'),
                 MenuItem::make('Admins', new MoonShineUserResource(), 'heroicons.outline.users'),
@@ -33,7 +32,7 @@ class MoonShineServiceProvider extends ServiceProvider
                 MenuItem::make('Categories', new CategoryResource(), 'heroicons.outline.document'),
                 MenuItem::make('Articles', new ArticleResource(), 'heroicons.outline.newspaper'),
                 MenuItem::make('Comments', new CommentResource(), 'heroicons.outline.chat-bubble-left')
-                    ->badge(fn() => Comment::query()->count()),
+                    ->badge(fn () => (string) Comment::query()->count()),
             ], 'heroicons.outline.newspaper'),
 
             MenuItem::make('Users', new UserResource(), 'heroicons.outline.users'),
@@ -43,9 +42,9 @@ class MoonShineServiceProvider extends ServiceProvider
 
             MenuItem::make(
                 'Documentation',
-                'https://moonshine.cutcode.dev',
+                'https://moonshine-laravel.com',
                 'heroicons.outline.document-duplicate'
-            )->badge(static fn() => 'New design')
-        ]);
+            )->badge(static fn () => 'New design'),
+        ];
     }
 }
