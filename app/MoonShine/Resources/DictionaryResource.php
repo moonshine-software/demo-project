@@ -1,8 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\MoonShine\Resources;
 
 use App\Models\Dictionary;
+use App\MoonShine\Pages\Dictionary\DictionaryDetailPage;
+use App\MoonShine\Pages\Dictionary\DictionaryFormPage;
+use App\MoonShine\Pages\Dictionary\DictionaryIndexPage;
 use Illuminate\Database\Eloquent\Model;
 
 use MoonShine\Decorations\Block;
@@ -36,9 +41,22 @@ class DictionaryResource extends ModelResource
         ];
     }
 
-	public function rules(Model $item): array
-	{
-	    return [
+    public function pages(): array
+    {
+        return [
+            DictionaryIndexPage::make($this->title()),
+            DictionaryFormPage::make(
+                $this->getItemID()
+                    ? __('moonshine::ui.edit')
+                    : __('moonshine::ui.add')
+            ),
+            DictionaryDetailPage::make(__('moonshine::ui.show')),
+        ];
+    }
+
+    public function rules(Model $item): array
+    {
+        return [
             'title' => ['required', 'string', 'min:1'],
             'slug' => ['required', 'string', 'min:1'],
             'description' => ['required', 'string', 'min:1'],
@@ -57,3 +75,4 @@ class DictionaryResource extends ModelResource
         ];
     }
 }
+

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Comment;
+use App\MoonShine\Pages\SettingPage;
 use App\MoonShine\Resources\ArticleResource;
 use App\MoonShine\Resources\CategoryResource;
 use App\MoonShine\Resources\CommentResource;
@@ -45,6 +46,20 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
                 'https://moonshine-laravel.com',
                 'heroicons.outline.document-duplicate'
             )->badge(static fn () => 'New design'),
+        ];
+    }
+
+    protected function theme(): array
+    {
+        return [
+            'colors' => [
+                'primary' => '#5190fe',
+                'secondary' => '#b62982',
+            ],
+            'darkColors' => [
+                'primary' => '#5190fe',
+                'secondary' => '#b62982',
+            ]
         ];
     }
 }

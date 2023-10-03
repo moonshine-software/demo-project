@@ -13,7 +13,7 @@
         "laravel/socialite": "^5.5",
         "laravel/tinker": "^2.5",
         "lee-to/laravel-thumbnails": "^1.0",
-        "moonshine/moonshine": "2.0.0-alpha.1",
+        "moonshine/moonshine": "2.0.0-alpha.2",
         "unisharp/laravel-filemanager": "^2.6"
     },
     "require-dev": {

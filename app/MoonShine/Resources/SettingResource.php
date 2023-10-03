@@ -3,6 +3,7 @@
 namespace App\MoonShine\Resources;
 
 use App\Models\Setting;
+use App\MoonShine\Pages\SettingPage;
 use Illuminate\Database\Eloquent\Model;
 use MoonShine\Decorations\Block;
 use MoonShine\Fields\Email;
@@ -29,6 +30,18 @@ class SettingResource extends ModelResource
         ];
     }
 
+    protected function pages(): array
+    {
+        return [
+            SettingPage::make()
+        ];
+    }
+
+    public function getItemID(): int|string|null
+    {
+        return 1;
+    }
+
     public function rules(Model $item): array
     {
         return [];
@@ -36,6 +49,6 @@ class SettingResource extends ModelResource
 
     public function search(): array
     {
-        return ['id'];
+        return [];
     }
 }
