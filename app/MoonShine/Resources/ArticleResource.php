@@ -78,7 +78,7 @@ class ArticleResource extends ModelResource
                     Block::make('Main information', [
                         ActionButton::make(
                             'Link to article',
-                            $this->getItem() ? route('articles.show', $this->getItem()) : '/',
+                            $this->getItem()?->getKey() ? route('articles.show', $this->getItem()) : '/',
                         )
                             ->icon('heroicons.outline.paper-clip')
                             ->blank(),
