@@ -44,10 +44,6 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                 ->group(base_path('routes/api.php'));
 
-            Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['moonshine']], function () {
-                Lfm::routes();
-            });
-
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));

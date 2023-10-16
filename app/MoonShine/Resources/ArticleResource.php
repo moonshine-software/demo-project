@@ -192,6 +192,7 @@ class ArticleResource extends ModelResource
             ]),
 
             HasMany::make('Comments', resource: new CommentResource())
+                ->creatable()
                 ->hideOnIndex(),
 
 
