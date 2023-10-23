@@ -47,6 +47,7 @@ use MoonShine\Handlers\ImportHandler;
 use MoonShine\Metrics\ValueMetric;
 use MoonShine\QueryTags\QueryTag;
 use MoonShine\Resources\ModelResource;
+use MoonShine\Resources\MoonShineUserResource;
 
 class ArticleResource extends ModelResource
 {
@@ -85,7 +86,7 @@ class ArticleResource extends ModelResource
 
                         LineBreak::make(),
 
-                        BelongsTo::make('Author', resource: new UserResource())
+                        BelongsTo::make('Author', resource: new MoonShineUserResource())
                             ->asyncSearch()
                             ->canSee(fn () => auth()->user()->moonshine_user_role_id === 1)
                             ->required(),

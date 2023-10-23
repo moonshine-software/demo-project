@@ -1,6 +1,7 @@
 ## Installation
 
 - Add database
+- Run composer install
 - Add .env and configure
 - php artisan key:generate
 - php artisan storage:link
