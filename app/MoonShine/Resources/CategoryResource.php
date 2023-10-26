@@ -6,6 +6,7 @@ use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
 
 use MoonShine\Decorations\Block;
+use MoonShine\Enums\PageType;
 use MoonShine\Fields\Relationships\BelongsTo;
 use MoonShine\Fields\Text;
 use MoonShine\Resources\ModelResource;
@@ -28,6 +29,8 @@ class CategoryResource extends ModelResource
     protected array $with = ['category'];
 
     protected string $sortColumn = 'sorting';
+
+    protected ?PageType $redirectAfterSave = PageType::DETAIL;
 
 	public function fields(): array
 	{

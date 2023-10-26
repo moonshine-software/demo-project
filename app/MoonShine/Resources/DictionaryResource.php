@@ -11,6 +11,7 @@ use App\MoonShine\Pages\Dictionary\DictionaryIndexPage;
 use Illuminate\Database\Eloquent\Model;
 
 use MoonShine\Decorations\Block;
+use MoonShine\Enums\ClickAction;
 use MoonShine\Fields\Slug;
 use MoonShine\Fields\Text;
 use MoonShine\Fields\TinyMce;
@@ -24,6 +25,14 @@ class DictionaryResource extends ModelResource
     protected string $title = 'Dictionary';
 
     protected bool $withPolicy = true;
+
+    protected bool $isAsync = true;
+
+    protected bool $createInModal = true;
+
+    protected bool $editInModal = true;
+
+    protected ?ClickAction $clickAction = ClickAction::EDIT;
 
     public function fields(): array
     {

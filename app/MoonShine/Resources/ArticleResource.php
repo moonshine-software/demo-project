@@ -22,6 +22,7 @@ use MoonShine\Decorations\LineBreak;
 use MoonShine\Decorations\Tab;
 use MoonShine\Decorations\Tabs;
 use MoonShine\Decorations\TextBlock;
+use MoonShine\Enums\PageType;
 use MoonShine\Fields\Color;
 use MoonShine\Fields\DateRange;
 use MoonShine\Fields\File;
@@ -65,6 +66,8 @@ class ArticleResource extends ModelResource
     ];
 
     public string $column = 'title';
+
+    protected ?PageType $redirectAfterSave = PageType::INDEX;
 
     public function fields(): array
     {
@@ -193,11 +196,14 @@ class ArticleResource extends ModelResource
             ]),
 
             HasMany::make('Comments', resource: new CommentResource())
+                ->async()
                 ->creatable()
+                ->hideOnDetail()
                 ->hideOnIndex(),
 
 
             HasOne::make('Comment', resource: new CommentResource())
+                ->hideOnDetail()
                 ->hideOnIndex(),
         ];
     }
