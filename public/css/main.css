@@ -279,14 +279,14 @@ textarea._is-error {
   margin-right: 12px;
 }
 .lesson .accordion-header._is-done::before {
-  background-image: url(/images/done.svg?c3f6e0013141c089eeeced4f062265d0);
+  background-image: url(/images/done.svg?0ae41c782b36b9a8595fee69b06892ee);
 }
 .lesson .accordion-header._is-checking::before {
-  background-image: url(/images/checking.svg?2ffc493c58e96affc08f1ab9bfc7f8a5);
+  background-image: url(/images/checking.svg?99550473765ea010f388ee2049df2a5e);
 }
 .lesson .accordion-header._is-progress::before {
-  background-image: url(/images/progress.svg?8c539d9a6473eda19b9d5d8afbce770f);
+  background-image: url(/images/progress.svg?a1d489cba550829341f0f09ba8dbd02a);
 }
 .lesson .accordion-header._is-pending::before {
-  background-image: url(/images/time-forward.svg?2a83f3042531e6a6fadf2991dd25fc0e);
+  background-image: url(/images/time-forward.svg?814a0dc89c6fda9dedc9e29dce5a3e6b);
 }

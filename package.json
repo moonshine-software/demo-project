@@ -25,6 +25,6 @@
     "dependencies": {
         "@ckeditor/ckeditor5-code-block": "^35.3.0",
         "@tailwindcss/line-clamp": "^0.4.2",
-        "alpinejs": "^3.10.2"
+        "alpinejs": "3.13.2"
     }
 }
