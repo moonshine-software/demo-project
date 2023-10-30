@@ -3,16 +3,21 @@
 namespace App\MoonShine\Resources;
 
 use App\Models\Category;
+use App\MoonShine\Category\CategoryIndexPage;
 use Illuminate\Database\Eloquent\Model;
 
+use Leeto\MoonShineTree\Resources\TreeResource;
 use MoonShine\Decorations\Block;
 use MoonShine\Enums\PageType;
 use MoonShine\Fields\Relationships\BelongsTo;
 use MoonShine\Fields\Text;
+use MoonShine\Pages\Crud\DetailPage;
+use MoonShine\Pages\Crud\FormPage;
+use MoonShine\Pages\Crud\IndexPage;
 use MoonShine\Resources\ModelResource;
 use MoonShine\Fields\ID;
 
-class CategoryResource extends ModelResource
+class CategoryResource extends TreeResource
 {
     protected string $model = Category::class;
 
@@ -30,12 +35,25 @@ class CategoryResource extends ModelResource
 
     protected string $sortColumn = 'sorting';
 
-    protected ?PageType $redirectAfterSave = PageType::DETAIL;
+    protected ?PageType $redirectAfterSave = PageType::INDEX;
 
-	public function fields(): array
+    protected function pages(): array
+    {
+        return [
+            CategoryIndexPage::make($this->title()),
+            FormPage::make(
+                $this->getItemID()
+                    ? __('moonshine::ui.edit')
+                    : __('moonshine::ui.add')
+            ),
+            DetailPage::make(__('moonshine::ui.show')),
+        ];
+    }
+
+    public function fields(): array
 	{
 		return [
-            Block::make('', [
+            Block::make([
                 ID::make()->sortable(),
                 BelongsTo::make('Category')
                     ->nullable(),
@@ -54,5 +72,15 @@ class CategoryResource extends ModelResource
     public function search(): array
     {
         return ['id', 'title'];
+    }
+
+    public function treeKey(): ?string
+    {
+        return 'category_id';
+    }
+
+    public function sortKey(): string
+    {
+        return $this->sortColumn();
     }
 }

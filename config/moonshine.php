@@ -4,7 +4,7 @@ use MoonShine\Exceptions\MoonShineNotFoundException;
 use MoonShine\Forms\LoginForm;
 use MoonShine\Http\Middleware\Authenticate;
 use MoonShine\Http\Middleware\SecurityHeadersMiddleware;
-use MoonShine\Models\MoonshineUser;
+use MoonShine\Permissions\Models\MoonshineUser;
 use MoonShine\MoonShineLayout;
 use MoonShine\Pages\ProfilePage;
 
@@ -39,6 +39,11 @@ return [
     'pages' => [
         'dashboard' => App\MoonShine\Pages\Dashboard::class,
         'profile' => ProfilePage::class
+    ],
+
+    'model_resources' => [
+        'default_with_import' => true,
+        'default_with_export' => true,
     ],
 
     'auth' => [

@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use App\Models\Comment;
-use App\MoonShine\Pages\SettingPage;
 use App\MoonShine\Resources\ArticleResource;
 use App\MoonShine\Resources\CategoryResource;
 use App\MoonShine\Resources\CommentResource;
@@ -13,7 +12,7 @@ use App\MoonShine\Resources\UserResource;
 use MoonShine\Menu\MenuGroup;
 use MoonShine\Menu\MenuItem;
 use MoonShine\Providers\MoonShineApplicationServiceProvider;
-use MoonShine\Resources\MoonShineUserResource;
+use App\MoonShine\Resources\MoonShineUserResource;
 use MoonShine\Resources\MoonShineUserRoleResource;
 
 class MoonShineServiceProvider extends MoonShineApplicationServiceProvider

@@ -30,8 +30,6 @@ class DictionaryResource extends ModelResource
 
     protected bool $createInModal = true;
 
-    protected bool $editInModal = true;
-
     protected ?ClickAction $clickAction = ClickAction::EDIT;
 
     public function fields(): array

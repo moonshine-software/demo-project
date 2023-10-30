@@ -27,6 +27,7 @@ use MoonShine\Fields\Color;
 use MoonShine\Fields\DateRange;
 use MoonShine\Fields\File;
 use MoonShine\Fields\Hidden;
+use MoonShine\Fields\HiddenIds;
 use MoonShine\Fields\ID;
 use MoonShine\Fields\Image;
 use MoonShine\Fields\Json;
@@ -318,12 +319,10 @@ class ArticleResource extends ModelResource
     {
         return [
             ActionButton::make('Active', route('moonshine.articles.mass-active', $this->uriKey()))
-                ->inModal(fn () => 'Active', fn (ActionButton $action): string => (string) form(
-                    $action->url(),
+                ->inModal(fn () => 'Active', fn (): string => (string) form(
+                    route('moonshine.articles.mass-active', $this->uriKey()),
                     fields: [
-                        Hidden::make('ids')->customAttributes([
-                            'class' => 'actionsCheckedIds',
-                        ]),
+                        HiddenIds::make(),
                         TextBlock::make('', __('moonshine::ui.confirm_message')),
                         Text::make('To confirm, write "yes"', 'confirm')
                             ->customAttributes(['placeholder' => 'Or no']),
@@ -337,13 +336,6 @@ class ArticleResource extends ModelResource
                 'Go to',
                 static fn (Article $model) => route('articles.show', $model)
             )->icon('heroicons.outline.paper-clip'),
-        ];
-    }
-
-    public function formButtons(): array
-    {
-        return [
-            DeleteButton::for($this),
         ];
     }
 
