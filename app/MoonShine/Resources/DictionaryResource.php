@@ -37,7 +37,9 @@ class DictionaryResource extends ModelResource
         return [
             Block::make([
                 ID::make()->sortable(),
-                Text::make('Title')->required(),
+                Text::make('Title')
+                    ->updateOnPreview()
+                    ->required(),
                 Slug::make('Slug')
                     ->unique()
                     ->separator('-')
