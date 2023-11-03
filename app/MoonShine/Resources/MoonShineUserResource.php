@@ -31,9 +31,12 @@ class MoonShineUserResource extends ModelResource
 
     public string $model = MoonshineUser::class;
 
-    public string $title = 'MoonshineUsers';
-
     public string $column = 'name';
+
+    public function title(): string
+    {
+        return __('moonshine::ui.resource.admins_title');
+    }
 
     public function fields(): array
     {

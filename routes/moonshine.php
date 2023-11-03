@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use UniSharp\LaravelFilemanager\Lfm;
 
-Route::prefix('laravel-filemanager')->group(function () {
-    Lfm::routes();
-});
+if(config('moonshine.tinymce.file_manager')) {
+    Route::prefix('laravel-filemanager')->group(function () {
+        Lfm::routes();
+    });
+}

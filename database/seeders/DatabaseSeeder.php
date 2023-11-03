@@ -3,9 +3,13 @@
 namespace Database\Seeders;
 
 use App\Models\Article;
+use App\Models\Category;
 use App\Models\Setting;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use MoonShine\Models\MoonshineUser;
+use MoonShine\Models\MoonshineUserRole;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,12 +20,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('moonshine_user_roles')->insert([
+        MoonshineUser::query()->create([
+            'name' => 'Admin',
+            'moonshine_user_role_id' => MoonshineUserRole::DEFAULT_ROLE_ID,
+            'email' => 'admin@moonshine-laravel.com',
+            'password' => bcrypt('moonshine')
+        ]);
+
+        MoonshineUserRole::query()->create([
             'id' => 2,
             'name' => 'Author'
         ]);
 
-        Article::factory(100)->create();
+        Article::factory(20)->create();
+        Category::factory(10)->create();
+        User::factory(10)->create();
 
         DB::table('settings')->insert([
             'id' => 1,

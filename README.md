@@ -6,7 +6,5 @@
 - php artisan key:generate
 - php artisan storage:link
 - php artisan migrate --seed
-- php artisan moonshine:user
-- php artisan serve
 - Go to /admin
-- Optionally, you can configure github and tinymce api keys
+- Optionally, you can configure github or tinymce file manager

@@ -16,7 +16,7 @@
         "lee-to/moonshine-tree-resource": "^1.0",
         "moonshine/changelog": "^1.0",
         "moonshine/permissions": "^1.0",
-        "moonshine/moonshine": "2.0.0-rc.1",
+        "moonshine/moonshine": "2.0.0-rc.2",
         "unisharp/laravel-filemanager": "^2.6"
     },
     "require-dev": {

@@ -1,11 +1,11 @@
 <?php
 
 use MoonShine\Exceptions\MoonShineNotFoundException;
-use MoonShine\Forms\LoginForm;
+use App\MoonShine\Forms\LoginForm;
 use MoonShine\Http\Middleware\Authenticate;
 use MoonShine\Http\Middleware\SecurityHeadersMiddleware;
 use MoonShine\Permissions\Models\MoonshineUser;
-use MoonShine\MoonShineLayout;
+use App\MoonShine\MoonShineLayout;
 use MoonShine\Pages\ProfilePage;
 
 return [
@@ -75,7 +75,7 @@ return [
     ],
 
     'tinymce' => [
-        'file_manager' => 'laravel-filemanager', // or 'laravel-filemanager' prefix for lfm
+        'file_manager' => env('MOONSHINE_TINYMCE_FILE_MANAGER', ''),
         'token' => env('MOONSHINE_TINYMCE_TOKEN', ''),
         'version' => env('MOONSHINE_TINYMCE_VERSION', '6'),
     ],

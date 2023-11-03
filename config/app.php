@@ -14,6 +14,7 @@ return [
     | any other location as required by the application or its packages.
     |
     */
+    'demo_mode' => env('DEMO_MODE', false),
 
     'name' => env('APP_NAME', 'Laravel'),
 

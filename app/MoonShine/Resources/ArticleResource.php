@@ -204,6 +204,7 @@ class ArticleResource extends ModelResource
 
 
             HasOne::make('Comment', resource: new CommentResource())
+                ->async()
                 ->hideOnDetail()
                 ->hideOnIndex(),
         ];
@@ -255,7 +256,7 @@ class ArticleResource extends ModelResource
         return function (mixed $data, int $row, ComponentAttributeBag $attr): ComponentAttributeBag {
             return $attr->when(
                 $data->author?->moonshine_user_role_id !== 1,
-                fn (ComponentAttributeBag $a) => $a->merge(['class' => 'bgc-green'])
+                fn (ComponentAttributeBag $a) => $a->merge(['class' => 'bgc-gray'])
             );
         };
     }
