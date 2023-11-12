@@ -17,8 +17,7 @@ final class ArticleController extends MoonshineController
             'confirm' => 'accepted'
         ]);
 
-        $ids = $request->str('ids')
-            ->explode(';')
+        $ids = $request->collect('ids')
             ->filter()
             ->toArray();
 

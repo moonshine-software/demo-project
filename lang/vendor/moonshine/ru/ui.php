@@ -28,11 +28,6 @@ return [
     'more' => 'Перейти',
     'all_sections' => 'Все разделы',
     'file' => 'Файл',
-    'user' => 'Пользователь',
-    'date' => 'Дата',
-    'field' => 'Поле',
-    'before' => 'До',
-    'after' => 'После',
     'loading' => 'Загрузка ...',
     'notfound' => 'Пока записей нет',
     'collapse_menu' => 'Свернуть меню',
@@ -83,7 +78,7 @@ return [
         'import' => [
             'imported' => 'Импортирован',
             'file_required' => 'Файл обязателен',
-            'extension_not_supported' => 'Расширения не поддерживается'
+            'extension_not_supported' => 'Расширение файла не поддерживается'
         ]
     ]
 ];
