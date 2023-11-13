@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
-use App\Support\HighlightCode;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View;
-use Illuminate\Support\Facades\Cache;
 
 class ArticleController extends Controller
 {
@@ -18,7 +16,7 @@ class ArticleController extends Controller
             ->paginate(10);
 
         return view('articles.index', [
-            'articles' => $articles
+            'articles' => $articles,
         ]);
     }
 
