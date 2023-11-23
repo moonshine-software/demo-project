@@ -43,8 +43,7 @@ class SettingPage extends FormPage
                         ->toArray()
                 )
                 ->name('crud')
-                ->fill($this->getResource()->getModelCast()->dehydrate($item))
-                ->cast($this->getResource()->getModelCast())
+                ->fillCast($item, $this->getResource()->getModelCast())
                 ->submit(__('moonshine::ui.save'), ['class' => 'btn-primary btn-lg']),
         ];
     }
