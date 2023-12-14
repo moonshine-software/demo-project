@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use MoonShine\Decorations\Block;
 use MoonShine\Decorations\Column;
 use MoonShine\Decorations\Grid;
+use MoonShine\Decorations\LineBreak;
 use MoonShine\Fields\Email;
 use MoonShine\Fields\ID;
 use MoonShine\Fields\Password;
@@ -32,6 +33,8 @@ class UserResource extends ModelResource
                         Text::make('Name'),
                         Email::make('E-mail', 'email'),
                     ]),
+
+                    LineBreak::make(),
 
                     Block::make('Change password', [
                         Password::make('Password')
