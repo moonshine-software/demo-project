@@ -14,3 +14,6 @@ yarn-error.log
 /.idea
 /.vscode
 composer.lock
+#docker
+/docker/volumes/Nginx/logs
+/docker/volumes/MySQL/lib
