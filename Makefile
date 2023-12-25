@@ -53,6 +53,7 @@ demo-install:
 	make build
 	make composer-install
 	docker exec $(app) php $(path)/artisan key:generate
+	docker exec $(app) php $(path)/artisan storage:link
 	make migrate-fresh
 	make npm-install
 	make npm-build
