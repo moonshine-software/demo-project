@@ -3,6 +3,7 @@ THIS_FILE := $(lastword $(MAKEFILE_LIST))
 app := php-moonshine-demo
 path := /var/www/moonshine-demo
 app-npm := npm-moonshine-demo
+
 #docker
 build:
 	docker-compose -f docker-compose.yml up --build -d $(c)
@@ -51,12 +52,12 @@ npm-host:
 demo-install:
 	cp .env.example .env
 	make build
+	make npm-install
+	make npm-build
 	make composer-install
 	docker exec $(app) php $(path)/artisan key:generate
 	docker exec $(app) php $(path)/artisan storage:link
 	make migrate-fresh
-	make npm-install
-	make npm-build
 
 #for contributors
 update: git-upstream publish
