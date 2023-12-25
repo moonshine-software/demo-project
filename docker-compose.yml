@@ -36,7 +36,7 @@ services:
     image: mariadb:11.0.2
     container_name: db-moonshine-demo
     environment:
-      MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASS}
     volumes:
       - ./docker/volumes/MySQL/lib:/var/lib/mysql
       - ./docker/volumes/MySQL/dump:/docker-entrypoint-initdb.d

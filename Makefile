@@ -1,5 +1,5 @@
 THIS_FILE := $(lastword $(MAKEFILE_LIST))
-.PHONY: build rebuild rebuild-app up migrate migrate-rollback migrate-fresh migration route-list test composer-install composer-update composer-du npm-install npm-update npm-build npm-host
+.PHONY: build rebuild rebuild-app up migrate migrate-rollback migrate-fresh migration route-list test composer-install composer-update composer-du npm-install npm-update npm-build npm-host demo-install update git-upstream publish
 app := php-moonshine-demo
 path := /var/www/moonshine-demo
 app-npm := npm-moonshine-demo
