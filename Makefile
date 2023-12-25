@@ -43,11 +43,21 @@ npm-install:
 npm-update:
 	docker-compose run --rm --service-ports $(app-npm) update $(c)
 npm-build:
-	docker-compose run --rm --service-ports $(app-npm) run build $(c)
+	docker-compose run --rm --service-ports $(app-npm) run dev $(c)
 npm-host:
 	docker-compose run --rm --service-ports $(app-npm) run dev --host $(c)
 
 #moonshine
+demo-install:
+	cp .env.example .env
+	make build
+	make composer-install
+	docker exec $(app) php $(path)/artisan key:generate
+	make migrate-fresh
+	make npm-install
+	make npm-build
+
+#for contributors
 update: git-upstream publish
 
 git-upstream:
