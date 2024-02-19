@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'database' => 'The database is reset every 5 minutes'
+    'database' => 'Данные сбрасываются каждые 5 минут и вы не можете редактировать супер пользователя и роли'
 ];

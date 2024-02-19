@@ -22,31 +22,55 @@ class MoonShineUserRolePolicy
 
     public function create(MoonShineUser $user): bool
     {
+        if(config('app.demo_mode', false)) {
+            return false;
+        }
+
         return $user->moonshine_user_role_id === 1;
     }
 
     public function update(MoonShineUser $user, MoonshineUserRole $role): bool
     {
+        if(config('app.demo_mode', false)) {
+            return false;
+        }
+
         return $user->moonshine_user_role_id === 1;
     }
 
     public function delete(MoonShineUser $user, MoonshineUserRole $role): bool
     {
+        if(config('app.demo_mode', false)) {
+            return false;
+        }
+
         return $user->moonshine_user_role_id === 1;
     }
 
     public function restore(MoonShineUser $user, MoonshineUserRole $role): bool
     {
+        if(config('app.demo_mode', false)) {
+            return false;
+        }
+
         return $user->moonshine_user_role_id === 1;
     }
 
     public function forceDelete(MoonShineUser $user, MoonshineUserRole $role): bool
     {
+        if(config('app.demo_mode', false)) {
+            return false;
+        }
+
         return $user->moonshine_user_role_id === 1;
     }
 
     public function massDelete(MoonShineUser $user): bool
     {
+        if(config('app.demo_mode', false)) {
+            return false;
+        }
+
         return $user->moonshine_user_role_id === 1;
     }
 }
