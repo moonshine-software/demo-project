@@ -17,6 +17,7 @@ class ResetCommand extends Command
     public function handle(): int
     {
         $this->call('migrate:fresh', [
+            '--force' => true,
             '--seed' => true
         ]);
 
