@@ -18,6 +18,7 @@ use MoonShine\Fields\Password;
 use MoonShine\Fields\PasswordRepeat;
 use MoonShine\Fields\Relationships\BelongsTo;
 use MoonShine\Fields\Text;
+use MoonShine\Handlers\ImportHandler;
 use MoonShine\Permissions\Models\MoonshineUser;
 use MoonShine\Models\MoonshineUserRole;
 use MoonShine\Permissions\Traits\WithPermissions;
@@ -32,6 +33,8 @@ class MoonShineUserResource extends ModelResource
     public string $model = MoonshineUser::class;
 
     public string $column = 'name';
+
+    protected bool $withPolicy = true;
 
     public function title(): string
     {
@@ -115,6 +118,11 @@ class MoonShineUserResource extends ModelResource
                 ? 'sometimes|nullable|min:6|required_with:password_repeat|same:password_repeat'
                 : 'required|min:6|required_with:password_repeat|same:password_repeat',
         ];
+    }
+
+    public function import(): ?ImportHandler
+    {
+        return null;
     }
 
     public function search(): array

@@ -1,12 +1,12 @@
 <?php
 
-use MoonShine\Exceptions\MoonShineNotFoundException;
 use App\MoonShine\Forms\LoginForm;
+use App\MoonShine\MoonShineLayout;
+use MoonShine\Exceptions\MoonShineNotFoundException;
 use MoonShine\Http\Middleware\Authenticate;
 use MoonShine\Http\Middleware\SecurityHeadersMiddleware;
+use App\MoonShine\Pages\ProfilePage;
 use MoonShine\Permissions\Models\MoonshineUser;
-use App\MoonShine\MoonShineLayout;
-use MoonShine\Pages\ProfilePage;
 
 return [
     'dir' => 'app/MoonShine',
@@ -34,13 +34,15 @@ return [
     'disk' => 'public',
 
     'forms' => [
-        'login' => LoginForm::class
+        'login' => LoginForm::class,
     ],
 
-    'pages' => [
-        'dashboard' => App\MoonShine\Pages\Dashboard::class,
-        'profile' => ProfilePage::class
-    ],
+    'pages' => array_filter(
+        [
+            'dashboard' => App\MoonShine\Pages\Dashboard::class,
+            'profile' => ProfilePage::class,
+        ]
+    ),
 
     'model_resources' => [
         'default_with_import' => true,
@@ -81,7 +83,11 @@ return [
         'version' => env('MOONSHINE_TINYMCE_VERSION', '6'),
     ],
 
-    'socialite' => [
-        'github' => '/images/icons/github-mark.svg'
-    ],
+    'socialite' => array_filter(
+        [
+            'github' => ! env('DEMO_MODE', false)
+                ? '/images/icons/github-mark.svg'
+                : null,
+        ]
+    ),
 ];

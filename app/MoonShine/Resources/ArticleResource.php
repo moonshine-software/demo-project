@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\ComponentAttributeBag;
 use MoonShine\ActionButtons\ActionButton;
-use MoonShine\Buttons\IndexPage\DeleteButton;
 use MoonShine\Decorations\Block;
 use MoonShine\Decorations\Collapse;
 use MoonShine\Decorations\Column;

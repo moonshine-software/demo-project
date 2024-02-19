@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'database' => 'The database is reset every 5 minutes and you can`t edit super user and roles'
+    'limit' => 'Demo mode limitation',
+    'database' => 'The database is reset every 15 minutes and you can`t edit super user and roles'
 ];
