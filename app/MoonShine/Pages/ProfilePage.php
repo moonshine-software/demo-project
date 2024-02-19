@@ -13,7 +13,6 @@ use MoonShine\Fields\Image;
 use MoonShine\Fields\Password;
 use MoonShine\Fields\PasswordRepeat;
 use MoonShine\Fields\Text;
-use MoonShine\Http\Controllers\ProfileController;
 use MoonShine\MoonShineAuth;
 use MoonShine\Pages\Page;
 use MoonShine\TypeCasts\ModelCast;
@@ -81,7 +80,7 @@ class ProfilePage extends Page
     public function components(): array
     {
         return [
-            FormBuilder::make(action([ProfileController::class, 'store']))
+            FormBuilder::make(route('profile.store'))
                 ->async()
                 ->customAttributes([
                     'enctype' => 'multipart/form-data',
