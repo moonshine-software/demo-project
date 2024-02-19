@@ -1,0 +1,69 @@
+version: '3.8'
+
+networks:
+  moonshine-demo-network:
+   name: 'moonshine-demo-network'
+
+services:
+  nginx-moonshine-demo:
+    build: ./docker/Nginx
+    container_name: nginx-moonshine-demo
+    ports:
+      - ${LOCAL_WEB_PORT}:${APP_WEB_PORT}
+    volumes:
+      - ${LOCAL_PATH_HOST}:${APP_PATH}
+      - ./docker/volumes/Nginx/core:/etc/nginx/
+      - ./docker/volumes/Nginx/logs:/var/log/nginx/
+    depends_on:
+      - php-moonshine-demo
+    networks:
+      - moonshine-demo-network
+
+  php-moonshine-demo:
+    build:
+      context: ./docker/PHP8
+      args:
+        docker_user: ${DOCKER_USER}
+    container_name: php-moonshine-demo
+    volumes:
+      - ${LOCAL_PATH_HOST}:${APP_PATH}
+    depends_on:
+      - db-moonshine-demo
+    networks:
+      - moonshine-demo-network
+
+  db-moonshine-demo:
+    image: mariadb:11.0.2
+    container_name: db-moonshine-demo
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASS}
+    volumes:
+      - ./docker/volumes/MySQL/lib:/var/lib/mysql
+      - ./docker/volumes/MySQL/dump:/docker-entrypoint-initdb.d
+    ports:
+      - ${LOCAL_MYSQL_PORT}:${APP_MYSQL_PORT}
+    networks:
+      - moonshine-demo-network
+
+  redis-moonshine-demo:
+    image: redis:7.2-rc-alpine3.18
+    command: ["redis-server", "--appendonly", "yes"]
+    container_name: redis-moonshine-demo
+    ports:
+      - ${LOCAL_REDIS_PORT}:${APP_REDIS_PORT}
+    networks:
+      - moonshine-demo-network
+
+  npm-moonshine-demo:
+    build: ./docker/Node
+    container_name: npm-moonshine-demo
+    volumes:
+      - ${LOCAL_PATH_HOST}:${APP_PATH}:cached
+      - ${LOCAL_PATH_HOST}.env:${APP_PATH}/.env
+    working_dir: ${APP_PATH}
+    profiles: ["npm"]
+    entrypoint: ['npm']
+    ports:
+      - ${VITE_PORT}:${VITE_PORT}
+    networks:
+      - moonshine-demo-network
