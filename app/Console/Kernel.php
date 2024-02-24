@@ -16,7 +16,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->call(ResetCommand::class)
+        $schedule->command('app:reset-console')
             ->everyFifteenMinutes();
     }
 
