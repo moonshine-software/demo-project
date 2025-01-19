@@ -64,6 +64,10 @@ class ArticleResource extends ModelResource implements HasImportExportContract
 
     public bool $withPolicy = true;
 
+    protected bool $columnSelection = true;
+
+    protected bool $stickyButtons = true;
+
     public array $with = [
         'author',
         'comments',
