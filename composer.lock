@@ -1140,16 +1140,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v11.38.2",
+            "version": "v11.39.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "9d290aa90fcad44048bedca5219d2b872e98772a"
+                "reference": "3d693dd36e78121bcd51fc02eda4bc137d2a17f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/9d290aa90fcad44048bedca5219d2b872e98772a",
-                "reference": "9d290aa90fcad44048bedca5219d2b872e98772a",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/3d693dd36e78121bcd51fc02eda4bc137d2a17f2",
+                "reference": "3d693dd36e78121bcd51fc02eda4bc137d2a17f2",
                 "shasum": ""
             },
             "require": {
@@ -1350,7 +1350,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2025-01-15T00:06:46+00:00"
+            "time": "2025-01-22T17:01:46+00:00"
         },
         {
             "name": "laravel/prompts",
@@ -2662,16 +2662,16 @@
         },
         {
             "name": "moonshine/moonshine",
-            "version": "3.3.3",
+            "version": "3.3.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/moonshine-software/moonshine.git",
-                "reference": "86a0afb4bf07cfbd27aec5e6f8fee1b78f5600f2"
+                "reference": "6d994841b65500f04c30ea70d62dd2078bb816e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moonshine-software/moonshine/zipball/86a0afb4bf07cfbd27aec5e6f8fee1b78f5600f2",
-                "reference": "86a0afb4bf07cfbd27aec5e6f8fee1b78f5600f2",
+                "url": "https://api.github.com/repos/moonshine-software/moonshine/zipball/6d994841b65500f04c30ea70d62dd2078bb816e8",
+                "reference": "6d994841b65500f04c30ea70d62dd2078bb816e8",
                 "shasum": ""
             },
             "require": {
@@ -2765,7 +2765,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2025-01-20T08:48:45+00:00"
+            "time": "2025-01-23T08:36:08+00:00"
         },
         {
             "name": "moonshine/permissions",
