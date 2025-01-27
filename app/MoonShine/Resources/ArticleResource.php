@@ -101,7 +101,7 @@ class ArticleResource extends ModelResource implements HasImportExportContract
 
             BelongsTo::make('Author', resource: MoonShineUserResource::class)
                 ->asyncSearch()
-                ->canSee(fn () => auth()->user()->moonshine_user_role_id === 1)
+                ->canSee(fn () => auth()->user()->isSuperUser())
                 ->required(),
 
             Number::make('Comments', 'comments_count'),
@@ -117,11 +117,13 @@ class ArticleResource extends ModelResource implements HasImportExportContract
                     ->disk('public')
                     ->dir('articles'),
 
-                /*File::make('Files')
+                /* Or
+                 * File::make('Files')
                     ->disk('public')
                     ->multiple()
                     ->removable()
-                    ->dir('articles'),*/
+                    ->dir('articles'),
+                */
             ]),
 
             RangeSlider::make('Age')
@@ -141,6 +143,7 @@ class ArticleResource extends ModelResource implements HasImportExportContract
                 ->hint('Url')
                 ->link('https://cutcode.dev', 'CutCode', blank: true)
                 ->suffix('url')
+                ->customWrapperAttributes(['style' => 'white-space: normal;'])
             ,
 
             Color::make('Color')->default('red'),
@@ -173,7 +176,7 @@ class ArticleResource extends ModelResource implements HasImportExportContract
 
                         BelongsTo::make('Author', resource: MoonShineUserResource::class)
                             ->asyncSearch()
-                            ->canSee(fn () => auth()->user()->moonshine_user_role_id === 1)
+                            ->canSee(fn () => auth()->user()->isSuperUser())
                             ->required(),
 
                         Collapse::make('Title/Slug', [
@@ -331,7 +334,7 @@ class ArticleResource extends ModelResource implements HasImportExportContract
         return parent::getQuery()
             ->withCount('comments')
             ->when(
-                auth()->user()->moonshine_user_role_id !== 1,
+                !auth()->user()->isSuperUser(),
                 fn ($q) => $q->where('author_id', auth()->id())
             );
     }
@@ -361,7 +364,7 @@ class ArticleResource extends ModelResource implements HasImportExportContract
 
     protected function beforeCreating(mixed $item): Model
     {
-        if (auth()->user()->moonshine_user_role_id !== 1) {
+        if (!auth()->user()->isSuperUser()) {
             request()->merge([
                 'author_id' => auth()->id(),
             ]);
@@ -372,7 +375,7 @@ class ArticleResource extends ModelResource implements HasImportExportContract
 
     protected function beforeUpdating(mixed $item): Model
     {
-        if (auth()->user()->moonshine_user_role_id !== 1) {
+        if (!auth()->user()->isSuperUser()) {
             request()->merge([
                 'author_id' => auth()->id(),
             ]);
@@ -393,7 +396,7 @@ class ArticleResource extends ModelResource implements HasImportExportContract
 
             BelongsTo::make('Author', resource: UserResource::class)
                 ->nullable()
-                ->canSee(fn () => auth()->user()->moonshine_user_role_id === 1),
+                ->canSee(fn () => auth()->user()->isSuperUser()),
 
             Slug::make('Slug'),
 
