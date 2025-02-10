@@ -970,16 +970,16 @@
         },
         {
             "name": "guzzlehttp/uri-template",
-            "version": "v1.0.3",
+            "version": "v1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/uri-template.git",
-                "reference": "ecea8feef63bd4fef1f037ecb288386999ecc11c"
+                "reference": "30e286560c137526eccd4ce21b2de477ab0676d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/uri-template/zipball/ecea8feef63bd4fef1f037ecb288386999ecc11c",
-                "reference": "ecea8feef63bd4fef1f037ecb288386999ecc11c",
+                "url": "https://api.github.com/repos/guzzle/uri-template/zipball/30e286560c137526eccd4ce21b2de477ab0676d2",
+                "reference": "30e286560c137526eccd4ce21b2de477ab0676d2",
                 "shasum": ""
             },
             "require": {
@@ -1036,7 +1036,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/uri-template/issues",
-                "source": "https://github.com/guzzle/uri-template/tree/v1.0.3"
+                "source": "https://github.com/guzzle/uri-template/tree/v1.0.4"
             },
             "funding": [
                 {
@@ -1052,7 +1052,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-12-03T19:50:20+00:00"
+            "time": "2025-02-03T10:55:03+00:00"
         },
         {
             "name": "intervention/image",
@@ -2663,16 +2663,16 @@
         },
         {
             "name": "moonshine/moonshine",
-            "version": "3.4.7",
+            "version": "3.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/moonshine-software/moonshine.git",
-                "reference": "505f32f081618a0560d202b6e429bebacc32afda"
+                "reference": "c61c69edb5b0cd24ffbb6d82fec7af7b176bc7b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moonshine-software/moonshine/zipball/505f32f081618a0560d202b6e429bebacc32afda",
-                "reference": "505f32f081618a0560d202b6e429bebacc32afda",
+                "url": "https://api.github.com/repos/moonshine-software/moonshine/zipball/c61c69edb5b0cd24ffbb6d82fec7af7b176bc7b9",
+                "reference": "c61c69edb5b0cd24ffbb6d82fec7af7b176bc7b9",
                 "shasum": ""
             },
             "require": {
@@ -2766,20 +2766,20 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2025-02-01T14:18:04+00:00"
+            "time": "2025-02-10T07:36:30+00:00"
         },
         {
             "name": "moonshine/permissions",
-            "version": "2.0.1",
+            "version": "2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/moonshine-software/permissions.git",
-                "reference": "2c6444819a2d43afecfc1e63c9ec1d1ebd117a14"
+                "reference": "6b9bcf84cafd20fd6c492dd8949b67e2a2b86360"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moonshine-software/permissions/zipball/2c6444819a2d43afecfc1e63c9ec1d1ebd117a14",
-                "reference": "2c6444819a2d43afecfc1e63c9ec1d1ebd117a14",
+                "url": "https://api.github.com/repos/moonshine-software/permissions/zipball/6b9bcf84cafd20fd6c492dd8949b67e2a2b86360",
+                "reference": "6b9bcf84cafd20fd6c492dd8949b67e2a2b86360",
                 "shasum": ""
             },
             "require": {
@@ -2832,7 +2832,7 @@
                 "issues": "https://github.com/moonshine-software/permissions/issues",
                 "source": "https://github.com/moonshine-software/permissions"
             },
-            "time": "2025-01-25T09:30:42+00:00"
+            "time": "2025-02-04T17:10:58+00:00"
         },
         {
             "name": "moonshine/ru",
@@ -8282,16 +8282,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "11.5.6",
+            "version": "11.5.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "3c3ae14c90f244cdda95028c3e469028e8d1c02c"
+                "reference": "e1cb706f019e2547039ca2c839898cd5f557ee5d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3c3ae14c90f244cdda95028c3e469028e8d1c02c",
-                "reference": "3c3ae14c90f244cdda95028c3e469028e8d1c02c",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/e1cb706f019e2547039ca2c839898cd5f557ee5d",
+                "reference": "e1cb706f019e2547039ca2c839898cd5f557ee5d",
                 "shasum": ""
             },
             "require": {
@@ -8363,7 +8363,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/11.5.6"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/11.5.7"
             },
             "funding": [
                 {
@@ -8379,7 +8379,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-01-31T07:03:30+00:00"
+            "time": "2025-02-06T16:10:05+00:00"
         },
         {
             "name": "sebastian/cli-parser",
