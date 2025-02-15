@@ -5,7 +5,7 @@ namespace App\MoonShine\Resources;
 use App\Models\Article;
 use App\Models\Comment;
 use Closure;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use MoonShine\Contracts\Core\TypeCasts\DataWrapperContract;
 use MoonShine\Contracts\UI\ActionButtonContract;
@@ -70,7 +70,6 @@ class ArticleResource extends ModelResource implements HasImportExportContract
 
     public array $with = [
         'author',
-        'comments',
     ];
 
     public string $column = 'title';
@@ -96,62 +95,37 @@ class ArticleResource extends ModelResource implements HasImportExportContract
     public function indexFields(): iterable
     {
         return [
-            ID::make()
-                ->sortable(),
+            ID::make()->sortable(),
 
-            BelongsTo::make('Author', resource: MoonShineUserResource::class)
-                ->asyncSearch()
-                ->canSee(fn () => auth()->user()->isSuperUser())
-                ->required(),
+            BelongsTo::make('Author', resource: MoonShineUserResource::class),
 
             Number::make('Comments', 'comments_count'),
 
-            Text::make('Title')
-                ->withoutWrapper()
-                ->required()
-            ,
+            Text::make('Title'),
 
             StackFields::make('Files')->fields([
                 Image::make('Thumbnail')
-                    ->removable()
                     ->disk('public')
                     ->dir('articles'),
-
-                /* Or
-                 * File::make('Files')
-                    ->disk('public')
-                    ->multiple()
-                    ->removable()
-                    ->dir('articles'),
-                */
             ]),
 
-            RangeSlider::make('Age')
-                ->min(0)
-                ->max(60)
-                ->step(1)
-                ->fromTo('age_from', 'age_to'),
+            RangeSlider::make('Age')->fromTo('age_from', 'age_to'),
 
             Number::make('Rating')
-                ->hint('From 0 to 5')
-                ->min(0)
-                ->max(5)
                 ->link('https://cutcode.dev', 'CutCode', blank: true)
                 ->stars(),
 
             Url::make('Link')
-                ->hint('Url')
                 ->link('https://cutcode.dev', 'CutCode', blank: true)
-                ->suffix('url')
                 ->customWrapperAttributes(['style' => 'white-space: normal;'])
             ,
 
-            Color::make('Color')->default('red'),
+            Color::make('Color'),
 
             Json::make('Data')->fields([
                 Text::make('Title'),
                 Text::make('Value'),
-            ])->creatable()->removable(),
+            ]),
 
             Switcher::make('Active'),
         ];
@@ -326,12 +300,9 @@ class ArticleResource extends ModelResource implements HasImportExportContract
         ];
     }
 
-    /**
-     * @throws \Throwable
-     */
-    public function query(): Builder
+    protected function modifyQueryBuilder(Builder $builder): Builder
     {
-        return parent::getQuery()
+        return $builder
             ->withCount('comments')
             ->when(
                 !auth()->user()->isSuperUser(),
