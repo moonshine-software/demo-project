@@ -2156,21 +2156,20 @@
         },
         {
             "name": "lee-to/fast-attributes",
-            "version": "0.1.0",
+            "version": "0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lee-to/fast-attributes.git",
-                "reference": "c91c07ec23863de79aed8b6486fcfcc5ba050ae7"
+                "reference": "54bd81eda105de7cd326f8ea87f43f947ce04f0c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lee-to/fast-attributes/zipball/c91c07ec23863de79aed8b6486fcfcc5ba050ae7",
-                "reference": "c91c07ec23863de79aed8b6486fcfcc5ba050ae7",
+                "url": "https://api.github.com/repos/lee-to/fast-attributes/zipball/54bd81eda105de7cd326f8ea87f43f947ce04f0c",
+                "reference": "54bd81eda105de7cd326f8ea87f43f947ce04f0c",
                 "shasum": ""
             },
             "require": {
-                "php": "^8.0|^8.1|^8.2",
-                "psr/simple-cache": "^3.0"
+                "php": "^8.0|^8.1|^8.2"
             },
             "require-dev": {
                 "phpstan/phpstan": "^1.10",
@@ -2204,7 +2203,7 @@
                 "issues": "https://github.com/lee-to/fast-attributes/issues",
                 "source": "https://github.com/lee-to/fast-attributes"
             },
-            "time": "2024-03-19T15:57:44+00:00"
+            "time": "2024-11-27T08:09:54+00:00"
         },
         {
             "name": "lee-to/laravel-package-command",
@@ -2663,16 +2662,16 @@
         },
         {
             "name": "moonshine/moonshine",
-            "version": "3.5.2",
+            "version": "3.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/moonshine-software/moonshine.git",
-                "reference": "6c09405259d5d72db3a6ebff5f29aa5ca5a2706c"
+                "reference": "79792d0e6a718b1c62de5c8e3f1482a458965671"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moonshine-software/moonshine/zipball/6c09405259d5d72db3a6ebff5f29aa5ca5a2706c",
-                "reference": "6c09405259d5d72db3a6ebff5f29aa5ca5a2706c",
+                "url": "https://api.github.com/repos/moonshine-software/moonshine/zipball/79792d0e6a718b1c62de5c8e3f1482a458965671",
+                "reference": "79792d0e6a718b1c62de5c8e3f1482a458965671",
                 "shasum": ""
             },
             "require": {
@@ -2681,7 +2680,7 @@
                 "illuminate/contracts": "^10|^11",
                 "illuminate/support": "^10|^11",
                 "illuminate/view": "^10|^11",
-                "lee-to/fast-attributes": "^0.1",
+                "lee-to/fast-attributes": "^0.2",
                 "lee-to/laravel-package-command": "^0.9",
                 "nyholm/psr7": "^1.8",
                 "php": "^8.2",
@@ -2698,13 +2697,13 @@
                 "moonshine/ui": "self.version"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.64",
-                "larastan/larastan": "^2.0",
-                "moonshine/import-export": "^1.0",
-                "orchestra/testbench": "^9.0",
-                "pestphp/pest": "^3.0",
-                "pestphp/pest-plugin-laravel": "^3.0",
-                "rector/rector": "^1.0",
+                "friendsofphp/php-cs-fixer": "^3.68",
+                "larastan/larastan": "^3.0",
+                "moonshine/import-export": "^1",
+                "orchestra/testbench": "^9.9",
+                "pestphp/pest": "^3",
+                "pestphp/pest-plugin-laravel": "^3",
+                "rector/rector": "^2",
                 "symplify/monorepo-builder": "^11.2"
             },
             "type": "library",
@@ -2766,7 +2765,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2025-02-13T13:25:45+00:00"
+            "time": "2025-02-17T07:17:44+00:00"
         },
         {
             "name": "moonshine/permissions",
@@ -9484,12 +9483,12 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }
