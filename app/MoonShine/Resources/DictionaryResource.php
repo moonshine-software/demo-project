@@ -11,12 +11,16 @@ use App\MoonShine\Pages\Dictionary\DictionaryFormPage;
 use App\MoonShine\Pages\Dictionary\DictionaryIndexPage;
 use MoonShine\Laravel\Fields\Slug;
 use MoonShine\Laravel\Resources\ModelResource;
+use MoonShine\MenuManager\Attributes\Order;
+use MoonShine\Support\Attributes\Icon;
 use MoonShine\Support\Enums\ClickAction;
 use MoonShine\TinyMce\Fields\TinyMce;
 use MoonShine\UI\Components\Layout\Box;
 use MoonShine\UI\Fields\ID;
 use MoonShine\UI\Fields\Text;
 
+#[Icon('document-duplicate')]
+#[Order(5)]
 class DictionaryResource extends ModelResource
 {
     protected string $model = Dictionary::class;

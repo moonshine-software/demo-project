@@ -5,10 +5,16 @@ namespace App\MoonShine\Resources;
 use App\Models\Comment;
 use MoonShine\Laravel\Fields\Relationships\BelongsTo;
 use MoonShine\Laravel\Resources\ModelResource;
+use MoonShine\MenuManager\Attributes\Group;
+use MoonShine\MenuManager\Attributes\Order;
+use MoonShine\Support\Attributes\Icon;
 use MoonShine\UI\Components\Layout\Box;
 use MoonShine\UI\Fields\ID;
 use MoonShine\UI\Fields\Text;
 
+#[Group('Blog', 'newspaper')]
+#[Icon('chat-bubble-left')]
+#[Order(3)]
 class CommentResource extends ModelResource
 {
     protected string $model = Comment::class;
@@ -53,5 +59,10 @@ class CommentResource extends ModelResource
     public function search(): array
     {
         return ['id', 'text'];
+    }
+
+    public function getBadge(): string
+    {
+        return (string) Comment::query()->count();
     }
 }

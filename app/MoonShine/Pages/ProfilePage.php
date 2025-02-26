@@ -10,6 +10,7 @@ use MoonShine\Laravel\MoonShineAuth;
 use MoonShine\Laravel\Pages\Page;
 use MoonShine\Laravel\Traits\WithComponentsPusher;
 use MoonShine\Laravel\TypeCasts\ModelCaster;
+use MoonShine\MenuManager\Attributes\SkipMenu;
 use MoonShine\UI\Components\FlexibleRender;
 use MoonShine\UI\Components\FormBuilder;
 use MoonShine\UI\Components\Heading;
@@ -22,6 +23,7 @@ use MoonShine\UI\Fields\Password;
 use MoonShine\UI\Fields\PasswordRepeat;
 use MoonShine\UI\Fields\Text;
 
+#[SkipMenu]
 class ProfilePage extends Page
 {
     use WithComponentsPusher;

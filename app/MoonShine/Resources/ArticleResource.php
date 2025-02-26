@@ -20,7 +20,10 @@ use MoonShine\Laravel\Fields\Relationships\HasOne;
 use MoonShine\Laravel\Fields\Slug;
 use MoonShine\Laravel\QueryTags\QueryTag;
 use MoonShine\Laravel\Resources\ModelResource;
+use MoonShine\MenuManager\Attributes\Group;
+use MoonShine\MenuManager\Attributes\Order;
 use MoonShine\Support\AlpineJs;
+use MoonShine\Support\Attributes\Icon;
 use MoonShine\Support\Enums\JsEvent;
 use MoonShine\Support\Enums\PageType;
 use MoonShine\Support\ListOf;
@@ -52,6 +55,9 @@ use MoonShine\UI\Fields\Switcher;
 use MoonShine\UI\Fields\Text;
 use MoonShine\UI\Fields\Url;
 
+#[Group('Blog', 'newspaper')]
+#[Icon('newspaper')]
+#[Order(3)]
 class ArticleResource extends ModelResource implements HasImportExportContract
 {
     use ImportExportConcern;

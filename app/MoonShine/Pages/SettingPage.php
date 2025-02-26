@@ -6,9 +6,11 @@ namespace App\MoonShine\Pages;
 
 
 use MoonShine\Laravel\Pages\Crud\FormPage;
+use MoonShine\MenuManager\Attributes\SkipMenu;
 use MoonShine\UI\Components\FormBuilder;
 use MoonShine\UI\Fields\Hidden;
 
+#[SkipMenu]
 class SettingPage extends FormPage
 {
     public function getBreadcrumbs(): array

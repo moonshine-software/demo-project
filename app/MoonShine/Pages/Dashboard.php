@@ -9,13 +9,14 @@ use App\Models\Comment;
 use MoonShine\Apexcharts\Components\DonutChartMetric;
 use MoonShine\Apexcharts\Components\LineChartMetric;
 use MoonShine\Laravel\Pages\Page;
+use MoonShine\MenuManager\Attributes\SkipMenu;
 use MoonShine\UI\Components\Heading;
 use MoonShine\UI\Components\Layout\Column;
 use MoonShine\UI\Components\Layout\Grid;
 use MoonShine\UI\Components\Layout\LineBreak;
 use MoonShine\UI\Components\Metrics\Wrapped\ValueMetric;
 
-
+#[SkipMenu]
 class Dashboard extends Page
 {
     public function getBreadcrumbs(): array

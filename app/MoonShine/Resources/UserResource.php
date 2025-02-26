@@ -4,6 +4,8 @@ namespace App\MoonShine\Resources;
 
 use App\Models\User;
 use MoonShine\Laravel\Resources\ModelResource;
+use MoonShine\MenuManager\Attributes\Order;
+use MoonShine\Support\Attributes\Icon;
 use MoonShine\UI\Components\Layout\Box;
 use MoonShine\UI\Components\Layout\Column;
 use MoonShine\UI\Components\Layout\Grid;
@@ -14,9 +16,8 @@ use MoonShine\UI\Fields\Password;
 use MoonShine\UI\Fields\PasswordRepeat;
 use MoonShine\UI\Fields\Text;
 
-/**
- * @template TData of User
- */
+#[Icon('user')]
+#[Order(4)]
 class UserResource extends ModelResource
 {
     protected string $model = User::class;

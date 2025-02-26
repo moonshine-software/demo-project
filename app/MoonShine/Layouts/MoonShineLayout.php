@@ -42,31 +42,7 @@ final class MoonShineLayout extends AppLayout
 
     protected function menu(): array
     {
-        return [
-            MenuGroup::make(static fn () => __('moonshine::ui.resource.system'), [
-                MenuItem::make('Settings', SettingResource::class)->icon('adjustments-vertical'),
-                MenuItem::make(
-                    static fn () => __('moonshine::ui.resource.admins_title'),
-                    MoonShineUserResource::class
-                ),
-                MenuItem::make(
-                    static fn () => __('moonshine::ui.resource.role_title'),
-                    MoonShineUserRoleResource::class
-                ),
-            ])->icon('users'),
-
-            MenuItem::make('Users', UserResource::class)->icon('users'),
-
-            MenuGroup::make('Blog', [
-                MenuItem::make('Categories', CategoryResource::class, 'document'),
-                MenuItem::make('Articles', ArticleResource::class, 'newspaper'),
-                MenuItem::make('Comments', CommentResource::class, 'chat-bubble-left')
-                    ->badge(fn () => (string) Comment::query()->count()),
-            ], 'newspaper'),
-
-            MenuItem::make('Dictionary', DictionaryResource::class)->icon('document-duplicate'),
-
-        ];
+        return $this->autoloadMenu();
     }
 
     /**

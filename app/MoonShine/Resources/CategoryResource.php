@@ -8,16 +8,22 @@ use Leeto\MoonShineTree\Resources\TreeResource;
 use MoonShine\Laravel\Fields\Relationships\BelongsTo;
 use MoonShine\Laravel\Pages\Crud\DetailPage;
 use MoonShine\Laravel\Pages\Crud\FormPage;
+use MoonShine\MenuManager\Attributes\Group;
+use MoonShine\MenuManager\Attributes\Order;
+use MoonShine\Support\Attributes\Icon;
 use MoonShine\Support\Enums\PageType;
 use MoonShine\UI\Components\Layout\Box;
 use MoonShine\UI\Fields\ID;
 use MoonShine\UI\Fields\Text;
 
+#[Group('Blog', 'newspaper')]
+#[Icon('document')]
+#[Order(3)]
 class CategoryResource extends TreeResource
 {
     protected string $model = Category::class;
 
-    protected string $title = 'Category';
+    protected string $title = 'Categories';
 
     protected string $column = 'title';
 

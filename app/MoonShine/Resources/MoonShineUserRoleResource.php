@@ -8,6 +8,8 @@ use MoonShine\Contracts\UI\ComponentContract;
 use MoonShine\Contracts\UI\FieldContract;
 use MoonShine\Laravel\Models\MoonshineUserRole;
 use MoonShine\Laravel\Resources\ModelResource;
+use MoonShine\MenuManager\Attributes\Group;
+use MoonShine\MenuManager\Attributes\Order;
 use MoonShine\Support\Attributes\Icon;
 use MoonShine\Support\ListOf;
 use MoonShine\UI\Components\ActionButton;
@@ -18,6 +20,8 @@ use MoonShine\UI\Fields\ID;
 use MoonShine\UI\Fields\Text;
 
 #[Icon('bookmark')]
+#[Group('moonshine::ui.resource.system', 'users', translatable: true)]
+#[Order(1)]
 /**
  * @extends ModelResource<MoonshineUserRole>
  */

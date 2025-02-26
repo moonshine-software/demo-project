@@ -10,6 +10,8 @@ use MoonShine\Laravel\Enums\Action;
 use MoonShine\Laravel\Fields\Relationships\BelongsTo;
 use MoonShine\Laravel\Resources\ModelResource;
 use MoonShine\Laravel\Models\MoonshineUserRole;
+use MoonShine\MenuManager\Attributes\Group;
+use MoonShine\MenuManager\Attributes\Order;
 use MoonShine\Permissions\Models\MoonshineUser;
 use MoonShine\Permissions\Traits\WithPermissions;
 use MoonShine\Support\Attributes\Icon;
@@ -29,6 +31,8 @@ use MoonShine\UI\Fields\PasswordRepeat;
 use MoonShine\UI\Fields\Text;
 
 #[Icon('users')]
+#[Group('moonshine::ui.resource.system', 'users', translatable: true)]
+#[Order(1)]
 /**
  * @extends ModelResource<MoonshineUser>
  */
