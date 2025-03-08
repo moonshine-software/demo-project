@@ -13,6 +13,7 @@ use MoonShine\Contracts\UI\ComponentContract;
 use MoonShine\Contracts\UI\FieldContract;
 use MoonShine\ImportExport\Contracts\HasImportExportContract;
 use MoonShine\ImportExport\Traits\ImportExportConcern;
+use MoonShine\Laravel\Enums\Action;
 use MoonShine\Laravel\Fields\Relationships\BelongsTo;
 use MoonShine\Laravel\Fields\Relationships\BelongsToMany;
 use MoonShine\Laravel\Fields\Relationships\HasMany;
@@ -246,7 +247,10 @@ class ArticleResource extends ModelResource implements HasImportExportContract
                             ]),
 
                             Tab::make('Categories', [
-                                BelongsToMany::make('Categories')->tree('category_id'),
+                                BelongsToMany::make('Categories')
+                                    ->horizontalMode()
+                                    //->tree('category_id')
+                                ,
                             ]),
                         ]),
                     ]),

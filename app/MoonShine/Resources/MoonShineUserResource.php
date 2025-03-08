@@ -10,6 +10,7 @@ use MoonShine\Laravel\Enums\Action;
 use MoonShine\Laravel\Fields\Relationships\BelongsTo;
 use MoonShine\Laravel\Resources\ModelResource;
 use MoonShine\Laravel\Models\MoonshineUserRole;
+use MoonShine\MenuManager\Attributes\CanSee;
 use MoonShine\MenuManager\Attributes\Group;
 use MoonShine\MenuManager\Attributes\Order;
 use MoonShine\Permissions\Models\MoonshineUser;
@@ -17,6 +18,7 @@ use MoonShine\Permissions\Traits\WithPermissions;
 use MoonShine\Support\Attributes\Icon;
 use MoonShine\Support\Enums\Color;
 use MoonShine\Support\ListOf;
+use MoonShine\UI\Components\ActionButton;
 use MoonShine\UI\Components\Collapse;
 use MoonShine\UI\Components\Layout\Box;
 use MoonShine\UI\Components\Layout\Flex;
@@ -187,5 +189,12 @@ class MoonShineUserResource extends ModelResource
 
             Email::make('E-mail', 'email'),
         ];
+    }
+
+    protected function indexButtons(): ListOf
+    {
+        return parent::indexButtons()->prepend(
+            ActionButton::make('Go')->withConfirm(),
+        );
     }
 }

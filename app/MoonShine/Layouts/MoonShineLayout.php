@@ -12,6 +12,7 @@ use App\MoonShine\Resources\CommentResource;
 use App\MoonShine\Resources\DictionaryResource;
 use App\MoonShine\Resources\SettingResource;
 use App\MoonShine\Resources\UserResource;
+use MoonShine\Laravel\Components\Layout\Profile;
 use MoonShine\Laravel\Layouts\AppLayout;
 use MoonShine\Laravel\Layouts\CompactLayout;
 use MoonShine\ColorManager\ColorManager;
@@ -23,6 +24,7 @@ use MoonShine\UI\Components\{Components,
     Layout\Content,
     Layout\Html,
     Layout\Layout,
+    Layout\Logo,
     Layout\Menu,
     Layout\TopBar,
     Layout\Wrapper};
@@ -53,6 +55,11 @@ final class MoonShineLayout extends AppLayout
         parent::colors($colorManager);
 
         // $colorManager->primary('#00000');
+    }
+
+    protected function getLogoComponent(): Logo
+    {
+        return parent::getLogoComponent();
     }
 
     public function build(): Layout
