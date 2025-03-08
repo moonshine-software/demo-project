@@ -13,12 +13,13 @@
         "lee-to/moonshine-tree-resource": "^2.0",
         "moonshine/apexcharts": "^1.0",
         "moonshine/changelog": "^2.0",
-        "moonshine/import-export": "1.0.2",
+        "moonshine/import-export": "^1.0",
         "moonshine/moonshine": "^3.1",
         "moonshine/permissions": "^2.0",
         "moonshine/ru": "^1.0",
         "moonshine/tinymce": "^1.0",
-        "unisharp/laravel-filemanager": "^2.6"
+        "unisharp/laravel-filemanager": "^2.6",
+        "openspout/openspout": "<4.29"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.8",
