@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d3dc7b2c5ca4a459a81373060e055ddd",
+    "content-hash": "f3bdd86b61b247a034c0809846acad22",
     "packages": [
         {
             "name": "brick/math",
@@ -2603,16 +2603,16 @@
         },
         {
             "name": "moonshine/import-export",
-            "version": "1.0.3",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/moonshine-software/import-export.git",
-                "reference": "04ad167ede9cfb074798319e5798e5c90dde0527"
+                "reference": "d23bbf97c22dad93d4b94cf9a34a38b86f88afea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moonshine-software/import-export/zipball/04ad167ede9cfb074798319e5798e5c90dde0527",
-                "reference": "04ad167ede9cfb074798319e5798e5c90dde0527",
+                "url": "https://api.github.com/repos/moonshine-software/import-export/zipball/d23bbf97c22dad93d4b94cf9a34a38b86f88afea",
+                "reference": "d23bbf97c22dad93d4b94cf9a34a38b86f88afea",
                 "shasum": ""
             },
             "require": {
@@ -2658,7 +2658,7 @@
                 "issues": "https://github.com/moonshine-software/import-export/issues",
                 "source": "https://github.com/moonshine-software/import-export"
             },
-            "time": "2025-03-04T14:44:31+00:00"
+            "time": "2025-01-10T13:29:56+00:00"
         },
         {
             "name": "moonshine/moonshine",
