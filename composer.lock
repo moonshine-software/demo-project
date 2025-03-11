@@ -2156,25 +2156,25 @@
         },
         {
             "name": "lee-to/fast-attributes",
-            "version": "0.2.0",
+            "version": "0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lee-to/fast-attributes.git",
-                "reference": "54bd81eda105de7cd326f8ea87f43f947ce04f0c"
+                "reference": "fb0514bc370b84e3d13bc8339d96439216b15e56"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lee-to/fast-attributes/zipball/54bd81eda105de7cd326f8ea87f43f947ce04f0c",
-                "reference": "54bd81eda105de7cd326f8ea87f43f947ce04f0c",
+                "url": "https://api.github.com/repos/lee-to/fast-attributes/zipball/fb0514bc370b84e3d13bc8339d96439216b15e56",
+                "reference": "fb0514bc370b84e3d13bc8339d96439216b15e56",
                 "shasum": ""
             },
             "require": {
-                "php": "^8.0|^8.1|^8.2"
+                "php": "^8.0|^8.1|^8.2|^8.3|^8.4"
             },
             "require-dev": {
-                "phpstan/phpstan": "^1.10",
-                "phpunit/phpunit": "^10.0",
-                "rector/rector": "^1.0"
+                "phpstan/phpstan": "^2.0",
+                "phpunit/phpunit": "^12.0",
+                "rector/rector": "^2.0"
             },
             "type": "library",
             "autoload": {
@@ -2203,7 +2203,7 @@
                 "issues": "https://github.com/lee-to/fast-attributes/issues",
                 "source": "https://github.com/lee-to/fast-attributes"
             },
-            "time": "2024-11-27T08:09:54+00:00"
+            "time": "2025-02-28T15:13:13+00:00"
         },
         {
             "name": "lee-to/laravel-package-command",
@@ -2603,21 +2603,22 @@
         },
         {
             "name": "moonshine/import-export",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/moonshine-software/import-export.git",
-                "reference": "04ad167ede9cfb074798319e5798e5c90dde0527"
+                "reference": "9f8d900ea68e6b3bd4a73b836575e0ee715dce9d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moonshine-software/import-export/zipball/04ad167ede9cfb074798319e5798e5c90dde0527",
-                "reference": "04ad167ede9cfb074798319e5798e5c90dde0527",
+                "url": "https://api.github.com/repos/moonshine-software/import-export/zipball/9f8d900ea68e6b3bd4a73b836575e0ee715dce9d",
+                "reference": "9f8d900ea68e6b3bd4a73b836575e0ee715dce9d",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
                 "ext-json": "*",
+                "openspout/openspout": "<4.29",
                 "php": "^8.2|^8.3",
                 "rap2hpoutre/fast-excel": "^5.4"
             },
@@ -2658,20 +2659,20 @@
                 "issues": "https://github.com/moonshine-software/import-export/issues",
                 "source": "https://github.com/moonshine-software/import-export"
             },
-            "time": "2025-03-04T14:44:31+00:00"
+            "time": "2025-03-08T18:19:55+00:00"
         },
         {
             "name": "moonshine/moonshine",
-            "version": "3.7.7",
+            "version": "3.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/moonshine-software/moonshine.git",
-                "reference": "c814ff43924c0543f1680f480aee4951fe2c740b"
+                "reference": "99af096bd7b31bf8c7c9db158f132c0dc7327c2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moonshine-software/moonshine/zipball/c814ff43924c0543f1680f480aee4951fe2c740b",
-                "reference": "c814ff43924c0543f1680f480aee4951fe2c740b",
+                "url": "https://api.github.com/repos/moonshine-software/moonshine/zipball/99af096bd7b31bf8c7c9db158f132c0dc7327c2d",
+                "reference": "99af096bd7b31bf8c7c9db158f132c0dc7327c2d",
                 "shasum": ""
             },
             "require": {
@@ -2680,7 +2681,7 @@
                 "illuminate/contracts": "^10|^11|^12",
                 "illuminate/support": "^10|^11|^12",
                 "illuminate/view": "^10|^11|^12",
-                "lee-to/fast-attributes": "^0.2",
+                "lee-to/fast-attributes": "^0.3.0",
                 "lee-to/laravel-package-command": "^0.9",
                 "nyholm/psr7": "^1.8",
                 "php": "^8.2",
@@ -2765,7 +2766,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2025-03-06T07:09:10+00:00"
+            "time": "2025-03-11T07:05:28+00:00"
         },
         {
             "name": "moonshine/permissions",
@@ -7393,16 +7394,16 @@
         },
         {
             "name": "laravel/pint",
-            "version": "v1.21.0",
+            "version": "v1.21.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/pint.git",
-                "reference": "531fa0871fbde719c51b12afa3a443b8f4e4b425"
+                "reference": "c44bffbb2334e90fba560933c45948fa4a3f3e86"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/pint/zipball/531fa0871fbde719c51b12afa3a443b8f4e4b425",
-                "reference": "531fa0871fbde719c51b12afa3a443b8f4e4b425",
+                "url": "https://api.github.com/repos/laravel/pint/zipball/c44bffbb2334e90fba560933c45948fa4a3f3e86",
+                "reference": "c44bffbb2334e90fba560933c45948fa4a3f3e86",
                 "shasum": ""
             },
             "require": {
@@ -7413,9 +7414,9 @@
                 "php": "^8.2.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.68.5",
-                "illuminate/view": "^11.42.0",
-                "larastan/larastan": "^3.0.4",
+                "friendsofphp/php-cs-fixer": "^3.70.2",
+                "illuminate/view": "^11.44.1",
+                "larastan/larastan": "^3.1.0",
                 "laravel-zero/framework": "^11.36.1",
                 "mockery/mockery": "^1.6.12",
                 "nunomaduro/termwind": "^2.3",
@@ -7455,7 +7456,7 @@
                 "issues": "https://github.com/laravel/pint/issues",
                 "source": "https://github.com/laravel/pint"
             },
-            "time": "2025-02-18T03:18:57+00:00"
+            "time": "2025-03-11T03:22:21+00:00"
         },
         {
             "name": "laravel/sail",
