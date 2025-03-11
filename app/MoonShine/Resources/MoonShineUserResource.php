@@ -190,11 +190,4 @@ class MoonShineUserResource extends ModelResource
             Email::make('E-mail', 'email'),
         ];
     }
-
-    protected function indexButtons(): ListOf
-    {
-        return parent::indexButtons()->prepend(
-            ActionButton::make('Go')->withConfirm(),
-        );
-    }
 }
