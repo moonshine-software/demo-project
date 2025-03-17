@@ -25,6 +25,7 @@ use MoonShine\MenuManager\Attributes\Group;
 use MoonShine\MenuManager\Attributes\Order;
 use MoonShine\Support\AlpineJs;
 use MoonShine\Support\Attributes\Icon;
+use MoonShine\Support\Enums\ClickAction;
 use MoonShine\Support\Enums\JsEvent;
 use MoonShine\Support\Enums\PageType;
 use MoonShine\Support\ListOf;
@@ -74,6 +75,8 @@ class ArticleResource extends ModelResource implements HasImportExportContract
     protected bool $columnSelection = true;
 
     protected bool $stickyButtons = true;
+
+    protected ?ClickAction $clickAction = ClickAction::EDIT;
 
     public array $with = [
         'author',

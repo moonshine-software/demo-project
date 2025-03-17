@@ -12,6 +12,7 @@ use App\MoonShine\Resources\CommentResource;
 use App\MoonShine\Resources\DictionaryResource;
 use App\MoonShine\Resources\SettingResource;
 use App\MoonShine\Resources\UserResource;
+use MoonShine\AssetManager\InlineCss;
 use MoonShine\Laravel\Components\Layout\Profile;
 use MoonShine\Laravel\Layouts\AppLayout;
 use MoonShine\Laravel\Layouts\CompactLayout;
@@ -33,12 +34,25 @@ use MoonShine\Laravel\Resources\MoonShineUserRoleResource;
 use MoonShine\MenuManager\MenuGroup;
 use MoonShine\MenuManager\MenuItem;
 
-final class MoonShineLayout extends AppLayout
+final class MoonShineLayout extends CompactLayout
 {
     protected function assets(): array
     {
         return [
             ...parent::assets(),
+            InlineCss::make(<<<'Style'
+            :root {
+              --radius: 0.1rem;
+              --radius-sm: 0.075rem;
+              --radius-md: 0.175rem;
+              --radius-lg: 0.25rem;
+              --radius-xl: 0.3rem;
+              --radius-2xl: 0.4rem;
+              --radius-3xl: 0.6rem;
+              --radius-full: 9999px;
+            }
+        Style
+            ),
         ];
     }
 
