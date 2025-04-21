@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "025c04b27863a8da8ba34ac02e698952",
+    "content-hash": "650e32948c0ae2abd70b41cc9e171a8e",
     "packages": [
         {
             "name": "brick/math",
@@ -1605,16 +1605,16 @@
         },
         {
             "name": "league/commonmark",
-            "version": "2.6.1",
+            "version": "2.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "d990688c91cedfb69753ffc2512727ec646df2ad"
+                "reference": "06c3b0bf2540338094575612f4a1778d0d2d5e94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/d990688c91cedfb69753ffc2512727ec646df2ad",
-                "reference": "d990688c91cedfb69753ffc2512727ec646df2ad",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/06c3b0bf2540338094575612f4a1778d0d2d5e94",
+                "reference": "06c3b0bf2540338094575612f4a1778d0d2d5e94",
                 "shasum": ""
             },
             "require": {
@@ -1708,7 +1708,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-12-29T14:10:59+00:00"
+            "time": "2025-04-18T21:09:27+00:00"
         },
         {
             "name": "league/config",
@@ -2726,28 +2726,30 @@
         },
         {
             "name": "moonshine/moonshine",
-            "version": "3.10.0",
+            "version": "3.11.0-rc1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/moonshine-software/moonshine.git",
-                "reference": "90d88076284de2084c0c0bed66b8244c99613231"
+                "reference": "3ba072a5c48b46b7a133c01dbf29566d695accf9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moonshine-software/moonshine/zipball/90d88076284de2084c0c0bed66b8244c99613231",
-                "reference": "90d88076284de2084c0c0bed66b8244c99613231",
+                "url": "https://api.github.com/repos/moonshine-software/moonshine/zipball/3ba072a5c48b46b7a133c01dbf29566d695accf9",
+                "reference": "3ba072a5c48b46b7a133c01dbf29566d695accf9",
                 "shasum": ""
             },
             "require": {
-                "ext-curl": "*",
                 "ext-json": "*",
                 "illuminate/contracts": "^10|^11|^12",
+                "illuminate/filesystem": "^10|^11|^12",
                 "illuminate/support": "^10|^11|^12",
                 "illuminate/view": "^10|^11|^12",
-                "lee-to/fast-attributes": "^0.3.0",
+                "lee-to/fast-attributes": "^0.3",
                 "lee-to/laravel-package-command": "^0.9",
                 "nyholm/psr7": "^1.8",
                 "php": "^8.2",
+                "psr/container": "^2.0",
+                "psr/http-message": "^2.0",
                 "symfony/psr-http-message-bridge": "^7.2"
             },
             "replace": {
@@ -2763,7 +2765,7 @@
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^3.68",
                 "larastan/larastan": "^3.0",
-                "moonshine/import-export": "^1",
+                "moonshine/import-export": "^1.0",
                 "orchestra/testbench": "^9.9",
                 "pestphp/pest": "^3",
                 "pestphp/pest-plugin-laravel": "^3",
@@ -2829,7 +2831,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2025-04-09T07:45:08+00:00"
+            "time": "2025-04-21T08:47:58+00:00"
         },
         {
             "name": "moonshine/permissions",
@@ -2960,16 +2962,16 @@
         },
         {
             "name": "moonshine/tinymce",
-            "version": "1.0.6",
+            "version": "1.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/moonshine-software/tinymce.git",
-                "reference": "e7f23d52976a65f23941ac3a62ddc34636a73eac"
+                "reference": "cf0f933bc0d4fbedaaf28f60b937b68890aa968f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moonshine-software/tinymce/zipball/e7f23d52976a65f23941ac3a62ddc34636a73eac",
-                "reference": "e7f23d52976a65f23941ac3a62ddc34636a73eac",
+                "url": "https://api.github.com/repos/moonshine-software/tinymce/zipball/cf0f933bc0d4fbedaaf28f60b937b68890aa968f",
+                "reference": "cf0f933bc0d4fbedaaf28f60b937b68890aa968f",
                 "shasum": ""
             },
             "require": {
@@ -3020,7 +3022,7 @@
                 "issues": "https://github.com/moonshine-software/tinymce/issues",
                 "source": "https://github.com/moonshine-software/tinymce"
             },
-            "time": "2025-01-14T09:00:43+00:00"
+            "time": "2025-04-10T10:29:08+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -7106,16 +7108,16 @@
     "packages-dev": [
         {
             "name": "barryvdh/laravel-debugbar",
-            "version": "v3.15.3",
+            "version": "v3.15.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/barryvdh/laravel-debugbar.git",
-                "reference": "4ccab20844d18c5af08b68d310e7151a791c3037"
+                "reference": "c0667ea91f7185f1e074402c5788195e96bf8106"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/4ccab20844d18c5af08b68d310e7151a791c3037",
-                "reference": "4ccab20844d18c5af08b68d310e7151a791c3037",
+                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/c0667ea91f7185f1e074402c5788195e96bf8106",
+                "reference": "c0667ea91f7185f1e074402c5788195e96bf8106",
                 "shasum": ""
             },
             "require": {
@@ -7175,7 +7177,7 @@
             ],
             "support": {
                 "issues": "https://github.com/barryvdh/laravel-debugbar/issues",
-                "source": "https://github.com/barryvdh/laravel-debugbar/tree/v3.15.3"
+                "source": "https://github.com/barryvdh/laravel-debugbar/tree/v3.15.4"
             },
             "funding": [
                 {
@@ -7187,7 +7189,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-04-08T15:11:06+00:00"
+            "time": "2025-04-16T06:32:06+00:00"
         },
         {
             "name": "fakerphp/faker",

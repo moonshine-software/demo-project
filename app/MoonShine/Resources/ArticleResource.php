@@ -7,6 +7,7 @@ use App\Models\Comment;
 use Closure;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use MoonShine\Contracts\Core\TypeCasts\DataWrapperContract;
 use MoonShine\Contracts\UI\ActionButtonContract;
 use MoonShine\Contracts\UI\ComponentContract;
@@ -19,6 +20,8 @@ use MoonShine\Laravel\Fields\Relationships\BelongsToMany;
 use MoonShine\Laravel\Fields\Relationships\HasMany;
 use MoonShine\Laravel\Fields\Relationships\HasOne;
 use MoonShine\Laravel\Fields\Slug;
+use MoonShine\Laravel\Http\Responses\MoonShineJsonResponse;
+use MoonShine\Laravel\MoonShineRequest;
 use MoonShine\Laravel\QueryTags\QueryTag;
 use MoonShine\Laravel\Resources\ModelResource;
 use MoonShine\MenuManager\Attributes\Group;
@@ -26,17 +29,20 @@ use MoonShine\MenuManager\Attributes\Order;
 use MoonShine\Support\AlpineJs;
 use MoonShine\Support\Attributes\Icon;
 use MoonShine\Support\Enums\ClickAction;
+use MoonShine\Support\Enums\HttpMethod;
 use MoonShine\Support\Enums\JsEvent;
 use MoonShine\Support\Enums\PageType;
 use MoonShine\Support\ListOf;
 use MoonShine\TinyMce\Fields\TinyMce;
 use MoonShine\UI\Components\ActionButton;
+use MoonShine\UI\Components\CardsBuilder;
 use MoonShine\UI\Components\Collapse;
 use MoonShine\UI\Components\FlexibleRender;
 use MoonShine\UI\Components\FormBuilder;
 use MoonShine\UI\Components\Heading;
 use MoonShine\UI\Components\Layout\Box;
 use MoonShine\UI\Components\Layout\Column;
+use MoonShine\UI\Components\Layout\Div;
 use MoonShine\UI\Components\Layout\Flex;
 use MoonShine\UI\Components\Layout\Grid;
 use MoonShine\UI\Components\Layout\LineBreak;
@@ -45,6 +51,7 @@ use MoonShine\UI\Components\Table\TableBuilder;
 use MoonShine\UI\Components\Tabs;
 use MoonShine\UI\Components\Tabs\Tab;
 use MoonShine\UI\Fields\Color;
+use MoonShine\UI\Fields\Fieldset;
 use MoonShine\UI\Fields\HiddenIds;
 use MoonShine\UI\Fields\ID;
 use MoonShine\UI\Fields\Image;
@@ -52,6 +59,7 @@ use MoonShine\UI\Fields\Json;
 use MoonShine\UI\Fields\Number;
 use MoonShine\UI\Fields\Preview;
 use MoonShine\UI\Fields\RangeSlider;
+use MoonShine\UI\Fields\Select;
 use MoonShine\UI\Fields\StackFields;
 use MoonShine\UI\Fields\Switcher;
 use MoonShine\UI\Fields\Text;
@@ -84,6 +92,8 @@ class ArticleResource extends ModelResource implements HasImportExportContract
 
     public string $column = 'title';
 
+    protected int $itemsPerPage = 26;
+
     protected function exportFields(): iterable
     {
         return [
@@ -102,9 +112,130 @@ class ArticleResource extends ModelResource implements HasImportExportContract
         ];
     }
 
-    public function indexFields(): iterable
+    private function isListView(): bool
+    {
+        return session()?->get('view') === null || session()?->get('view') === 'list';
+    }
+
+    private function perPageValues(): array
     {
         return [
+            6 => 6,
+            12 => 12,
+            26 => 26,
+        ];
+    }
+
+    protected function getItemsPerPage(): int
+    {
+        $default = $this->itemsPerPage;
+        $value = (int) (session()?->get('perPage') ?? $default);
+
+        if(!in_array($value, $this->perPageValues())) {
+            return $default;
+        }
+
+        return $value;
+    }
+
+    public function changeListingComponentState(MoonShineRequest $request): MoonShineJsonResponse
+    {
+        if(in_array($request->input('state'), ['perPage', 'view'])) {
+            session()?->put($request->input('state'), $request->input('value'));
+            session()?->put($request->input('state'), $request->get('value'));
+        }
+
+        return MoonShineJsonResponse::make()
+            ->redirect($this->getIndexPageUrl())
+            /*->events([
+                AlpineJs::event(
+                    JsEvent::TABLE_UPDATED,
+                    $this->getListComponentName()
+                ),
+
+                AlpineJs::event(
+                    JsEvent::CARDS_UPDATED,
+                    $this->getListComponentName()
+                ),
+            ])*/
+        ;
+    }
+
+    public function getListEventName(?string $name = null, array $params = []): string
+    {
+        $name ??= $this->getListComponentName();
+
+        return AlpineJs::event(
+            $this->isListView()
+                ? JsEvent::TABLE_UPDATED
+                : JsEvent::CARDS_UPDATED,
+            $name,
+            $params
+        );
+    }
+
+    /**
+     * @param  TableBuilder  $component
+     *
+     */
+    public function modifyListComponent(ComponentContract $component): ComponentContract
+    {
+        if(!$this->isListView()) {
+            $component = CardsBuilder::make()
+                ->componentAttributes([
+                    'style' => 'margin-top: 5px',
+                ])
+                ->thumbnail(
+                    fn(Article $article) => $article->thumbnail
+                        ? Storage::disk('public')->url($article->thumbnail)
+                        : asset('images/template.jpg')
+                )
+                ->fields($component->getFields())
+                ->name($this->getListComponentName())
+                ->async()
+                ->cast($this->getCaster())
+                ->items($component->getOriginalItems())
+                ->buttons($this->getIndexButtons())
+            ;
+        }
+
+        return $component
+            ->topLeft(function (): array {
+                return [];
+            })
+            ->topRight(function (): array {
+                return [
+                    Div::make([
+                        Select::make('Per page')
+                            ->onChangeMethod('changeListingComponentState', ['state' => 'perPage'])
+                            ->options($this->perPageValues())
+                            ->withoutWrapper()
+                            ->native()
+                            ->setValue($this->getItemsPerPage()),
+                    ])->customAttributes([
+                        'style' => 'width: 70px;',
+                    ]),
+
+                    Div::make([
+                        ActionButton::make('')
+                            ->method('changeListingComponentState', ['state' => 'view', 'value' => 'list'])
+                            ->icon('list-bullet')
+                            ->withoutLoading()
+                            ->primary($this->isListView()),
+
+                        ActionButton::make('')
+                            ->method('changeListingComponentState', ['state' => 'view', 'value' => 'cards'])
+                            ->icon('rectangle-group')
+                            ->withoutLoading()
+                            ->primary(!$this->isListView()),
+                    ]),
+                ];
+            });
+    }
+
+    public function indexFields(): iterable
+    {
+        return array_filter([
             ID::make()->sortable(),
 
             BelongsTo::make('Author', resource: MoonShineUserResource::class),
@@ -113,11 +244,12 @@ class ArticleResource extends ModelResource implements HasImportExportContract
 
             Text::make('Title'),
 
-            StackFields::make('Files')->fields([
-                Image::make('Thumbnail')
-                    ->disk('public')
-                    ->dir('articles'),
-            ]),
+            $this->isListView() ?
+                Fieldset::make('Files', [
+                    Image::make('Thumbnail')
+                        ->disk('public')
+                        ->dir('articles'),
+                ]) : null,
 
             RangeSlider::make('Age')->fromTo('age_from', 'age_to'),
 
@@ -132,13 +264,8 @@ class ArticleResource extends ModelResource implements HasImportExportContract
 
             Color::make('Color'),
 
-            Json::make('Data')->fields([
-                Text::make('Title'),
-                Text::make('Value'),
-            ]),
-
             Switcher::make('Active'),
-        ];
+        ]);
     }
 
     public function formFields(): iterable
@@ -185,7 +312,7 @@ class ArticleResource extends ModelResource implements HasImportExportContract
                                 ->itemsAlign('start'),
                         ]),
 
-                        StackFields::make('Files')->fields([
+                        Fieldset::make('Files', [
                             Image::make('Thumbnail')
                                 ->removable()
                                 ->disk('public')
@@ -275,6 +402,38 @@ class ArticleResource extends ModelResource implements HasImportExportContract
     protected function detailFields(): iterable
     {
         return $this->indexFields();
+    }
+
+    protected function modifyDeleteButton(ActionButtonContract $button): ActionButtonContract
+    {
+        return $button->withConfirm(
+            method: HttpMethod::DELETE,
+            formBuilder: fn(FormBuilder $form, Article $item) => $form
+                ->async(
+                    events: [
+                        $this->isListView()
+                        ?
+                        AlpineJs::event(
+                            JsEvent::TABLE_ROW_UPDATED,
+                            $this->getListComponentNameWithRow($item->getKey()),
+                            array_filter([
+                                'page' => request()->getScalar('page'),
+                                'sort' => request()->getScalar('sort'),
+                            ])
+                        )
+                        : $this->getListEventName(
+                            $this->getListComponentName(),
+                            array_filter([
+                                'page' => request()->getScalar('page'),
+                                'sort' => request()->getScalar('sort'),
+                            ])
+                        )
+                    ]
+                )
+                ->submit(
+                    button: ActionButton::make(__('moonshine::ui.confirm'))->error()->hotKeys(['shift', 'd'], true)
+                )
+        );
     }
 
     /** @param TableBuilder $component */
