@@ -145,20 +145,22 @@ class ArticleResource extends ModelResource implements HasImportExportContract
             session()?->put($request->input('state'), $request->get('value'));
         }
 
-        return MoonShineJsonResponse::make()
-            ->redirect($this->getIndexPageUrl())
-            /*->events([
-                AlpineJs::event(
-                    JsEvent::TABLE_UPDATED,
-                    $this->getListComponentName()
-                ),
+        if($request->input('state') === 'perPage') {
+            return MoonShineJsonResponse::make()
+                ->events([
+                    AlpineJs::event(
+                        JsEvent::TABLE_UPDATED,
+                        $this->getListComponentName()
+                    ),
 
-                AlpineJs::event(
-                    JsEvent::CARDS_UPDATED,
-                    $this->getListComponentName()
-                ),
-            ])*/
-        ;
+                    AlpineJs::event(
+                        JsEvent::CARDS_UPDATED,
+                        $this->getListComponentName()
+                    ),
+                ]);
+        }
+
+        return MoonShineJsonResponse::make()->redirect($this->getIndexPageUrl());
     }
 
     public function getListEventName(?string $name = null, array $params = []): string
