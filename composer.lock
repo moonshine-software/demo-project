@@ -1605,16 +1605,16 @@
         },
         {
             "name": "league/commonmark",
-            "version": "2.6.2",
+            "version": "2.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "06c3b0bf2540338094575612f4a1778d0d2d5e94"
+                "reference": "6fbb36d44824ed4091adbcf4c7d4a3923cdb3405"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/06c3b0bf2540338094575612f4a1778d0d2d5e94",
-                "reference": "06c3b0bf2540338094575612f4a1778d0d2d5e94",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/6fbb36d44824ed4091adbcf4c7d4a3923cdb3405",
+                "reference": "6fbb36d44824ed4091adbcf4c7d4a3923cdb3405",
                 "shasum": ""
             },
             "require": {
@@ -1651,7 +1651,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "2.7-dev"
+                    "dev-main": "2.8-dev"
                 }
             },
             "autoload": {
@@ -1708,7 +1708,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-04-18T21:09:27+00:00"
+            "time": "2025-05-05T12:20:28+00:00"
         },
         {
             "name": "league/config",
@@ -2313,16 +2313,16 @@
         },
         {
             "name": "lee-to/moonshine-tree-resource",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lee-to/moonshine-tree-resource.git",
-                "reference": "f3295d64ed63065f8082aa347505500abe856b96"
+                "reference": "ac3784993c4b8170e10b1f83421ae838093a7854"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lee-to/moonshine-tree-resource/zipball/f3295d64ed63065f8082aa347505500abe856b96",
-                "reference": "f3295d64ed63065f8082aa347505500abe856b96",
+                "url": "https://api.github.com/repos/lee-to/moonshine-tree-resource/zipball/ac3784993c4b8170e10b1f83421ae838093a7854",
+                "reference": "ac3784993c4b8170e10b1f83421ae838093a7854",
                 "shasum": ""
             },
             "require": {
@@ -2366,7 +2366,7 @@
                 "issues": "https://github.com/lee-to/moonshine-tree-resource/issues",
                 "source": "https://github.com/lee-to/moonshine-tree-resource"
             },
-            "time": "2024-10-19T20:59:12+00:00"
+            "time": "2025-05-06T07:34:30+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -2726,16 +2726,16 @@
         },
         {
             "name": "moonshine/moonshine",
-            "version": "3.12.0",
+            "version": "3.12.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/moonshine-software/moonshine.git",
-                "reference": "f76e2707db26d87c3032440e8c19cdbc87e2f4bc"
+                "reference": "959e99397fbd3c681cb27afdddcd7fa338248b03"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moonshine-software/moonshine/zipball/f76e2707db26d87c3032440e8c19cdbc87e2f4bc",
-                "reference": "f76e2707db26d87c3032440e8c19cdbc87e2f4bc",
+                "url": "https://api.github.com/repos/moonshine-software/moonshine/zipball/959e99397fbd3c681cb27afdddcd7fa338248b03",
+                "reference": "959e99397fbd3c681cb27afdddcd7fa338248b03",
                 "shasum": ""
             },
             "require": {
@@ -2831,7 +2831,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2025-05-05T07:57:30+00:00"
+            "time": "2025-05-06T08:57:05+00:00"
         },
         {
             "name": "moonshine/permissions",
@@ -9549,12 +9549,12 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {},
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": {},
+    "platform-dev": [],
     "plugin-api-version": "2.6.0"
 }
