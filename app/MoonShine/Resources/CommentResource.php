@@ -23,7 +23,7 @@ class CommentResource extends ModelResource
 
     protected array $with = ['user', 'article'];
 
-    public function indexFields(): iterable
+    protected function indexFields(): iterable
     {
         return [
             ID::make()->sortable(),
@@ -33,7 +33,7 @@ class CommentResource extends ModelResource
         ];
     }
 
-	public function formFields(): array
+    protected function formFields(): array
 	{
 		return [
             Box::make([
@@ -42,21 +42,24 @@ class CommentResource extends ModelResource
         ];
 	}
 
-    public function detailFields(): iterable
+    protected function detailFields(): iterable
     {
         return [
             ...$this->indexFields()
         ];
     }
 
-	public function rules(mixed $item): array
+    /**
+     * @param  Comment  $item
+     */
+    protected function rules(mixed $item): array
 	{
 	    return [
             'text' => ['required', 'string', 'min:1'],
         ];
     }
 
-    public function search(): array
+    protected function search(): array
     {
         return ['id', 'text'];
     }

@@ -4,6 +4,9 @@ namespace App\MoonShine\Resources;
 
 use App\Models\Article;
 use App\Models\Comment;
+use App\MoonShine\Pages\Article\ArticleDetailPage;
+use App\MoonShine\Pages\Article\ArticleFormPage;
+use App\MoonShine\Pages\Article\ArticleIndexPage;
 use Closure;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -14,11 +17,8 @@ use MoonShine\Contracts\UI\ComponentContract;
 use MoonShine\Contracts\UI\FieldContract;
 use MoonShine\ImportExport\Contracts\HasImportExportContract;
 use MoonShine\ImportExport\Traits\ImportExportConcern;
-use MoonShine\Laravel\Enums\Action;
 use MoonShine\Laravel\Fields\Relationships\BelongsTo;
 use MoonShine\Laravel\Fields\Relationships\BelongsToMany;
-use MoonShine\Laravel\Fields\Relationships\HasMany;
-use MoonShine\Laravel\Fields\Relationships\HasOne;
 use MoonShine\Laravel\Fields\Slug;
 use MoonShine\Laravel\Http\Responses\MoonShineJsonResponse;
 use MoonShine\Laravel\MoonShineRequest;
@@ -31,39 +31,20 @@ use MoonShine\Support\Attributes\Icon;
 use MoonShine\Support\Enums\ClickAction;
 use MoonShine\Support\Enums\HttpMethod;
 use MoonShine\Support\Enums\JsEvent;
-use MoonShine\Support\Enums\PageType;
 use MoonShine\Support\ListOf;
-use MoonShine\TinyMce\Fields\TinyMce;
 use MoonShine\UI\Components\ActionButton;
 use MoonShine\UI\Components\CardsBuilder;
-use MoonShine\UI\Components\Collapse;
 use MoonShine\UI\Components\FlexibleRender;
 use MoonShine\UI\Components\FormBuilder;
-use MoonShine\UI\Components\Heading;
-use MoonShine\UI\Components\Layout\Box;
 use MoonShine\UI\Components\Layout\Column;
 use MoonShine\UI\Components\Layout\Div;
-use MoonShine\UI\Components\Layout\Flex;
-use MoonShine\UI\Components\Layout\Grid;
-use MoonShine\UI\Components\Layout\LineBreak;
 use MoonShine\UI\Components\Metrics\Wrapped\ValueMetric;
 use MoonShine\UI\Components\Table\TableBuilder;
-use MoonShine\UI\Components\Tabs;
-use MoonShine\UI\Components\Tabs\Tab;
-use MoonShine\UI\Fields\Color;
-use MoonShine\UI\Fields\Fieldset;
 use MoonShine\UI\Fields\HiddenIds;
 use MoonShine\UI\Fields\ID;
-use MoonShine\UI\Fields\Image;
-use MoonShine\UI\Fields\Json;
-use MoonShine\UI\Fields\Number;
-use MoonShine\UI\Fields\Preview;
-use MoonShine\UI\Fields\RangeSlider;
 use MoonShine\UI\Fields\Select;
-use MoonShine\UI\Fields\StackFields;
 use MoonShine\UI\Fields\Switcher;
 use MoonShine\UI\Fields\Text;
-use MoonShine\UI\Fields\Url;
 
 #[Group('Blog', 'newspaper')]
 #[Icon('newspaper')]
@@ -94,6 +75,15 @@ class ArticleResource extends ModelResource implements HasImportExportContract
 
     protected int $itemsPerPage = 26;
 
+    protected function pages(): array
+    {
+        return [
+            ArticleIndexPage::class,
+            ArticleFormPage::class,
+            ArticleDetailPage::class,
+        ];
+    }
+
     protected function exportFields(): iterable
     {
         return [
@@ -105,14 +95,10 @@ class ArticleResource extends ModelResource implements HasImportExportContract
 
     protected function importFields(): iterable
     {
-        return [
-            ID::make(),
-            Text::make('Title'),
-            Slug::make('Slug'),
-        ];
+        return $this->exportFields();
     }
 
-    private function isListView(): bool
+    public function isListView(): bool
     {
         return session()?->get('view') === null || session()?->get('view') === 'list';
     }
@@ -129,9 +115,9 @@ class ArticleResource extends ModelResource implements HasImportExportContract
     protected function getItemsPerPage(): int
     {
         $default = $this->itemsPerPage;
-        $value = (int) (session()?->get('perPage') ?? $default);
+        $value = (int)(session()?->get('perPage') ?? $default);
 
-        if(!in_array($value, $this->perPageValues())) {
+        if (! in_array($value, $this->perPageValues())) {
             return $default;
         }
 
@@ -140,22 +126,22 @@ class ArticleResource extends ModelResource implements HasImportExportContract
 
     public function changeListingComponentState(MoonShineRequest $request): MoonShineJsonResponse
     {
-        if(in_array($request->input('state'), ['perPage', 'view'])) {
+        if (in_array($request->input('state'), ['perPage', 'view'])) {
             session()?->put($request->input('state'), $request->input('value'));
             session()?->put($request->input('state'), $request->get('value'));
         }
 
-        if($request->input('state') === 'perPage') {
+        if ($request->input('state') === 'perPage') {
             return MoonShineJsonResponse::make()
                 ->events([
                     AlpineJs::event(
                         JsEvent::TABLE_UPDATED,
-                        $this->getListComponentName()
+                        $this->getListComponentName(),
                     ),
 
                     AlpineJs::event(
                         JsEvent::CARDS_UPDATED,
-                        $this->getListComponentName()
+                        $this->getListComponentName(),
                     ),
                 ]);
         }
@@ -172,7 +158,7 @@ class ArticleResource extends ModelResource implements HasImportExportContract
                 ? JsEvent::TABLE_UPDATED
                 : JsEvent::CARDS_UPDATED,
             $name,
-            $params
+            $params,
         );
     }
 
@@ -182,23 +168,23 @@ class ArticleResource extends ModelResource implements HasImportExportContract
      */
     public function modifyListComponent(ComponentContract $component): ComponentContract
     {
-        if(!$this->isListView()) {
+        if (! $this->isListView()) {
             $component = CardsBuilder::make()
                 ->componentAttributes([
                     'style' => 'margin-top: 5px',
                 ])
                 ->thumbnail(
-                    fn(Article $article) => $article->thumbnail
+                    fn(Article $article)
+                        => $article->thumbnail
                         ? Storage::disk('public')->url($article->thumbnail)
-                        : asset('images/template.jpg')
+                        : asset('images/template.jpg'),
                 )
                 ->fields($component->getFields())
                 ->name($this->getListComponentName())
                 ->async()
                 ->cast($this->getCaster())
                 ->items($component->getOriginalItems())
-                ->buttons($this->getIndexButtons())
-            ;
+                ->buttons($this->getIndexButtons());
         }
 
         return $component
@@ -229,216 +215,46 @@ class ArticleResource extends ModelResource implements HasImportExportContract
                             ->method('changeListingComponentState', ['state' => 'view', 'value' => 'cards'])
                             ->icon('rectangle-group')
                             ->withoutLoading()
-                            ->primary(!$this->isListView()),
+                            ->primary(! $this->isListView()),
                     ]),
                 ];
             });
-    }
-
-    public function indexFields(): iterable
-    {
-        return array_filter([
-            ID::make()->sortable(),
-
-            BelongsTo::make('Author', resource: MoonShineUserResource::class),
-
-            Number::make('Comments', 'comments_count'),
-
-            Text::make('Title'),
-
-            $this->isListView() ?
-                Fieldset::make('Files', [
-                    Image::make('Thumbnail')
-                        ->disk('public')
-                        ->dir('articles'),
-                ]) : null,
-
-            RangeSlider::make('Age')->fromTo('age_from', 'age_to'),
-
-            Number::make('Rating')
-                ->link('https://cutcode.dev', 'CutCode', blank: true)
-                ->stars(),
-
-            Url::make('Link')
-                ->link('https://cutcode.dev', 'CutCode', blank: true)
-                ->customWrapperAttributes(['style' => 'white-space: normal;'])
-            ,
-
-            Color::make('Color'),
-
-            Switcher::make('Active'),
-        ]);
-    }
-
-    public function formFields(): iterable
-    {
-        return [
-            ID::make(),
-
-            Grid::make([
-                Column::make([
-                    Box::make('Main information', [
-                        ActionButton::make(
-                            'Link to article',
-                            $this->getItem()?->getKey() ? route('articles.show', $this->getItem()) : '/',
-                        )
-                            ->icon('paper-clip')
-                            ->blank(),
-
-                        LineBreak::make(),
-
-                        BelongsTo::make('Author', resource: MoonShineUserResource::class)
-                            ->asyncSearch()
-                            ->canSee(fn () => auth()->user()->isSuperUser())
-                            ->required(),
-
-                        Collapse::make('Title/Slug', [
-                            Heading::make('Title/Slug'),
-
-                            Flex::make([
-                                Text::make('Title')
-                                    ->withoutWrapper()
-                                    ->required()
-                                ,
-
-                                Slug::make('Slug')
-                                    ->from('title')
-                                    ->unique()
-                                    ->separator('-')
-                                    ->withoutWrapper()
-                                    ->required()
-                                ,
-                            ])
-                                ->name('flex-titles')
-                                ->justifyAlign('start')
-                                ->itemsAlign('start'),
-                        ]),
-
-                        Fieldset::make('Files', [
-                            Image::make('Thumbnail')
-                                ->removable()
-                                ->disk('public')
-                                ->dir('articles'),
-
-                            /*File::make('Files')
-                                ->disk('public')
-                                ->multiple()
-                                ->removable()
-                                ->dir('articles'),*/
-                        ]),
-
-                        Preview::make('No input field', 'no_input', static fn () => fake()->realText()),
-
-                        RangeSlider::make('Age')
-                            ->min(0)
-                            ->max(60)
-                            ->step(1)
-                            ->fromTo('age_from', 'age_to'),
-
-                        Number::make('Rating')
-                            ->hint('From 0 to 5')
-                            ->min(0)
-                            ->max(5)
-                            ->link('https://cutcode.dev', 'CutCode', blank: true)
-                            ->stars(),
-
-                        Url::make('Link')
-                            ->hint('Url')
-                            ->link('https://cutcode.dev', 'CutCode', blank: true)
-                            ->suffix('url')
-                        ,
-
-                        Color::make('Color'),
-
-                        //Code::make('Code'),
-
-                        Json::make('Data')->fields([
-                            Text::make('Title'),
-                            Text::make('Value'),
-                        ])->creatable()->removable(),
-
-                        Switcher::make('Active'),
-                    ]),
-                ])->columnSpan(6),
-
-                Column::make([
-                    Box::make('Seo and categories', [
-                        Tabs::make([
-                            Tab::make('Seo', [
-                                Text::make('Seo title')
-                                    ->withoutWrapper(),
-
-                                Text::make('Seo description')
-                                    ->withoutWrapper(),
-
-                                TinyMce::make('Description')
-                                    ->addPlugins(['code', 'codesample'])
-                                    ->toolbar(' | code codesample')
-                                    ->required()
-                                ,
-                            ]),
-
-                            Tab::make('Categories', [
-                                BelongsToMany::make('Categories')
-                                    ->horizontalMode()
-                                    //->tree('category_id')
-                                ,
-                            ]),
-                        ]),
-                    ]),
-                ])->columnSpan(6),
-            ]),
-
-            HasMany::make('Comments', resource: CommentResource::class)
-                ->async()
-                ->creatable()
-            ,
-
-
-            HasOne::make('Comment', resource: CommentResource::class)
-                ->async()
-            ,
-        ];
-    }
-
-    protected function detailFields(): iterable
-    {
-        return $this->indexFields();
     }
 
     protected function modifyDeleteButton(ActionButtonContract $button): ActionButtonContract
     {
         return $button->withConfirm(
             method: HttpMethod::DELETE,
-            formBuilder: fn(FormBuilder $form, Article $item) => $form
+            formBuilder: fn(FormBuilder $form, Article $item)
+                => $form
                 ->async(
                     events: [
                         $this->isListView()
-                        ?
-                        AlpineJs::event(
-                            JsEvent::TABLE_ROW_UPDATED,
-                            $this->getListComponentNameWithRow($item->getKey()),
-                            array_filter([
-                                'page' => request()->getScalar('page'),
-                                'sort' => request()->getScalar('sort'),
-                            ])
-                        )
-                        : $this->getListEventName(
+                            ?
+                            AlpineJs::event(
+                                JsEvent::TABLE_ROW_UPDATED,
+                                $this->getListComponentNameWithRow($item->getKey()),
+                                array_filter([
+                                    'page' => request()->getScalar('page'),
+                                    'sort' => request()->getScalar('sort'),
+                                ]),
+                            )
+                            : $this->getListEventName(
                             $this->getListComponentName(),
                             array_filter([
                                 'page' => request()->getScalar('page'),
                                 'sort' => request()->getScalar('sort'),
-                            ])
-                        )
-                    ]
+                            ]),
+                        ),
+                    ],
                 )
                 ->submit(
-                    button: ActionButton::make(__('moonshine::ui.confirm'))->error()->hotKeys(['shift', 'd'], true)
-                )
+                    button: ActionButton::make(__('moonshine::ui.confirm'))->error()->hotKeys(['shift', 'd'], true),
+                ),
         );
     }
 
-    /** @param TableBuilder $component */
+    /** @param  TableBuilder  $component */
     public function modifyDetailComponent(ComponentContract $component): ComponentContract
     {
         return $component->vertical(
@@ -452,12 +268,12 @@ class ArticleResource extends ModelResource implements HasImportExportContract
         return [
             QueryTag::make(
                 'Article with author',
-                static fn (Builder $q) => $q->whereNotNull('author_id')
+                static fn(Builder $q) => $q->whereNotNull('author_id'),
             ),
 
             QueryTag::make(
                 'Article without an author',
-                static fn (Builder $q) => $q->whereNull('author_id')
+                static fn(Builder $q) => $q->whereNull('author_id'),
             )->icon('users'),
         ];
     }
@@ -479,17 +295,17 @@ class ArticleResource extends ModelResource implements HasImportExportContract
         return $builder
             ->withCount('comments')
             ->when(
-                !auth()->user()->isSuperUser(),
-                fn ($q) => $q->where('author_id', auth()->id())
+                ! auth()->user()->isSuperUser(),
+                fn($q) => $q->where('author_id', auth()->id()),
             );
     }
 
     public function trAttributes(): Closure
     {
-        return function (?DataWrapperContract $data, int $row): array {
-            if($data?->getOriginal()->author?->moonshine_user_role_id !== 1) {
+        return static function (?DataWrapperContract $data, int $row): array {
+            if ($data?->getOriginal()->author?->moonshine_user_role_id !== 1) {
                 return [
-                    'class' => 'bgc-gray'
+                    'class' => 'bgc-gray',
                 ];
             }
 
@@ -497,7 +313,11 @@ class ArticleResource extends ModelResource implements HasImportExportContract
         };
     }
 
-    public function rules(mixed $item): array
+    /**
+     * @param  Article  $item
+     *
+     */
+    protected function rules(mixed $item): array
     {
         return [
             'title' => ['required', 'string', 'min:2'],
@@ -509,7 +329,7 @@ class ArticleResource extends ModelResource implements HasImportExportContract
 
     protected function beforeCreating(mixed $item): Model
     {
-        if (!auth()->user()->isSuperUser()) {
+        if (! auth()->user()->isSuperUser()) {
             request()->merge([
                 'author_id' => auth()->id(),
             ]);
@@ -520,7 +340,7 @@ class ArticleResource extends ModelResource implements HasImportExportContract
 
     protected function beforeUpdating(mixed $item): Model
     {
-        if (!auth()->user()->isSuperUser()) {
+        if (! auth()->user()->isSuperUser()) {
             request()->merge([
                 'author_id' => auth()->id(),
             ]);
@@ -529,19 +349,19 @@ class ArticleResource extends ModelResource implements HasImportExportContract
         return $item;
     }
 
-    public function search(): array
+    protected function search(): array
     {
         return ['id', 'title'];
     }
 
-    public function filters(): array
+    protected function filters(): iterable
     {
         return [
             Text::make('Title'),
 
             BelongsTo::make('Author', resource: UserResource::class)
                 ->nullable()
-                ->canSee(fn () => auth()->user()->isSuperUser()),
+                ->canSee(fn() => auth()->user()->isSuperUser()),
 
             Slug::make('Slug'),
 
@@ -560,23 +380,24 @@ class ArticleResource extends ModelResource implements HasImportExportContract
             ...parent::indexButtons()->toArray(),
 
             ActionButton::make('Active', route('moonshine.articles.mass-active', $this->getUriKey()))
-                ->inModal(fn () => 'Active', fn (): string => (string) FormBuilder::make(
+                ->inModal(fn() => 'Active', fn(): string
+                    => (string)FormBuilder::make(
                     route('moonshine.articles.mass-active', $this->getUriKey()),
                     fields: [
                         HiddenIds::make($tableName),
                         FlexibleRender::make('<div>' . __('moonshine::ui.confirm_message') . '</div>'),
                         Text::make('To confirm, write "yes"', 'confirm')
                             ->customAttributes(['placeholder' => 'Or no']),
-                    ]
+                    ],
                 )
                     ->async(events: [AlpineJs::event(JsEvent::TABLE_UPDATED, $tableName)])
                     ->submit(__('moonshine::ui.confirm'), ['class' => 'btn-secondary']))
-                    ->bulk()
+                ->bulk()
             ,
 
             ActionButton::make(
                 'Go to',
-                static fn (Article $model) => route('articles.show', $model)
+                static fn(Article $model) => route('articles.show', $model),
             )->icon('paper-clip'),
         ]);
     }

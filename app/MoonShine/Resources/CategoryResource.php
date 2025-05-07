@@ -48,42 +48,44 @@ class CategoryResource extends TreeResource
         ];
     }
 
-    public function indexFields(): iterable
+    protected function indexFields(): iterable
     {
         return [
             ID::make()->sortable(),
-            BelongsTo::make('Category')
-                ->nullable(),
+            BelongsTo::make('Category')->nullable(),
             Text::make('Title')->required(),
         ];
     }
 
-    public function formFields(): iterable
+    protected function formFields(): iterable
 	{
 		return [
-            Box::make([
-                ...$this->indexFields()
-            ])
+            Box::make($this->indexFields())
         ];
 	}
 
-    public function detailFields(): iterable
+    protected function detailFields(): iterable
     {
-        return [
-            ...$this->indexFields()
-        ];
+        return $this->indexFields();
     }
 
-	public function rules(mixed $item): array
+    /**
+     * @param  Category  $item
+     *
+     */
+    protected function rules(mixed $item): array
 	{
 	    return [
             'title' => ['required', 'string', 'min:5'],
         ];
     }
 
-    public function search(): array
+    protected function search(): array
     {
-        return ['id', 'title'];
+        return [
+            'id',
+            'title',
+        ];
     }
 
     public function treeKey(): ?string

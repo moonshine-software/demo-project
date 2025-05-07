@@ -22,28 +22,13 @@ class SettingResource extends ModelResource
 
     protected string $title = 'Settings';
 
-    public function indexFields(): array
+    protected function onLoad(): void
     {
-        return [
-            ID::make()->sortable(),
-            Email::make('Email'),
-            Phone::make('Phone'),
-            Text::make('Copyright')
-        ];
-    }
+        parent::onLoad();
 
-    public function formFields(): array
-    {
-        return [
-            ...$this->indexFields()
-        ];
-    }
-
-    public function detailFields(): array
-    {
-        return [
-            ...$this->indexFields()
-        ];
+        $this->getActivePage()?->breadcrumbs([
+            '#' => $this->getTitle(),
+        ]);
     }
 
     protected function pages(): array
@@ -53,17 +38,22 @@ class SettingResource extends ModelResource
         ];
     }
 
+    protected function formFields(): iterable
+    {
+        return [
+            ID::make()->sortable(),
+            Email::make('Email'),
+            Phone::make('Phone'),
+            Text::make('Copyright')
+        ];
+    }
+
     public function getItemID(): int|string|null
     {
         return 1;
     }
 
-    public function rules(mixed $item): array
-    {
-        return [];
-    }
-
-    public function search(): array
+    protected function search(): array
     {
         return [];
     }

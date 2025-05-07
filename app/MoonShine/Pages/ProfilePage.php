@@ -5,7 +5,6 @@ namespace App\MoonShine\Pages;
 
 use MoonShine\Contracts\UI\FormBuilderContract;
 use MoonShine\Core\Exceptions\MoonShineException;
-use MoonShine\Laravel\Http\Controllers\ProfileController;
 use MoonShine\Laravel\MoonShineAuth;
 use MoonShine\Laravel\Pages\Page;
 use MoonShine\Laravel\Traits\WithComponentsPusher;
@@ -27,16 +26,6 @@ use MoonShine\UI\Fields\Text;
 class ProfilePage extends Page
 {
     use WithComponentsPusher;
-
-    /**
-     * @return array<string, string>
-     */
-    public function getBreadcrumbs(): array
-    {
-        return [
-            '#' => $this->getTitle(),
-        ];
-    }
 
     public function getTitle(): string
     {
@@ -68,7 +57,10 @@ class ProfilePage extends Page
                     Tab::make(__('moonshine::ui.resource.password'), [
                         Heading::make(__('moonshine::ui.resource.change_password')),
 
-                        Password::make(__('moonshine::ui.resource.password'), moonshineConfig()->getUserField('password'))
+                        Password::make(
+                            __('moonshine::ui.resource.password'),
+                            moonshineConfig()->getUserField('password'),
+                        )
                             ->customAttributes(['autocomplete' => 'new-password'])
                             ->eye(),
 
@@ -91,7 +83,7 @@ class ProfilePage extends Page
             FlexibleRender::make(
                 view('layouts.social-auth', [
                     'title' => 'Link account',
-                ])
+                ]),
             ),
             ...$this->getPushedComponents(),
         ];

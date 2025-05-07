@@ -28,7 +28,7 @@ class UserResource extends ModelResource
 
     protected bool $stickyTable = true;
 
-    public function indexFields(): iterable
+    protected function indexFields(): iterable
     {
         return [
             ID::make()->sortable(),
@@ -37,7 +37,7 @@ class UserResource extends ModelResource
         ];
     }
 
-    public function formFields(): iterable
+    protected function formFields(): iterable
     {
         return [
             Grid::make([
@@ -64,14 +64,18 @@ class UserResource extends ModelResource
         ];
     }
 
-    public function detailFields(): iterable
+    protected function detailFields(): iterable
     {
         return [
             ...$this->indexFields()
         ];
     }
 
-    public function rules(mixed $item): array
+    /**
+     * @param  User  $item
+     *
+     */
+    protected function rules(mixed $item): array
     {
         return [
             'name' => 'required',

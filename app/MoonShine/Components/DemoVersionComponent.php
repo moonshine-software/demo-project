@@ -9,9 +9,4 @@ use MoonShine\UI\Components\MoonShineComponent;
 final class DemoVersionComponent extends MoonshineComponent
 {
     protected string $view = 'admin.components.demo-version-component';
-
-    protected function viewData(): array
-    {
-        return [];
-    }
 }

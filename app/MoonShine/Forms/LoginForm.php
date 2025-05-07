@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Forms;
 
-
-
 use MoonShine\UI\Components\FormBuilder;
 use MoonShine\UI\Fields\Password;
 use MoonShine\UI\Fields\Switcher;
