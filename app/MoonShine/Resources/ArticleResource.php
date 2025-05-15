@@ -323,7 +323,11 @@ class ArticleResource extends ModelResource implements HasImportExportContract
             'title' => ['required', 'string', 'min:2'],
             'slug' => ['required', 'string', 'min:1'],
             'description' => ['required', 'string', 'min:1'],
-            'thumbnail' => ['image'],
+            'thumbnail' => ['image', 'mimes:jpeg,jpg,png,gif', 'max:2048'],
+            'link' => ['nullable', 'url'],
+            'data' => ['nullable', 'array'],
+            'data.*.title' => ['nullable', 'string'],
+            'data.*.value' => ['nullable', 'string'],
         ];
     }
 
