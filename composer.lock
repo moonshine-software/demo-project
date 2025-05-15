@@ -2313,16 +2313,16 @@
         },
         {
             "name": "lee-to/moonshine-tree-resource",
-            "version": "2.0.1",
+            "version": "2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lee-to/moonshine-tree-resource.git",
-                "reference": "ac3784993c4b8170e10b1f83421ae838093a7854"
+                "reference": "4fa8ce1925ed692ee89f06c1ce39a7e1d5f7af47"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lee-to/moonshine-tree-resource/zipball/ac3784993c4b8170e10b1f83421ae838093a7854",
-                "reference": "ac3784993c4b8170e10b1f83421ae838093a7854",
+                "url": "https://api.github.com/repos/lee-to/moonshine-tree-resource/zipball/4fa8ce1925ed692ee89f06c1ce39a7e1d5f7af47",
+                "reference": "4fa8ce1925ed692ee89f06c1ce39a7e1d5f7af47",
                 "shasum": ""
             },
             "require": {
@@ -2366,7 +2366,7 @@
                 "issues": "https://github.com/lee-to/moonshine-tree-resource/issues",
                 "source": "https://github.com/lee-to/moonshine-tree-resource"
             },
-            "time": "2025-05-06T07:34:30+00:00"
+            "time": "2025-05-15T14:13:30+00:00"
         },
         {
             "name": "monolog/monolog",
