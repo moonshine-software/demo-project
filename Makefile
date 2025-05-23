@@ -10,7 +10,7 @@ path := /var/www/app
 
 #docker
 build:
-	docker-compose -f docker-compose.yml up --build -d $(c)
+	docker compose -f docker-compose.yml up --build -d $(c)
 	@echo "$(APP_URL)/admin"
 rebuild:
 	docker-compose up -d --force-recreate --no-deps --build $(r)
@@ -51,13 +51,13 @@ composer-du:
 
 #npm
 npm-install:
-	docker-compose run --rm --service-ports $(app-npm) install $(c)
+	docker compose run --rm --service-ports $(app-npm) install $(c)
 npm-update:
-	docker-compose run --rm --service-ports $(app-npm) update $(c)
+	docker compose run --rm --service-ports $(app-npm) update $(c)
 npm-build:
-	docker-compose run --rm --service-ports $(app-npm) run build $(c)
+	docker compose run --rm --service-ports $(app-npm) run build $(c)
 npm-host:
-	docker-compose run --rm --service-ports $(app-npm) run dev --host $(c)
+	docker compose run --rm --service-ports $(app-npm) run dev --host $(c)
 
 #moonshine
 demo-install:
