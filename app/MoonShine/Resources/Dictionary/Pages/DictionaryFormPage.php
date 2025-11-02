@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\MoonShine\Resources\Dictionary\Pages;
 
 use App\MoonShine\Resources\Dictionary\DictionaryResource;
-use App\MoonShine\Resources\MoonShineUserResource;
+use App\MoonShine\Resources\MoonShineUser\MoonShineUserResource;
 use MoonShine\ChangeLog\Components\ChangeLog;
 use MoonShine\Contracts\Core\TypeCasts\DataWrapperContract;
 use MoonShine\Laravel\Fields\Slug;

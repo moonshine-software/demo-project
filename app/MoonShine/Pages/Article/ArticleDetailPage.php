@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\MoonShine\Pages\Article;
 
 use App\MoonShine\Resources\ArticleResource;
-use App\MoonShine\Resources\MoonShineUserResource;
+use App\MoonShine\Resources\MoonShineUser\MoonShineUserResource;
 use MoonShine\Laravel\Fields\Relationships\BelongsTo;
 use MoonShine\Laravel\Pages\Crud\DetailPage;
 use MoonShine\UI\Fields\Color;
