@@ -1,11 +1,14 @@
 <?php
 
-namespace App\MoonShine\Resources;
+declare(strict_types=1);
 
-use App\Models\User;
-use MoonShine\Laravel\Resources\ModelResource;
-use MoonShine\MenuManager\Attributes\Order;
-use MoonShine\Support\Attributes\Icon;
+namespace App\MoonShine\Resources\User\Pages;
+
+use App\MoonShine\Resources\User\UserResource;
+use MoonShine\Contracts\Core\TypeCasts\DataWrapperContract;
+use MoonShine\Contracts\UI\ComponentContract;
+use MoonShine\Contracts\UI\FieldContract;
+use MoonShine\Laravel\Pages\Crud\FormPage;
 use MoonShine\UI\Components\Layout\Box;
 use MoonShine\UI\Components\Layout\Column;
 use MoonShine\UI\Components\Layout\Grid;
@@ -16,28 +19,15 @@ use MoonShine\UI\Fields\Password;
 use MoonShine\UI\Fields\PasswordRepeat;
 use MoonShine\UI\Fields\Text;
 
-#[Icon('user')]
-#[Order(4)]
-class UserResource extends ModelResource
+/**
+ * @extends FormPage<UserResource>
+ */
+class UserFormPage extends FormPage
 {
-    protected string $model = User::class;
-
-    protected string $title = 'Users';
-
-    protected string $column = 'name';
-
-    protected bool $stickyTable = true;
-
-    protected function indexFields(): iterable
-    {
-        return [
-            ID::make()->sortable(),
-            Text::make('Name'),
-            Email::make('E-mail', 'email'),
-        ];
-    }
-
-    protected function formFields(): iterable
+    /**
+     * @return list<ComponentContract|FieldContract>
+     */
+    protected function fields(): iterable
     {
         return [
             Grid::make([
@@ -64,18 +54,7 @@ class UserResource extends ModelResource
         ];
     }
 
-    protected function detailFields(): iterable
-    {
-        return [
-            ...$this->indexFields()
-        ];
-    }
-
-    /**
-     * @param  User  $item
-     *
-     */
-    protected function rules(mixed $item): array
+    protected function rules(DataWrapperContract $item): array
     {
         return [
             'name' => 'required',

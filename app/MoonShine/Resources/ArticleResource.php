@@ -7,6 +7,7 @@ use App\Models\Comment;
 use App\MoonShine\Pages\Article\ArticleDetailPage;
 use App\MoonShine\Pages\Article\ArticleFormPage;
 use App\MoonShine\Pages\Article\ArticleIndexPage;
+use App\MoonShine\Resources\User\UserResource;
 use Closure;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Storage;
