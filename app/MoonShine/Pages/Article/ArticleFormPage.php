@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\MoonShine\Pages\Article;
 
 use App\MoonShine\Resources\ArticleResource;
-use App\MoonShine\Resources\CommentResource;
+use App\MoonShine\Resources\Comment\CommentResource;
 use App\MoonShine\Resources\MoonShineUserResource;
 use MoonShine\Laravel\Fields\Relationships\BelongsTo;
 use MoonShine\Laravel\Fields\Relationships\BelongsToMany;
