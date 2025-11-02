@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\MoonShine\Pages\Dictionary;
+namespace App\MoonShine\Resources\Dictionary\Pages;
 
-use App\MoonShine\Resources\DictionaryResource;
+use App\MoonShine\Resources\Dictionary\DictionaryResource;
 use App\MoonShine\Resources\MoonShineUserResource;
 use MoonShine\ChangeLog\Components\ChangeLog;
+use MoonShine\Contracts\Core\TypeCasts\DataWrapperContract;
 use MoonShine\Laravel\Fields\Slug;
 use MoonShine\Laravel\Pages\Crud\FormPage;
 use MoonShine\TinyMce\Fields\TinyMce;
@@ -36,10 +37,19 @@ class DictionaryFormPage extends FormPage
         ];
     }
 
+    protected function rules(DataWrapperContract $item): array
+    {
+        return [
+            'title' => ['required', 'string', 'min:3'],
+            'slug' => ['required', 'string', 'min:3'],
+            'description' => ['required', 'string', 'min:10'],
+        ];
+    }
+
     public function topLayer(): array
     {
         return [
-            Heading::make('Custom top'),
+            Heading::make('Custom top layer'),
 
             ...parent::topLayer()
         ];
