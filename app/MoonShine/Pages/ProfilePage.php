@@ -5,9 +5,9 @@ namespace App\MoonShine\Pages;
 
 use MoonShine\Contracts\UI\FormBuilderContract;
 use MoonShine\Core\Exceptions\MoonShineException;
+use MoonShine\Crud\Traits\WithComponentsPusher;
 use MoonShine\Laravel\MoonShineAuth;
 use MoonShine\Laravel\Pages\Page;
-use MoonShine\Laravel\Traits\WithComponentsPusher;
 use MoonShine\Laravel\TypeCasts\ModelCaster;
 use MoonShine\MenuManager\Attributes\SkipMenu;
 use MoonShine\UI\Components\FlexibleRender;

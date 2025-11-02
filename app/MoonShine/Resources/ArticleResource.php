@@ -9,18 +9,17 @@ use App\MoonShine\Pages\Article\ArticleFormPage;
 use App\MoonShine\Pages\Article\ArticleIndexPage;
 use Closure;
 use Illuminate\Contracts\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use MoonShine\Contracts\Core\TypeCasts\DataWrapperContract;
 use MoonShine\Contracts\UI\ActionButtonContract;
 use MoonShine\Contracts\UI\ComponentContract;
 use MoonShine\Contracts\UI\FieldContract;
+use MoonShine\Crud\JsonResponse;
 use MoonShine\ImportExport\Contracts\HasImportExportContract;
 use MoonShine\ImportExport\Traits\ImportExportConcern;
 use MoonShine\Laravel\Fields\Relationships\BelongsTo;
 use MoonShine\Laravel\Fields\Relationships\BelongsToMany;
 use MoonShine\Laravel\Fields\Slug;
-use MoonShine\Laravel\Http\Responses\MoonShineJsonResponse;
 use MoonShine\Laravel\MoonShineRequest;
 use MoonShine\Laravel\QueryTags\QueryTag;
 use MoonShine\Laravel\Resources\ModelResource;
@@ -124,7 +123,7 @@ class ArticleResource extends ModelResource implements HasImportExportContract
         return $value;
     }
 
-    public function changeListingComponentState(MoonShineRequest $request): MoonShineJsonResponse
+    public function changeListingComponentState(MoonShineRequest $request): JsonResponse
     {
         if (in_array($request->input('state'), ['perPage', 'view'])) {
             session()?->put($request->input('state'), $request->input('value'));
@@ -132,7 +131,7 @@ class ArticleResource extends ModelResource implements HasImportExportContract
         }
 
         if ($request->input('state') === 'perPage') {
-            return MoonShineJsonResponse::make()
+            return JsonResponse::make()
                 ->events([
                     AlpineJs::event(
                         JsEvent::TABLE_UPDATED,
@@ -146,7 +145,7 @@ class ArticleResource extends ModelResource implements HasImportExportContract
                 ]);
         }
 
-        return MoonShineJsonResponse::make()->redirect($this->getIndexPageUrl());
+        return JsonResponse::make()->redirect($this->getIndexPageUrl());
     }
 
     public function getListEventName(?string $name = null, array $params = []): string
@@ -317,7 +316,7 @@ class ArticleResource extends ModelResource implements HasImportExportContract
      * @param  Article  $item
      *
      */
-    protected function rules(mixed $item): array
+    protected function rules(DataWrapperContract $item): array
     {
         return [
             'title' => ['required', 'string', 'min:2'],
@@ -331,7 +330,7 @@ class ArticleResource extends ModelResource implements HasImportExportContract
         ];
     }
 
-    protected function beforeCreating(mixed $item): Model
+    protected function beforeCreating(DataWrapperContract $item): DataWrapperContract
     {
         if (! auth()->user()->isSuperUser()) {
             request()->merge([
@@ -342,7 +341,7 @@ class ArticleResource extends ModelResource implements HasImportExportContract
         return $item;
     }
 
-    protected function beforeUpdating(mixed $item): Model
+    protected function beforeUpdating(DataWrapperContract $item): DataWrapperContract
     {
         if (! auth()->user()->isSuperUser()) {
             request()->merge([

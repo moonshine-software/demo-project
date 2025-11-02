@@ -16,7 +16,6 @@ class CategoryIndexPage extends IndexPage
     protected function mainLayer(): array
     {
         return [
-            ...$this->getPageButtons(),
             TreeComponent::make($this->getResource()),
         ];
     }

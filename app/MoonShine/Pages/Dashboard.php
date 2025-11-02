@@ -11,8 +11,8 @@ use MoonShine\Advanced\Components\Tabs\AsyncTab;
 use MoonShine\Advanced\Components\Tabs\AsyncTabs;
 use MoonShine\Apexcharts\Components\DonutChartMetric;
 use MoonShine\Apexcharts\Components\LineChartMetric;
-use MoonShine\Laravel\Http\Responses\MoonShineJsonResponse;
-use MoonShine\Laravel\MoonShineRequest;
+use MoonShine\Contracts\Core\DependencyInjection\CrudRequestContract;
+use MoonShine\Crud\JsonResponse;
 use MoonShine\Laravel\Pages\Page;
 use MoonShine\MenuManager\Attributes\SkipMenu;
 use MoonShine\UI\Components\Heading;
@@ -66,24 +66,24 @@ class Dashboard extends Page
         ];
     }
 
-    public function tableWithForm(MoonShineRequest $request): MoonShineJsonResponse
+    public function tableWithForm(CrudRequestContract $request): JsonResponse
     {
         $set = new DashboardTableWithForm();
 
         if ($request->has('date')) {
-            return MoonShineJsonResponse::make()->html([
+            return JsonResponse::make()->html([
                 '.async-table' => (string)$set->table(),
             ]);
         }
 
-        return MoonShineJsonResponse::make()->html(
+        return JsonResponse::make()->html(
             (string)$set->form('tableWithForm'),
         );
     }
 
-    public function metrics(): MoonShineJsonResponse
+    public function metrics(): JsonResponse
     {
-        return MoonShineJsonResponse::make()->html(
+        return JsonResponse::make()->html(
             (string)Grid::make([
                 Column::make([
                     DonutChartMetric::make('Подписчики')

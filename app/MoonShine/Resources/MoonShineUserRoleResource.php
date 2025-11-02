@@ -11,8 +11,8 @@ use MoonShine\Laravel\Resources\ModelResource;
 use MoonShine\MenuManager\Attributes\Group;
 use MoonShine\MenuManager\Attributes\Order;
 use MoonShine\Support\Attributes\Icon;
+use MoonShine\Support\Enums\Action;
 use MoonShine\Support\ListOf;
-use MoonShine\UI\Components\ActionButton;
 use MoonShine\UI\Components\Layout\Box;
 use MoonShine\UI\Components\Layout\Column;
 use MoonShine\UI\Components\Table\TableBuilder;
@@ -46,9 +46,9 @@ class MoonShineUserRoleResource extends ModelResource
         return __('moonshine::ui.resource.role');
     }
 
-    protected function indexButtons(): ListOf
+    protected function activeActions(): ListOf
     {
-        return parent::indexButtons()->except(fn (ActionButton $btn): bool => $btn->getName() === 'detail-button');
+        return parent::activeActions()->except(Action::VIEW);
     }
 
     protected function indexFields(): iterable

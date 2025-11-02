@@ -5,78 +5,45 @@ declare(strict_types=1);
 namespace App\MoonShine\Layouts;
 
 use App\MoonShine\Components\DemoVersionComponent;
-use MoonShine\AssetManager\InlineCss;
-use MoonShine\Laravel\Layouts\CompactLayout;
-use MoonShine\UI\Components\{Components,
-    Layout\Body,
-    Layout\Content,
-    Layout\Div,
-    Layout\Flash,
-    Layout\Html,
-    Layout\Layout,
-    Layout\Logo,
-    Layout\Wrapper};
+use MoonShine\ColorManager\Palettes\DefaultPalette;
+use MoonShine\Contracts\ColorManager\PaletteContract;
+use MoonShine\Laravel\Layouts\AppLayout;
+use MoonShine\UI\Components\Components;
+use MoonShine\UI\Components\Heading;
+use MoonShine\UI\Components\Title;
 
-final class MoonShineLayout extends CompactLayout
+final class MoonShineLayout extends AppLayout
 {
-    protected function assets(): array
-    {
-        return [
-            ...parent::assets(),
-            InlineCss::make(
-                <<<'Style'
-                    :root {
-                      --radius: 0.1rem;
-                      --radius-sm: 0.075rem;
-                      --radius-md: 0.175rem;
-                      --radius-lg: 0.25rem;
-                      --radius-xl: 0.3rem;
-                      --radius-2xl: 0.4rem;
-                      --radius-3xl: 0.6rem;
-                      --radius-full: 9999px;
-                    }
-                    Style,
-            ),
-        ];
-    }
+    /**
+     * @var null|class-string<PaletteContract>
+     */
+    protected ?string $palette = DefaultPalette::class;
 
     protected function menu(): array
     {
         return $this->autoloadMenu();
     }
 
-    public function build(): Layout
+    protected function getContentComponents(): array
     {
-        return Layout::make([
-            Html::make([
-                $this->getHeadComponent(),
-                Body::make([
-                    Wrapper::make([
-                        $this->getSidebarComponent(),
+        $components = [
+            Components::make([
+                DemoVersionComponent::make(),
+                ...$this->getPage()->getComponents(),
+            ]),
+        ];
 
-                        Div::make([
-                            DemoVersionComponent::make(),
+        if ($this->withTitle()) {
+            $hasSubtitle = $this->withSubTitle() && $this->getPage()->getSubtitle() !== '';
 
-                            Flash::make(),
+            return array_filter([
+                Title::make($this->getPage()->getTitle())->class($hasSubtitle ? '' : 'mb-6'),
+                $hasSubtitle ? Heading::make($this->getPage()->getSubtitle())->class('mb-6') : null,
+                ...$components,
+            ]);
+        }
 
-                            $this->getHeaderComponent(),
-
-                            Content::make([
-                                Components::make(
-                                    $this->getPage()->getComponents(),
-                                ),
-                            ]),
-
-                            $this->getFooterComponent(),
-                        ])->class('layout-page'),
-                    ]),
-                ])->class('theme-minimalistic'),
-            ])
-                ->customAttributes([
-                    'lang' => $this->getHeadLang(),
-                ])
-                ->withAlpineJs()
-                ->withThemes(),
-        ]);
+        return $components;
     }
+
 }
