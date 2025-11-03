@@ -15,6 +15,7 @@ use MoonShine\Contracts\Core\DependencyInjection\CrudRequestContract;
 use MoonShine\Crud\JsonResponse;
 use MoonShine\Laravel\Pages\Page;
 use MoonShine\MenuManager\Attributes\SkipMenu;
+use MoonShine\Support\Attributes\AsyncMethod;
 use MoonShine\UI\Components\Heading;
 use MoonShine\UI\Components\Layout\Column;
 use MoonShine\UI\Components\Layout\Grid;
@@ -66,6 +67,7 @@ class Dashboard extends Page
         ];
     }
 
+    #[AsyncMethod]
     public function tableWithForm(CrudRequestContract $request): JsonResponse
     {
         $set = new DashboardTableWithForm();
@@ -81,6 +83,7 @@ class Dashboard extends Page
         );
     }
 
+    #[AsyncMethod]
     public function metrics(): JsonResponse
     {
         return JsonResponse::make()->html(
