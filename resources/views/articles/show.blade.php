@@ -1,3 +1,9 @@
+@php
+    /**
+     * @var App\Models\Article $article
+     */
+@endphp
+
 @extends('layouts.app')
 
 @section('title', $article->seo_title ?? $article->title)
@@ -5,8 +11,8 @@
 
 @section('content')
     <div>
-        <img class="w-full rounded-xl my-8"
-             src="{{ $article->getThumbnail('thumbnail', 'fit', '1000x300', 'articles') }}"
+        <img class="rounded-xl my-8"
+             src="{{ $article->getThumbnail('thumbnail', 'coverDown', '1000x500', 'articles') }}"
              alt="{{ $article->title }}" />
 
         <div class="prose
