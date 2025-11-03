@@ -26,6 +26,7 @@ use MoonShine\Support\Attributes\AsyncMethod;
 use MoonShine\Support\Enums\ClickAction;
 use MoonShine\Support\Enums\HttpMethod;
 use MoonShine\Support\Enums\JsEvent;
+use MoonShine\Support\Enums\ListRowEventType;
 use MoonShine\Support\ListOf;
 use MoonShine\UI\Components\ActionButton;
 use MoonShine\UI\Components\CardsBuilder;
@@ -36,7 +37,6 @@ use MoonShine\UI\Components\Metrics\Wrapped\Metric;
 use MoonShine\UI\Components\Metrics\Wrapped\ValueMetric;
 use MoonShine\UI\Components\Table\TableBuilder;
 use MoonShine\UI\Fields\Color;
-use MoonShine\UI\Fields\Fieldset;
 use MoonShine\UI\Fields\HiddenIds;
 use MoonShine\UI\Fields\ID;
 use MoonShine\UI\Fields\Image;
@@ -52,6 +52,8 @@ use MoonShine\UI\Fields\Url;
  */
 final class ArticleIndexPage extends IndexPage
 {
+//    protected bool $isLazy = true;
+
     protected function fields(): iterable
     {
         return array_filter([
@@ -70,17 +72,16 @@ final class ArticleIndexPage extends IndexPage
             RangeSlider::make('Age')->fromTo('age_from', 'age_to'),
 
             Number::make('Rating')
-                ->link('https://cutcode.dev', 'CutCode', blank: true)
                 ->stars(),
 
             Url::make('Link')
-                ->link('https://cutcode.dev', 'CutCode', blank: true)
-                ->customWrapperAttributes(['style' => 'white-space: normal;'])
-            ,
+                ->link('https://cutcode.dev')
+                ->blank(),
 
             Color::make('Color'),
 
-            Switcher::make('Active'),
+            Switcher::make('Active')
+                ->sortable(),
         ]);
     }
 
@@ -144,65 +145,144 @@ final class ArticleIndexPage extends IndexPage
     {
         $tableName = $this->getListComponentName();
 
-        return parent::buttons()->add(
-            ActionButton::make('Active', route('moonshine.articles.mass-active', $this->getUriKey()))
-                ->inModal(
-                    'Active',
-                    fn(): string => (string)FormBuilder::make(
-                        route('moonshine.articles.mass-active', $this->getUriKey()),
-                        fields: [
-                            HiddenIds::make($tableName),
-                            FlexibleRender::make('<div>' . __('moonshine::ui.confirm_message') . '</div>'),
-                            Text::make('To confirm, write "yes"', 'confirm')
-                                ->customAttributes(['placeholder' => 'Or no']),
-                        ],
+        return parent::buttons()
+            ->add(
+                ActionButton::make('Active')
+                    ->inModal(
+                        'Active',
+                        fn(): string => (string)FormBuilder::make(
+                            route('moonshine.articles.mass-active', $this->getUriKey()),
+                            fields: [
+                                HiddenIds::make($tableName),
+                                FlexibleRender::make('<div>' . __('moonshine::ui.confirm_message') . '</div>'),
+                                Text::make('To confirm, write "yes"', 'confirm')
+                                    ->customAttributes(['placeholder' => 'Or no']),
+                            ],
+                        )
+                            ->async(events: [AlpineJs::event(JsEvent::TABLE_UPDATED, $tableName)])
+                            ->submit(__('moonshine::ui.confirm'), ['class' => 'btn-secondary'])
                     )
-                    ->async(events: [AlpineJs::event(JsEvent::TABLE_UPDATED, $tableName)])
-                    ->submit(__('moonshine::ui.confirm'), ['class' => 'btn-secondary'])
-                )
-                ->bulk()
-            ,
-
-            ActionButton::make(
-                'Go to',
-                static fn(Article $model) => route('articles.show', $model),
-            )->blank()->icon('paper-clip'),
-        );
+                    ->bulk(),
+            )
+            ->add(
+                ActionButton::make(
+                    'Go to',
+                    static fn(Article $model) => route('articles.show', $model),
+                )->blank()->icon('paper-clip'),
+            );
     }
 
     protected function modifyDeleteButton(ActionButtonContract $button): ActionButtonContract
     {
         return $button->withConfirm(
             method: HttpMethod::DELETE,
-            formBuilder: fn(FormBuilder $form, Article $item)
-            => $form
-                ->async(
-                    events: [
-                        $this->isListView()
-                            ?
-                            AlpineJs::event(
-                                JsEvent::TABLE_ROW_UPDATED,
-                                $this->getResource()->getListComponentName(),
-                                array_filter([
-                                    'key' => $item->getKey(),
-                                    'page' => request()->getScalar('page'),
-                                    'sort' => request()->getScalar('sort'),
-                                ]),
-                            )
-                            : $this->getListEventName(
-                                $this->getListComponentName(),
-                                array_filter([
-                                    'key' => $item->getKey(),
-                                    'page' => request()->getScalar('page'),
-                                    'sort' => request()->getScalar('sort'),
-                                ]),
-                            ),
-                    ],
-                )
+            formBuilder: fn(FormBuilder $form, Article $item) => $form->async(
+                events: [
+                    $this->isListView()
+                        ?
+                        AlpineJs::event(
+                            JsEvent::TABLE_ROW_UPDATED,
+                            $this->getResource()->getListComponentName(),
+                            array_filter([
+                                'key' => $item->getKey(),
+                                'type' => ListRowEventType::REMOVE,
+                                'page' => request()->getScalar('page'),
+                                'sort' => request()->getScalar('sort'),
+                            ]),
+                        )
+                        : $this->getListEventName(
+                            $this->getListComponentName(),
+                            array_filter([
+                                'page' => request()->getScalar('page'),
+                                'sort' => request()->getScalar('sort'),
+                            ]),
+                        ),
+                ],
+            )
                 ->submit(
                     button: ActionButton::make(__('moonshine::ui.confirm'))->error()->hotKeys(['shift', 'd'], true),
                 ),
         );
+    }
+
+    public function getListEventName(?string $name = null, array $params = []): string
+    {
+        $name ??= $this->getListComponentName();
+
+        return AlpineJs::event(
+            $this->isListView()
+                ? JsEvent::TABLE_UPDATED
+                : JsEvent::CARDS_UPDATED,
+            $name,
+            $params,
+        );
+    }
+
+    /**
+     * @param TableBuilder $component
+     *
+     */
+    public function modifyListComponent(ComponentContract $component): ComponentContract
+    {
+        if (!$this->isListView()) {
+            $component = CardsBuilder::make()
+                ->componentAttributes([
+                    'style' => 'margin-top: 5px',
+                ])
+                ->thumbnail(
+                    fn(Article $article) => $article->thumbnail
+                        ? Storage::disk('public')->url($article->thumbnail)
+                        : asset('images/template.jpg'),
+                )
+                ->fields($component->getFields())
+                ->name($this->getListComponentName())
+                ->async()
+                ->cast($this->getResource()->getCaster())
+                ->buttons($this->getButtons())
+                ->items($component->getOriginalItems());
+        } else {
+            $component
+                ->trAttributes(static function (?DataWrapperContract $data, int $row): array {
+                    if ($data?->getOriginal()->author?->moonshine_user_role_id !== 1) {
+                        return [
+                            'class' => 'bgc-gray',
+                        ];
+                    }
+
+                    return [];
+                })
+                //->clickAction(ClickAction::EDIT)
+                ->sticky()
+                ->columnSelection();
+        }
+
+        return $component
+            ->topRight(function (): array {
+                return [
+                    Div::make([
+                        Select::make('Per page')
+                            ->onChangeMethod('changeListingComponentState', ['state' => 'perPage'])
+                            ->options($this->getResource()->perPageValues())
+                            ->withoutWrapper()
+                            ->native()
+                            ->setValue($this->getResource()->getItemsPerPage()),
+                    ]),
+
+                    Div::make([
+                        ActionButton::make()
+                            ->method('changeListingComponentState', ['state' => 'view', 'value' => 'list'])
+                            ->icon('list-bullet')
+                            ->withoutLoading()
+                            ->primary($this->isListView()),
+
+                        ActionButton::make()
+                            ->method('changeListingComponentState', ['state' => 'view', 'value' => 'cards'])
+                            ->icon('rectangle-group')
+                            ->withoutLoading()
+                            ->primary(!$this->isListView()),
+                    ]),
+                ];
+            });
     }
 
     #[AsyncMethod]
@@ -229,88 +309,5 @@ final class ArticleIndexPage extends IndexPage
         }
 
         return JsonResponse::make()->redirect($this->getResource()->getIndexPageUrl());
-    }
-
-    public function getListEventName(?string $name = null, array $params = []): string
-    {
-        $name ??= $this->getListComponentName();
-
-        return AlpineJs::event(
-            $this->isListView()
-                ? JsEvent::TABLE_UPDATED
-                : JsEvent::CARDS_UPDATED,
-            $name,
-            $params,
-        );
-    }
-
-    /**
-     * @param  TableBuilder  $component
-     *
-     */
-    public function modifyListComponent(ComponentContract $component): ComponentContract
-    {
-        if (! $this->isListView()) {
-            $component = CardsBuilder::make()
-                ->componentAttributes([
-                    'style' => 'margin-top: 5px',
-                ])
-                ->thumbnail(
-                    fn(Article $article)
-                    => $article->thumbnail
-                        ? Storage::disk('public')->url($article->thumbnail)
-                        : asset('images/template.jpg'),
-                )
-                ->fields($component->getFields())
-                ->name($this->getListComponentName())
-                ->async()
-                ->cast($this->getResource()->getCaster())
-                ->buttons($this->getButtons())
-                ->items($component->getOriginalItems());
-        } else {
-            $component
-                ->trAttributes(static function (?DataWrapperContract $data, int $row): array {
-                    if ($data?->getOriginal()->author?->moonshine_user_role_id !== 1) {
-                        return [
-                            'class' => 'bgc-gray',
-                        ];
-                    }
-
-                    return [];
-                })
-                ->sticky()
-                ->columnSelection()
-                ->clickAction(ClickAction::EDIT);
-        }
-
-        return $component
-            ->topRight(function (): array {
-                return [
-                    Div::make([
-                        Select::make('Per page')
-                            ->onChangeMethod('changeListingComponentState', ['state' => 'perPage'])
-                            ->options($this->getResource()->perPageValues())
-                            ->withoutWrapper()
-                            ->native()
-                            ->setValue($this->getResource()->getItemsPerPage()),
-                    ])->customAttributes([
-                        'style' => 'width: 70px;',
-                    ]),
-
-                    Div::make([
-                        ActionButton::make('')
-                            ->method('changeListingComponentState', ['state' => 'view', 'value' => 'list'])
-                            ->icon('list-bullet')
-                            ->withoutLoading()
-                            ->primary($this->isListView()),
-
-                        ActionButton::make('')
-                            ->method('changeListingComponentState', ['state' => 'view', 'value' => 'cards'])
-                            ->icon('rectangle-group')
-                            ->withoutLoading()
-                            ->primary(! $this->isListView()),
-                    ]),
-                ];
-            });
     }
 }
