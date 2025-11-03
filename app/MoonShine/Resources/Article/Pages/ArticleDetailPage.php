@@ -2,16 +2,18 @@
 
 declare(strict_types=1);
 
-namespace App\MoonShine\Pages\Article;
+namespace App\MoonShine\Resources\Article\Pages;
 
-use App\MoonShine\Resources\ArticleResource;
+use App\MoonShine\Resources\Article\ArticleResource;
 use App\MoonShine\Resources\MoonShineUser\MoonShineUserResource;
+use MoonShine\Contracts\UI\ComponentContract;
+use MoonShine\Contracts\UI\FieldContract;
 use MoonShine\Laravel\Fields\Relationships\BelongsTo;
 use MoonShine\Laravel\Pages\Crud\DetailPage;
+use MoonShine\UI\Components\Layout\Column;
+use MoonShine\UI\Components\Table\TableBuilder;
 use MoonShine\UI\Fields\Color;
-use MoonShine\UI\Fields\Fieldset;
 use MoonShine\UI\Fields\ID;
-use MoonShine\UI\Fields\Image;
 use MoonShine\UI\Fields\Number;
 use MoonShine\UI\Fields\RangeSlider;
 use MoonShine\UI\Fields\Switcher;
@@ -49,5 +51,14 @@ final class ArticleDetailPage extends DetailPage
 
             Switcher::make('Active'),
         ];
+    }
+
+    /** @param  TableBuilder  $component */
+    public function modifyDetailComponent(ComponentContract $component): ComponentContract
+    {
+        return $component->vertical(
+            title: fn(FieldContract $field, Column $default, TableBuilder $ctx) => $default->columnSpan(2),
+            value: fn(FieldContract $field, Column $default, TableBuilder $ctx) => $default->columnSpan(10),
+        );
     }
 }

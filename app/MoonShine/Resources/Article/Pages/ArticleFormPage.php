@@ -2,11 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\MoonShine\Pages\Article;
+namespace App\MoonShine\Resources\Article\Pages;
 
-use App\MoonShine\Resources\ArticleResource;
+use App\Models\Article;
+use App\MoonShine\Resources\Article\ArticleResource;
 use App\MoonShine\Resources\Comment\CommentResource;
 use App\MoonShine\Resources\MoonShineUser\MoonShineUserResource;
+use MoonShine\Contracts\Core\TypeCasts\DataWrapperContract;
 use MoonShine\Laravel\Fields\Relationships\BelongsTo;
 use MoonShine\Laravel\Fields\Relationships\BelongsToMany;
 use MoonShine\Laravel\Fields\Relationships\HasMany;
@@ -168,6 +170,20 @@ final class ArticleFormPage extends FormPage
             HasOne::make('Comment', resource: CommentResource::class)
                 ->async()
             ,
+        ];
+    }
+
+    protected function rules(DataWrapperContract $item): array
+    {
+        return [
+            'title' => ['required', 'string', 'min:2'],
+            'slug' => ['required', 'string', 'min:1'],
+            'description' => ['required', 'string', 'min:1'],
+            'thumbnail' => ['image', 'mimes:jpeg,jpg,png,gif', 'max:2048'],
+            'link' => ['nullable', 'url'],
+            'data' => ['nullable', 'array'],
+            'data.*.title' => ['nullable', 'string'],
+            'data.*.value' => ['nullable', 'string'],
         ];
     }
 }
