@@ -279,12 +279,14 @@ final class ArticleIndexPage extends IndexPage
                         ActionButton::make()
                             ->method('changeListingComponentState', ['state' => 'view', 'value' => 'list'])
                             ->icon('list-bullet')
+                            ->class('btn-square')
                             ->withoutLoading()
                             ->primary($this->isListView()),
 
                         ActionButton::make()
                             ->method('changeListingComponentState', ['state' => 'view', 'value' => 'cards'])
                             ->icon('rectangle-group')
+                            ->class('btn-square')
                             ->withoutLoading()
                             ->primary(!$this->isListView()),
                     ]),
