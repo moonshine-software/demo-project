@@ -4,22 +4,32 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Forms;
 
+use MoonShine\Contracts\Core\DependencyInjection\CoreContract;
+use MoonShine\Contracts\UI\FormBuilderContract;
+use MoonShine\Contracts\UI\FormContract;
+use MoonShine\Support\Traits\Makeable;
 use MoonShine\UI\Components\FormBuilder;
 use MoonShine\UI\Fields\Password;
 use MoonShine\UI\Fields\Switcher;
 use MoonShine\UI\Fields\Text;
 
-final class LoginForm
+final class LoginForm implements FormContract
 {
-    public function __invoke(): FormBuilder
+    use Makeable;
+
+    public function __construct(
+        private readonly string $action,
+        private CoreContract $core
+    ) {
+    }
+
+    public function __invoke(): FormBuilderContract
     {
         return FormBuilder::make()
-            ->customAttributes([
-                'class' => 'authentication-form',
-            ])
-            ->action(route('moonshine.authenticate'))
+            ->class('authentication-form')
+            ->action($this->action)
             ->fields([
-                Text::make(__('moonshine::ui.login.username'), 'username')
+                Text::make($this->core->getTranslator()->get('moonshine::ui.login.username'), 'username')
                     ->required()
                     ->customAttributes([
                         'autofocus' => true,
@@ -27,12 +37,12 @@ final class LoginForm
                     ])
                     ->default('admin@moonshine-laravel.com'),
 
-                Password::make(__('moonshine::ui.login.password'), 'password')
+                Password::make($this->core->getTranslator()->get('moonshine::ui.login.password'), 'password')
                     ->required()
                     ->x('bind:value', '"moonshine"'),
 
-                Switcher::make(__('moonshine::ui.login.remember_me'), 'remember'),
-            ])->submit(__('moonshine::ui.login.login'), [
+                Switcher::make($this->core->getTranslator()->get('moonshine::ui.login.remember_me'), 'remember'),
+            ])->submit($this->core->getTranslator()->get('moonshine::ui.login.login'), [
                 'class' => 'btn-primary btn-lg w-full',
             ]);
     }

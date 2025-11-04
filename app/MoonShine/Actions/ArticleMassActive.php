@@ -14,8 +14,10 @@ final readonly class ArticleMassActive
      */
     public function __invoke(array $ids): bool
     {
-        return Article::query()
+        $result = Article::query()
             ->whereIn('id', $ids)
-            ->update(['active' => true]) === 1;
+            ->update(['active' => true]);
+
+        return $result > 0;
     }
 }

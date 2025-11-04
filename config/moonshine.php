@@ -2,7 +2,6 @@
 
 use App\MoonShine\Forms\LoginForm;
 use App\MoonShine\Pages\Dashboard;
-use App\MoonShine\Pages\ProfilePage;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -10,22 +9,26 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use MoonShine\Crud\Forms\FiltersForm;
 use MoonShine\Laravel\Exceptions\MoonShineNotFoundException;
-use MoonShine\Laravel\Forms\FiltersForm;
 use MoonShine\Laravel\Http\Middleware\Authenticate;
 use MoonShine\Laravel\Http\Middleware\ChangeLocale;
 use MoonShine\Laravel\Pages\ErrorPage;
 use MoonShine\Laravel\Pages\LoginPage;
-
+use MoonShine\Laravel\Pages\ProfilePage;
 use MoonShine\Permissions\Models\MoonshineUser;
 
 return [
     'title' => env('MOONSHINE_TITLE', 'MoonShine'),
+    'logo' => '/vendor/moonshine/logo-small.svg',
+    'logo_small' => '/vendor/moonshine/logo-small.svg',
 
     // Default flags
     'use_migrations' => true,
     'use_notifications' => true,
     'use_database_notifications' => true,
+    'use_routes' => true,
+    'use_profile' => true,
 
     // Routing
     'domain' => env('MOONSHINE_DOMAIN'),
@@ -59,7 +62,9 @@ return [
         'enabled' => true,
         'guard' => 'moonshine',
         'model' => MoonshineUser::class,
-        'middleware' => Authenticate::class,
+        'middleware' => [
+            Authenticate::class,
+        ],
         'pipelines' => [],
     ],
 
@@ -71,8 +76,9 @@ return [
         'avatar' => 'avatar',
     ],
 
-    // Layout, pages, forms
-    'layout' => \App\MoonShine\Layouts\MoonShineLayout::class,
+    // Layout, palette, pages, forms
+    'layout' => App\MoonShine\Layouts\MoonShineLayout::class,
+    'palette' => MoonShine\ColorManager\Palettes\DefaultPalette::class,
 
     'forms' => [
         'login' => LoginForm::class,
@@ -88,6 +94,7 @@ return [
 
     // Localizations
     'locale' => 'en',
+    'locale_key' => ChangeLocale::KEY,
     'locales' => [
         'en',
         'ru',

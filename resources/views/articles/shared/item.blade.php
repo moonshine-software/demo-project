@@ -1,7 +1,13 @@
+@php
+    /**
+     * @var App\Models\Article $item
+     */
+@endphp
+
 <div class="tasks-card flex flex-col rounded-3xl md:rounded-[40px] bg-card">
     <div class="tasks-card-photo overflow-hidden h-40 xs:h-48 sm:h-[280px] rounded-3xl md:rounded-[40px]">
         <a href="{{ route('articles.show', $item) }}">
-            <img src="{{ $item->getThumbnail('thumbnail', 'fit', '500x300', 'articles') }}"
+            <img src="{{ $item->getThumbnail('thumbnail', 'coverDown', '1000x500', 'articles') }}"
                  class="object-cover w-full h-full"
                  alt="{{ $item->title }}">
         </a>
