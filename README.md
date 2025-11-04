@@ -34,6 +34,7 @@ DB_PASSWORD=12345
 ### Manually
 - Add database
 - Run composer install
+- Run npm install && vite build
 - Add .env and configure
 - php artisan key:generate
 - php artisan storage:link

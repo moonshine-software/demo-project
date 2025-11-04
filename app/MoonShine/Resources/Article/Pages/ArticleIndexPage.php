@@ -52,7 +52,13 @@ use MoonShine\UI\Fields\Url;
  */
 final class ArticleIndexPage extends IndexPage
 {
-//    protected bool $isLazy = true;
+    /**
+     * @return bool
+     */
+    public function isLazy(): bool
+    {
+        return $this->isListView();
+    }
 
     protected function fields(): iterable
     {
@@ -253,6 +259,7 @@ final class ArticleIndexPage extends IndexPage
                 })
                 //->clickAction(ClickAction::EDIT)
                 ->sticky()
+                ->stickyButtons()
                 ->columnSelection();
         }
 

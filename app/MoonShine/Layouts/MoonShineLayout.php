@@ -6,6 +6,7 @@ namespace App\MoonShine\Layouts;
 
 use App\MoonShine\Components\DemoVersionComponent;
 use MoonShine\ColorManager\Palettes\DefaultPalette;
+use MoonShine\ColorManager\Palettes\PurplePalette;
 use MoonShine\Contracts\ColorManager\PaletteContract;
 use MoonShine\Laravel\Layouts\AppLayout;
 use MoonShine\UI\Components\Components;
@@ -17,7 +18,7 @@ final class MoonShineLayout extends AppLayout
     /**
      * @var null|class-string<PaletteContract>
      */
-    protected ?string $palette = DefaultPalette::class;
+    protected ?string $palette = PurplePalette::class;
 
     protected function menu(): array
     {
