@@ -18,7 +18,7 @@
         "moonshine/moonshine": "4.x-dev",
         "moonshine/permissions": "3.x-dev",
         "moonshine/ru": "^1.0",
-        "moonshine/tinymce": "^1.0",
+        "moonshine/tinymce": "2.x-dev",
         "openspout/openspout": "<4.29",
         "unisharp/laravel-filemanager": "^2.6"
     },
