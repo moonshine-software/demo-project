@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4fceab96eab0a6565762a8730c2ccfed",
+    "content-hash": "037534c6e42417c30fec27b2a8213b4b",
     "packages": [
         {
             "name": "brick/math",
@@ -1852,16 +1852,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "3.30.1",
+            "version": "3.30.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "c139fd65c1f796b926f4aec0df37f6caa959a8da"
+                "reference": "5966a8ba23e62bdb518dd9e0e665c2dbd4b5b277"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/c139fd65c1f796b926f4aec0df37f6caa959a8da",
-                "reference": "c139fd65c1f796b926f4aec0df37f6caa959a8da",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/5966a8ba23e62bdb518dd9e0e665c2dbd4b5b277",
+                "reference": "5966a8ba23e62bdb518dd9e0e665c2dbd4b5b277",
                 "shasum": ""
             },
             "require": {
@@ -1929,22 +1929,22 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/flysystem/issues",
-                "source": "https://github.com/thephpleague/flysystem/tree/3.30.1"
+                "source": "https://github.com/thephpleague/flysystem/tree/3.30.2"
             },
-            "time": "2025-10-20T15:35:26+00:00"
+            "time": "2025-11-10T17:13:11+00:00"
         },
         {
             "name": "league/flysystem-local",
-            "version": "3.30.0",
+            "version": "3.30.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem-local.git",
-                "reference": "6691915f77c7fb69adfb87dcd550052dc184ee10"
+                "reference": "ab4f9d0d672f601b102936aa728801dd1a11968d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem-local/zipball/6691915f77c7fb69adfb87dcd550052dc184ee10",
-                "reference": "6691915f77c7fb69adfb87dcd550052dc184ee10",
+                "url": "https://api.github.com/repos/thephpleague/flysystem-local/zipball/ab4f9d0d672f601b102936aa728801dd1a11968d",
+                "reference": "ab4f9d0d672f601b102936aa728801dd1a11968d",
                 "shasum": ""
             },
             "require": {
@@ -1978,9 +1978,9 @@
                 "local"
             ],
             "support": {
-                "source": "https://github.com/thephpleague/flysystem-local/tree/3.30.0"
+                "source": "https://github.com/thephpleague/flysystem-local/tree/3.30.2"
             },
-            "time": "2025-05-21T10:34:19+00:00"
+            "time": "2025-11-10T11:23:37+00:00"
         },
         {
             "name": "league/mime-type-detection",
@@ -2371,7 +2371,7 @@
         },
         {
             "name": "lee-to/moonshine-tree-resource",
-            "version": "3.x-dev",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lee-to/moonshine-tree-resource.git",
@@ -2531,16 +2531,16 @@
         },
         {
             "name": "moonshine/advanced",
-            "version": "1.0.9",
+            "version": "1.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/moonshine-software/advanced.git",
-                "reference": "b03f8ad38553f29af03dfeac7b4ef20501e77c48"
+                "reference": "de3e49be90552a44c923662cb7aeab3c98e26c0d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moonshine-software/advanced/zipball/b03f8ad38553f29af03dfeac7b4ef20501e77c48",
-                "reference": "b03f8ad38553f29af03dfeac7b4ef20501e77c48",
+                "url": "https://api.github.com/repos/moonshine-software/advanced/zipball/de3e49be90552a44c923662cb7aeab3c98e26c0d",
+                "reference": "de3e49be90552a44c923662cb7aeab3c98e26c0d",
                 "shasum": ""
             },
             "require": {
@@ -2552,7 +2552,7 @@
                 "moonshine/moonshine": "<3.0"
             },
             "require-dev": {
-                "moonshine/moonshine": "^3.0",
+                "moonshine/moonshine": "^3.0|^4.0",
                 "orchestra/testbench": "^9.0",
                 "phpunit/phpunit": "^11.0",
                 "rector/rector": "^1.0"
@@ -2590,20 +2590,20 @@
                 "issues": "https://github.com/moonshine/advanced/issues",
                 "source": "https://github.com/moonshine/advanced"
             },
-            "time": "2025-10-27T10:42:31+00:00"
+            "time": "2025-11-11T10:12:43+00:00"
         },
         {
             "name": "moonshine/apexcharts",
-            "version": "1.2.0",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/moonshine-software/apexcharts.git",
-                "reference": "5d4a1eb3ab598b63d021404886b779044b19b2ee"
+                "reference": "4f8d26bbb885653ce94c895f5214cf802c8ce866"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moonshine-software/apexcharts/zipball/5d4a1eb3ab598b63d021404886b779044b19b2ee",
-                "reference": "5d4a1eb3ab598b63d021404886b779044b19b2ee",
+                "url": "https://api.github.com/repos/moonshine-software/apexcharts/zipball/4f8d26bbb885653ce94c895f5214cf802c8ce866",
+                "reference": "4f8d26bbb885653ce94c895f5214cf802c8ce866",
                 "shasum": ""
             },
             "require": {
@@ -2615,7 +2615,7 @@
                 "moonshine/moonshine": "<3.0.0"
             },
             "require-dev": {
-                "moonshine/moonshine": "^3.0",
+                "moonshine/moonshine": "^4.0",
                 "orchestra/testbench": "^9.0",
                 "phpunit/phpunit": "^11.0.1",
                 "rector/rector": "^1.0"
@@ -2655,11 +2655,11 @@
                 "issues": "https://github.com/moonshine-software/apexcharts/issues",
                 "source": "https://github.com/moonshine-software/apexcharts"
             },
-            "time": "2025-08-26T15:15:04+00:00"
+            "time": "2025-11-11T10:10:51+00:00"
         },
         {
             "name": "moonshine/changelog",
-            "version": "3.x-dev",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/moonshine-software/changelog.git",
@@ -2724,7 +2724,7 @@
         },
         {
             "name": "moonshine/import-export",
-            "version": "2.x-dev",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/moonshine-software/import-export.git",
@@ -2784,16 +2784,16 @@
         },
         {
             "name": "moonshine/moonshine",
-            "version": "4.x-dev",
+            "version": "4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/moonshine-software/moonshine.git",
-                "reference": "689023e8ab758a9784479f1fff1b6f801dd9063c"
+                "reference": "b1050a995367e361aec0975c740f2f05aa0c83f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moonshine-software/moonshine/zipball/689023e8ab758a9784479f1fff1b6f801dd9063c",
-                "reference": "689023e8ab758a9784479f1fff1b6f801dd9063c",
+                "url": "https://api.github.com/repos/moonshine-software/moonshine/zipball/b1050a995367e361aec0975c740f2f05aa0c83f7",
+                "reference": "b1050a995367e361aec0975c740f2f05aa0c83f7",
                 "shasum": ""
             },
             "require": {
@@ -2831,7 +2831,6 @@
                 "rector/rector": "~2.2.0",
                 "symplify/monorepo-builder": "^11.2"
             },
-            "default-branch": true,
             "type": "library",
             "extra": {
                 "laravel": {
@@ -2892,11 +2891,11 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2025-11-10T08:43:43+00:00"
+            "time": "2025-11-11T08:49:58+00:00"
         },
         {
             "name": "moonshine/permissions",
-            "version": "3.x-dev",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/moonshine-software/permissions.git",
@@ -3023,16 +3022,16 @@
         },
         {
             "name": "moonshine/tinymce",
-            "version": "2.x-dev",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/moonshine-software/tinymce.git",
-                "reference": "299e975860d5bb93b76ff741e8c711bfd0bade58"
+                "reference": "d7bfd0d112e431ecfb09f27399dad219df7ce4dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moonshine-software/tinymce/zipball/299e975860d5bb93b76ff741e8c711bfd0bade58",
-                "reference": "299e975860d5bb93b76ff741e8c711bfd0bade58",
+                "url": "https://api.github.com/repos/moonshine-software/tinymce/zipball/d7bfd0d112e431ecfb09f27399dad219df7ce4dd",
+                "reference": "d7bfd0d112e431ecfb09f27399dad219df7ce4dd",
                 "shasum": ""
             },
             "require": {
@@ -3044,7 +3043,7 @@
                 "moonshine/moonshine": "<3.0.0"
             },
             "require-dev": {
-                "moonshine/moonshine": "^3.0",
+                "moonshine/moonshine": "^4.0",
                 "orchestra/testbench": "^9.0",
                 "phpunit/phpunit": "^11.0.1",
                 "rector/rector": "^1.0"
@@ -3083,7 +3082,7 @@
                 "issues": "https://github.com/moonshine-software/tinymce/issues",
                 "source": "https://github.com/moonshine-software/tinymce"
             },
-            "time": "2025-11-08T12:56:27+00:00"
+            "time": "2025-11-11T10:06:23+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -9723,14 +9722,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "lee-to/moonshine-tree-resource": 20,
-        "moonshine/changelog": 20,
-        "moonshine/import-export": 20,
-        "moonshine/moonshine": 20,
-        "moonshine/permissions": 20,
-        "moonshine/tinymce": 20
-    },
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
