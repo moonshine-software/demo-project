@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\MoonShine\Layouts;
 
 use App\MoonShine\Components\DemoVersionComponent;
-use MoonShine\ColorManager\Palettes\DefaultPalette;
 use MoonShine\ColorManager\Palettes\PurplePalette;
 use MoonShine\Contracts\ColorManager\PaletteContract;
 use MoonShine\Laravel\Layouts\AppLayout;
@@ -29,7 +28,6 @@ final class MoonShineLayout extends AppLayout
     {
         $components = [
             Components::make([
-                DemoVersionComponent::make(),
                 ...$this->getPage()->getComponents(),
             ]),
         ];
@@ -38,6 +36,7 @@ final class MoonShineLayout extends AppLayout
             $hasSubtitle = $this->withSubTitle() && $this->getPage()->getSubtitle() !== '';
 
             return array_filter([
+                DemoVersionComponent::make(),
                 Title::make($this->getPage()->getTitle())->class($hasSubtitle ? '' : 'mb-6'),
                 $hasSubtitle ? Heading::make($this->getPage()->getSubtitle())->class('mb-6') : null,
                 ...$components,
