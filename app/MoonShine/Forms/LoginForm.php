@@ -27,6 +27,7 @@ final class LoginForm implements FormContract
     {
         return FormBuilder::make()
             ->class('authentication-form')
+            ->errorsAbove(false)
             ->action($this->action)
             ->fields([
                 Text::make($this->core->getTranslator()->get('moonshine::ui.login.username'), 'username')
