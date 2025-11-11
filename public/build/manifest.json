@@ -1,0 +1,60 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-Bp-CYfc8.css",
+    "src": "resources/css/app.css",
+    "isEntry": true,
+    "names": [
+      "app.css"
+    ]
+  },
+  "resources/fonts/Gilroy-Black.woff2": {
+    "file": "assets/Gilroy-Black-nANOiXFK.woff2",
+    "src": "resources/fonts/Gilroy-Black.woff2"
+  },
+  "resources/fonts/Gilroy-Bold.woff2": {
+    "file": "assets/Gilroy-Bold-Dni6zD24.woff2",
+    "src": "resources/fonts/Gilroy-Bold.woff2"
+  },
+  "resources/fonts/Gilroy-Medium.woff2": {
+    "file": "assets/Gilroy-Medium-D1zFn0pQ.woff2",
+    "src": "resources/fonts/Gilroy-Medium.woff2"
+  },
+  "resources/fonts/Gilroy-Regular.woff2": {
+    "file": "assets/Gilroy-Regular-CCqYxGVy.woff2",
+    "src": "resources/fonts/Gilroy-Regular.woff2"
+  },
+  "resources/fonts/Gilroy-SemiBold.woff2": {
+    "file": "assets/Gilroy-SemiBold-BaPzwWK_.woff2",
+    "src": "resources/fonts/Gilroy-SemiBold.woff2"
+  },
+  "resources/images/icons/checking.svg": {
+    "file": "assets/checking-CKUZJxCX.svg",
+    "src": "resources/images/icons/checking.svg"
+  },
+  "resources/images/icons/done.svg": {
+    "file": "assets/done-ZzgB3sss.svg",
+    "src": "resources/images/icons/done.svg"
+  },
+  "resources/images/icons/progress.svg": {
+    "file": "assets/progress-DRgMYITu.svg",
+    "src": "resources/images/icons/progress.svg"
+  },
+  "resources/images/icons/time-forward.svg": {
+    "file": "assets/time-forward-DgdvVou1.svg",
+    "src": "resources/images/icons/time-forward.svg"
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-DN0QLku3.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  },
+  "resources/sass/main.sass": {
+    "file": "assets/main-DyfnTUA3.css",
+    "src": "resources/sass/main.sass",
+    "isEntry": true,
+    "names": [
+      "main.css"
+    ]
+  }
+}
