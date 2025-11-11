@@ -33,6 +33,8 @@ class MoonShineUserResource extends ModelResource
 
     protected bool $simplePaginate = true;
 
+    protected bool $withPolicy = true;
+
     public function getTitle(): string
     {
         return __('moonshine::ui.resource.admins_title');
