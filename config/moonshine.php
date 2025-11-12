@@ -9,14 +9,13 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use MoonShine\ColorManager\Palettes\PurplePalette;
 use MoonShine\Crud\Forms\FiltersForm;
 use MoonShine\Laravel\Exceptions\MoonShineNotFoundException;
 use MoonShine\Laravel\Http\Middleware\Authenticate;
 use MoonShine\Laravel\Http\Middleware\ChangeLocale;
 use MoonShine\Laravel\Pages\ErrorPage;
 use MoonShine\Laravel\Pages\LoginPage;
-use MoonShine\Laravel\Pages\ProfilePage;
+use App\MoonShine\Pages\ProfilePage;
 use MoonShine\Permissions\Models\MoonshineUser;
 
 return [
