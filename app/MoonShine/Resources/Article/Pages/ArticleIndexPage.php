@@ -36,11 +36,13 @@ use MoonShine\UI\Components\Layout\Div;
 use MoonShine\UI\Components\Metrics\Wrapped\Metric;
 use MoonShine\UI\Components\Metrics\Wrapped\ValueMetric;
 use MoonShine\UI\Components\Table\TableBuilder;
+use MoonShine\UI\Components\Thumbnails;
 use MoonShine\UI\Fields\Color;
 use MoonShine\UI\Fields\HiddenIds;
 use MoonShine\UI\Fields\ID;
 use MoonShine\UI\Fields\Image;
 use MoonShine\UI\Fields\Number;
+use MoonShine\UI\Fields\Preview;
 use MoonShine\UI\Fields\RangeSlider;
 use MoonShine\UI\Fields\Select;
 use MoonShine\UI\Fields\Switcher;
@@ -72,7 +74,13 @@ final class ArticleIndexPage extends IndexPage
             Text::make('Title'),
 
             $this->isListView()
-                ? Image::make('Thumbnail')->disk('public')->dir('articles')
+                ? Preview::make('Thumbnail', formatted: function (Article $article) {
+                    return $article->thumbnail ? Image::make('Thumbnail')
+                        ->setValue($article->thumbnail)
+                        ->disk('public')
+                        ->dir('articles')
+                        : Thumbnails::make(asset('images/template.jpg'));
+                })
                 : null,
 
             RangeSlider::make('Age')->fromTo('age_from', 'age_to'),
@@ -249,9 +257,9 @@ final class ArticleIndexPage extends IndexPage
         } else {
             $component
                 ->trAttributes(static function (?DataWrapperContract $data, int $row): array {
-                    if ($data?->getOriginal()->author?->moonshine_user_role_id !== 1) {
+                    if ($data?->getOriginal()->author?->moonshine_user_role_id === 1) {
                         return [
-                            'class' => 'bgc-gray',
+                            'class' => 'bgc-blue',
                         ];
                     }
 

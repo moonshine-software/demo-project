@@ -10,7 +10,7 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "lee-to/laravel-thumbnails": "^2.0",
-        "lee-to/moonshine-tree-resource": "^3.0",
+        "lee-to/moonshine-tree-resource": "^4.0",
         "moonshine/advanced": "^1.0",
         "moonshine/apexcharts": "^2.0",
         "moonshine/changelog": "^3.0",
