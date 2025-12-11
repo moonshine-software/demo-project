@@ -20,7 +20,10 @@
         "moonshine/ru": "^1.0",
         "moonshine/tinymce": "^2.0",
         "openspout/openspout": "<4.29",
-        "unisharp/laravel-filemanager": "^2.6"
+        "unisharp/laravel-filemanager": "^2.6",
+        "symfony/clock": "^7.4",
+        "symfony/event-dispatcher": "^7.4",
+        "symfony/string": "^7.4"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.8",
