@@ -11,6 +11,7 @@ use MoonShine\Advanced\Components\Tabs\AsyncTab;
 use MoonShine\Advanced\Components\Tabs\AsyncTabs;
 use MoonShine\Apexcharts\Components\DonutChartMetric;
 use MoonShine\Apexcharts\Components\LineChartMetric;
+use MoonShine\Apexcharts\Support\SeriesItem;
 use MoonShine\Contracts\Core\DependencyInjection\CrudRequestContract;
 use MoonShine\Crud\JsonResponse;
 use MoonShine\Laravel\Pages\Page;
@@ -95,27 +96,21 @@ class Dashboard extends Page
                 ])->columnSpan(6),
                 Column::make([
                     LineChartMetric::make('Заказы')
-                        ->line([
-                            'Выручка 1' => [
-                                now()->format('Y-m-d') => 100,
-                                now()->addDay()->format('Y-m-d') => 200,
-                                now()->addDays(2)->format('Y-m-d') => 500,
-                            ],
-                        ])
-                        ->line([
-                            'Выручка 2' => [
-                                now()->format('Y-m-d') => 300,
-                                now()->addDay()->format('Y-m-d') => 400,
-                                now()->addDays(2)->format('Y-m-d') => 300,
-                            ],
-                        ], '#EC4176')
-                        ->line([
-                            'Выручка 3' => [
-                                now()->format('Y-m-d') => 400,
-                                now()->addDay()->format('Y-m-d') => 500,
-                                now()->addDays(2)->format('Y-m-d') => 300,
-                            ],
-                        ], '#1e96fc'),
+                        ->series(SeriesItem::make('Выручка 1', [
+                            now()->format('Y-m-d') => 100,
+                            now()->addDay()->format('Y-m-d') => 200,
+                            now()->addDays(2)->format('Y-m-d') => 500,
+                        ])->line())
+                        ->series(SeriesItem::make('Выручка 2', [
+                            now()->format('Y-m-d') => 300,
+                            now()->addDay()->format('Y-m-d') => 400,
+                            now()->addDays(2)->format('Y-m-d') => 300,
+                        ])->line())
+                        ->series(SeriesItem::make('Выручка 3', [
+                            now()->format('Y-m-d') => 400,
+                            now()->addDay()->format('Y-m-d') => 500,
+                            now()->addDays(2)->format('Y-m-d') => 300,
+                        ])->line())
                 ])->columnSpan(6),
             ]),
         );

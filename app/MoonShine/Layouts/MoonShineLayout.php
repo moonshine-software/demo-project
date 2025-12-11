@@ -21,7 +21,7 @@ final class MoonShineLayout extends AppLayout
 
     protected function menu(): array
     {
-        return $this->autoloadMenu();
+        return $this->autoloadMenu(onlyIcons: true);
     }
 
     protected function getContentComponents(): array

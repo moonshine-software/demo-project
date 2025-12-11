@@ -81,7 +81,7 @@ final class ArticleFormPage extends FormPage
                                     ->withoutWrapper()
                                     ->required()
                                 ,
-                            ])
+                            ])  ->unwrap()
                                 ->name('flex-titles')
                                 ->justifyAlign('start')
                                 ->itemsAlign('start'),

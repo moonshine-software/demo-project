@@ -33,7 +33,7 @@ final readonly class DashboardTableWithForm
                         ActionButton::make('Apply')->dispatchEvent([
                             AlpineJs::event(JsEvent::FORM_SUBMIT, 'table-form')
                         ]),
-                    ]),
+                    ])->unwrap(),
                 ])
                 ->hideSubmit(),
 
