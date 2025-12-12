@@ -10,6 +10,7 @@ use MoonShine\Contracts\UI\ComponentContract;
 use MoonShine\Contracts\UI\FieldContract;
 use MoonShine\Laravel\Fields\Relationships\BelongsTo;
 use MoonShine\Laravel\Pages\Crud\FormPage;
+use MoonShine\UI\Components\Layout\Box;
 use MoonShine\UI\Fields\ID;
 use MoonShine\UI\Fields\Text;
 
@@ -24,10 +25,12 @@ class CommentFormPage extends FormPage
     protected function fields(): iterable
     {
         return [
-            ID::make(),
-            BelongsTo::make('Article'),
-            BelongsTo::make('User'),
-            Text::make('Text')->required(),
+            Box::make([
+                ID::make(),
+                BelongsTo::make('Article'),
+                BelongsTo::make('User'),
+                Text::make('Text')->required(),
+            ]),
         ];
     }
 
