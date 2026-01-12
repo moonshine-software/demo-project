@@ -14,7 +14,7 @@
         "moonshine/advanced": "^1.0",
         "moonshine/apexcharts": "^3.0",
         "moonshine/changelog": "^3.0",
-        "moonshine/import-export": "^2.0",
+        "moonshine/import-export": "2.0.0",
         "moonshine/moonshine": "^4.0",
         "moonshine/permissions": "^3.0",
         "moonshine/ru": "^1.0",
