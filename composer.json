@@ -22,6 +22,7 @@
         "openspout/openspout": "<4.29",
         "unisharp/laravel-filemanager": "^2.6",
         "symfony/clock": "^7.4",
+        "symfony/css-selector": "^7.4",
         "symfony/translation": "^7.4",
         "symfony/event-dispatcher": "^7.4",
         "symfony/string": "^7.4"
