@@ -11,6 +11,7 @@ use App\MoonShine\Resources\MoonShineUser\MoonShineUserResource;
 use App\MoonShine\Resources\User\UserResource;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Storage;
+use MoonShine\Apexcharts\Components\SparklineChartMetric;
 use MoonShine\Contracts\Core\DependencyInjection\CrudRequestContract;
 use MoonShine\Contracts\Core\TypeCasts\DataWrapperContract;
 use MoonShine\Contracts\UI\ActionButtonContract;
@@ -32,6 +33,7 @@ use MoonShine\UI\Components\ActionButton;
 use MoonShine\UI\Components\CardsBuilder;
 use MoonShine\UI\Components\FlexibleRender;
 use MoonShine\UI\Components\FormBuilder;
+use MoonShine\UI\Components\Layout\Column;
 use MoonShine\UI\Components\Layout\Div;
 use MoonShine\UI\Components\Metrics\Wrapped\Metric;
 use MoonShine\UI\Components\Metrics\Wrapped\ValueMetric;
@@ -75,12 +77,12 @@ final class ArticleIndexPage extends IndexPage
 
             $this->isListView()
                 ? Preview::make('Thumbnail', formatted: function (Article $article) {
-                    return $article->thumbnail ? Image::make('Thumbnail')
-                        ->setValue($article->thumbnail)
-                        ->disk('public')
-                        ->dir('articles')
-                        : Thumbnails::make(asset('images/template.jpg'));
-                })
+                return $article->thumbnail ? Image::make('Thumbnail')
+                    ->setValue($article->thumbnail)
+                    ->disk('public')
+                    ->dir('articles')
+                    : Thumbnails::make(asset('images/template.jpg'));
+            })
                 : null,
 
             RangeSlider::make('Age')->fromTo('age_from', 'age_to'),
@@ -141,12 +143,30 @@ final class ArticleIndexPage extends IndexPage
     protected function metrics(): array
     {
         return [
-            ValueMetric::make('Articles')
-                ->value(Article::query()->count())
-                ->columnSpan(6),
-            ValueMetric::make('Comments')
-                ->value(Comment::query()->count())
-                ->columnSpan(6),
+            SparklineChartMetric::make('Revenue')
+                ->columnSpan(4)
+                ->values([30, 40, 35, 50, 49, 60, 70, 91, 125])
+                ->value('192.10k', prefix: '$')
+                ->change(32, suffix: 'k')
+                ->colors(['#10b981']),
+
+            SparklineChartMetric::make('Expenses')
+                ->columnSpan(4)
+                ->values([100, 95, 90, 85, 80])
+                ->value('45.5k', prefix: '$')
+                ->change(
+                    -12,
+                    suffix: 'k',
+                )
+                ->colors(['#ef4444']),
+
+
+            SparklineChartMetric::make('Posts')
+                ->columnSpan(4)
+                ->values([30, 40, 35, 50, 49, 60, 70, 91, 125])
+                ->value('200')
+                ->change(2),
+
         ];
     }
 
@@ -164,7 +184,8 @@ final class ArticleIndexPage extends IndexPage
                 ActionButton::make('Active')
                     ->inModal(
                         'Active',
-                        fn(): string => (string)FormBuilder::make(
+                        fn(): string
+                            => (string)FormBuilder::make(
                             route('moonshine.articles.mass-active', $this->getUriKey()),
                             fields: [
                                 HiddenIds::make($tableName),
@@ -174,7 +195,7 @@ final class ArticleIndexPage extends IndexPage
                             ],
                         )
                             ->async(events: [AlpineJs::event(JsEvent::TABLE_UPDATED, $tableName)])
-                            ->submit(__('moonshine::ui.confirm'), ['class' => 'btn-secondary'])
+                            ->submit(__('moonshine::ui.confirm'), ['class' => 'btn-secondary']),
                     )
                     ->bulk(),
             )
@@ -190,29 +211,31 @@ final class ArticleIndexPage extends IndexPage
     {
         return $button->withConfirm(
             method: HttpMethod::DELETE,
-            formBuilder: fn(FormBuilder $form, Article $item) => $form->async(
-                events: [
-                    $this->isListView()
-                        ?
-                        AlpineJs::event(
-                            JsEvent::TABLE_ROW_UPDATED,
-                            $this->getResource()->getListComponentName(),
-                            array_filter([
-                                'key' => $item->getKey(),
-                                'type' => ListRowEventType::REMOVE,
-                                'page' => request()->getScalar('page'),
-                                'sort' => request()->getScalar('sort'),
-                            ]),
-                        )
-                        : $this->getListEventName(
+            formBuilder: fn(FormBuilder $form, Article $item)
+                => $form
+                ->async(
+                    events: [
+                        $this->isListView()
+                            ?
+                            AlpineJs::event(
+                                JsEvent::TABLE_ROW_UPDATED,
+                                $this->getResource()->getListComponentName(),
+                                array_filter([
+                                    'key' => $item->getKey(),
+                                    'type' => ListRowEventType::REMOVE,
+                                    'page' => request()->getScalar('page'),
+                                    'sort' => request()->getScalar('sort'),
+                                ]),
+                            )
+                            : $this->getListEventName(
                             $this->getListComponentName(),
                             array_filter([
                                 'page' => request()->getScalar('page'),
                                 'sort' => request()->getScalar('sort'),
                             ]),
                         ),
-                ],
-            )
+                    ],
+                )
                 ->submit(
                     button: ActionButton::make(__('moonshine::ui.confirm'))->error()->hotKeys(['shift', 'd'], true),
                 ),
@@ -233,18 +256,19 @@ final class ArticleIndexPage extends IndexPage
     }
 
     /**
-     * @param TableBuilder $component
+     * @param  TableBuilder  $component
      *
      */
     public function modifyListComponent(ComponentContract $component): ComponentContract
     {
-        if (!$this->isListView()) {
+        if (! $this->isListView()) {
             $component = CardsBuilder::make()
                 ->componentAttributes([
                     'style' => 'margin-top: 5px',
                 ])
                 ->thumbnail(
-                    fn(Article $article) => $article->thumbnail
+                    fn(Article $article)
+                        => $article->thumbnail
                         ? Storage::disk('public')->url($article->thumbnail)
                         : asset('images/template.jpg'),
                 )
@@ -296,7 +320,7 @@ final class ArticleIndexPage extends IndexPage
                             ->icon('rectangle-group')
                             ->class('btn-square')
                             ->withoutLoading()
-                            ->primary(!$this->isListView()),
+                            ->primary(! $this->isListView()),
                     ]),
                 ];
             });

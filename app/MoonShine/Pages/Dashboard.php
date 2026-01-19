@@ -11,6 +11,7 @@ use MoonShine\Advanced\Components\Tabs\AsyncTab;
 use MoonShine\Advanced\Components\Tabs\AsyncTabs;
 use MoonShine\Apexcharts\Components\DonutChartMetric;
 use MoonShine\Apexcharts\Components\LineChartMetric;
+use MoonShine\Apexcharts\Components\SparklineChartMetric;
 use MoonShine\Apexcharts\Support\SeriesItem;
 use MoonShine\Contracts\Core\DependencyInjection\CrudRequestContract;
 use MoonShine\Crud\JsonResponse;
@@ -49,14 +50,31 @@ class Dashboard extends Page
 
             Grid::make([
                 Column::make([
-                    ValueMetric::make('Articles')
-                        ->value(Article::query()->count()),
-                ])->columnSpan(6),
+                    SparklineChartMetric::make('Revenue')
+                        ->values([30, 40, 35, 50, 49, 60, 70, 91, 125])
+                        ->value('192.10k', prefix: '$')
+                        ->change(32, suffix: 'k')
+                        ->colors(['#10b981']),
+                ])->columnSpan(4),
 
                 Column::make([
-                    ValueMetric::make('Comments')
-                        ->value(Comment::query()->count()),
-                ])->columnSpan(6),
+                    SparklineChartMetric::make('Expenses')
+                        ->values([100, 95, 90, 85, 80])
+                        ->value('45.5k', prefix: '$')
+                        ->change(
+                            -12,
+                            suffix: 'k',
+                        )
+                        ->colors(['#ef4444']),
+                ])->columnSpan(4),
+
+                Column::make([
+                    SparklineChartMetric::make('Posts')
+                        ->values([30, 40, 35, 50, 49, 60, 70, 91, 125])
+                        ->value('200')
+                        ->change(2)
+                        ->colors(['#3b82f6']),
+                ])->columnSpan(4),
 
                 Column::make([
                     AsyncTabs::make([
