@@ -2602,16 +2602,16 @@
         },
         {
             "name": "moonshine/apexcharts",
-            "version": "3.1.0",
+            "version": "3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/moonshine-software/apexcharts.git",
-                "reference": "046e23940dbc827a706d13fdc92dbc3b67c791a5"
+                "reference": "a0ad3ec076f1a4caec0cd5eaa4a2953cdf14f96c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moonshine-software/apexcharts/zipball/046e23940dbc827a706d13fdc92dbc3b67c791a5",
-                "reference": "046e23940dbc827a706d13fdc92dbc3b67c791a5",
+                "url": "https://api.github.com/repos/moonshine-software/apexcharts/zipball/a0ad3ec076f1a4caec0cd5eaa4a2953cdf14f96c",
+                "reference": "a0ad3ec076f1a4caec0cd5eaa4a2953cdf14f96c",
                 "shasum": ""
             },
             "require": {
@@ -2665,7 +2665,7 @@
                 "issues": "https://github.com/moonshine-software/apexcharts/issues",
                 "source": "https://github.com/moonshine-software/apexcharts"
             },
-            "time": "2026-01-19T10:19:07+00:00"
+            "time": "2026-01-19T12:56:09+00:00"
         },
         {
             "name": "moonshine/changelog",

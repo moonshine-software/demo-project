@@ -144,6 +144,7 @@ final class ArticleIndexPage extends IndexPage
     {
         return [
             SparklineChartMetric::make('Revenue')
+                ->icon('arrow-trending-up')
                 ->columnSpan(4)
                 ->values([30, 40, 35, 50, 49, 60, 70, 91, 125])
                 ->value('192.10k', prefix: '$')
@@ -151,6 +152,7 @@ final class ArticleIndexPage extends IndexPage
                 ->colors(['#10b981']),
 
             SparklineChartMetric::make('Expenses')
+                ->icon('chart-bar')
                 ->columnSpan(4)
                 ->values([100, 95, 90, 85, 80])
                 ->value('45.5k', prefix: '$')
@@ -162,6 +164,7 @@ final class ArticleIndexPage extends IndexPage
 
 
             SparklineChartMetric::make('Posts')
+                ->icon('newspaper')
                 ->columnSpan(4)
                 ->values([30, 40, 35, 50, 49, 60, 70, 91, 125])
                 ->value('200')
