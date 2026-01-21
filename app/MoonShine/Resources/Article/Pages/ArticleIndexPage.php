@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\MoonShine\Resources\Article\Pages;
 
 use App\Models\Article;
-use App\Models\Comment;
 use App\MoonShine\Resources\Article\ArticleResource;
 use App\MoonShine\Resources\MoonShineUser\MoonShineUserResource;
 use App\MoonShine\Resources\User\UserResource;
@@ -24,7 +23,7 @@ use MoonShine\Laravel\Pages\Crud\IndexPage;
 use MoonShine\Laravel\QueryTags\QueryTag;
 use MoonShine\Support\AlpineJs;
 use MoonShine\Support\Attributes\AsyncMethod;
-use MoonShine\Support\Enums\ClickAction;
+use MoonShine\Support\Enums\Color as ColorEnum;
 use MoonShine\Support\Enums\HttpMethod;
 use MoonShine\Support\Enums\JsEvent;
 use MoonShine\Support\Enums\ListRowEventType;
@@ -33,10 +32,8 @@ use MoonShine\UI\Components\ActionButton;
 use MoonShine\UI\Components\CardsBuilder;
 use MoonShine\UI\Components\FlexibleRender;
 use MoonShine\UI\Components\FormBuilder;
-use MoonShine\UI\Components\Layout\Column;
 use MoonShine\UI\Components\Layout\Div;
 use MoonShine\UI\Components\Metrics\Wrapped\Metric;
-use MoonShine\UI\Components\Metrics\Wrapped\ValueMetric;
 use MoonShine\UI\Components\Table\TableBuilder;
 use MoonShine\UI\Components\Thumbnails;
 use MoonShine\UI\Fields\Color;
@@ -69,9 +66,9 @@ final class ArticleIndexPage extends IndexPage
         return array_filter([
             ID::make()->sortable(),
 
-            BelongsTo::make('Author', resource: MoonShineUserResource::class),
+            BelongsTo::make('Author', resource: MoonShineUserResource::class)->badge(color: ColorEnum::GREEN, icon: 'users'),
 
-            Number::make('Comments', 'comments_count'),
+            Number::make('Comments', 'comments_count')->badge(),
 
             Text::make('Title'),
 
