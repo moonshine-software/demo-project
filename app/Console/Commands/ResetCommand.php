@@ -11,12 +11,20 @@ class ResetCommand extends Command
 {
     public function handle(): int
     {
-        $this->call('migrate:fresh', [
-            '--force' => true,
-            '--seed' => true
+        $this->call('down', [
+            '--retry' => 5,
         ]);
 
-        File::cleanDirectory(storage_path('app/public'));
+        try {
+            $this->call('migrate:fresh', [
+                '--force' => true,
+                '--seed' => true,
+            ]);
+
+            File::cleanDirectory(storage_path('app/public'));
+        } finally {
+            $this->call('up');
+        }
 
         return self::SUCCESS;
     }
