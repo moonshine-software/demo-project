@@ -27,7 +27,7 @@ class CommentIndexPage extends IndexPage
             ID::make()->sortable(),
             BelongsTo::make('Article'),
             BelongsTo::make('User'),
-            Text::make('Text'),
+            Text::make('Text')->copy(),
         ];
     }
 }
