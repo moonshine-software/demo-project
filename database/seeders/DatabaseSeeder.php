@@ -30,6 +30,13 @@ class DatabaseSeeder extends Seeder
             'name' => 'Author'
         ]);
 
+        MoonshineUser::query()->create([
+            'name' => 'Author',
+            'moonshine_user_role_id' => 2,
+            'email' => 'author@moonshine-laravel.com',
+            'password' => bcrypt('moonshine')
+        ]);
+
         Article::factory(20)->create();
         Category::factory(10)->create();
         User::factory(10)->create();

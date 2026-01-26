@@ -19,6 +19,7 @@ use MoonShine\Crud\JsonResponse;
 use MoonShine\Laravel\Fields\Relationships\BelongsTo;
 use MoonShine\Laravel\Fields\Relationships\BelongsToMany;
 use MoonShine\Laravel\Fields\Slug;
+use MoonShine\Laravel\Models\MoonshineUser;
 use MoonShine\Laravel\Pages\Crud\IndexPage;
 use MoonShine\Laravel\QueryTags\QueryTag;
 use MoonShine\Support\AlpineJs;
@@ -66,7 +67,11 @@ final class ArticleIndexPage extends IndexPage
         return array_filter([
             ID::make()->sortable(),
 
-            BelongsTo::make('Author', resource: MoonShineUserResource::class)->badge(color: ColorEnum::GREEN, icon: 'users'),
+            BelongsTo::make('Author', resource: MoonShineUserResource::class)
+                ->badge(
+                    color: fn(MoonshineUser $user): ColorEnum => $user->isSuperUser() ? ColorEnum::GREEN : ColorEnum::BLUE,
+                    icon: fn(MoonshineUser $user): string => $user->isSuperUser() ? 'users' : 'newspaper'
+                ),
 
             Number::make('Comments', 'comments_count')->badge(),
 
@@ -141,6 +146,7 @@ final class ArticleIndexPage extends IndexPage
     {
         return [
             SparklineChartMetric::make('Revenue')
+                ->withoutTooltip()
                 ->icon('arrow-trending-up')
                 ->columnSpan(4)
                 ->values([30, 40, 35, 50, 49, 60, 70, 91, 125])
@@ -149,6 +155,7 @@ final class ArticleIndexPage extends IndexPage
                 ->colors(['#10b981']),
 
             SparklineChartMetric::make('Expenses')
+                ->withoutTooltip()
                 ->icon('chart-bar')
                 ->columnSpan(4)
                 ->values([100, 95, 90, 85, 80])
@@ -161,6 +168,7 @@ final class ArticleIndexPage extends IndexPage
 
 
             SparklineChartMetric::make('Posts')
+                ->withoutTooltip()
                 ->icon('newspaper')
                 ->columnSpan(4)
                 ->values([30, 40, 35, 50, 49, 60, 70, 91, 125])

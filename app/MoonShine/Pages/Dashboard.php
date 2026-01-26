@@ -51,6 +51,7 @@ class Dashboard extends Page
             Grid::make([
                 Column::make([
                     SparklineChartMetric::make('Revenue')
+                        ->withoutTooltip()
                         ->icon('arrow-trending-up')
                         ->values([30, 40, 35, 50, 49, 60, 70, 91, 125])
                         ->value('192.10k', prefix: '$')
@@ -60,6 +61,7 @@ class Dashboard extends Page
 
                 Column::make([
                     SparklineChartMetric::make('Expenses')
+                        ->withoutTooltip()
                         ->icon('chart-bar')
                         ->values([100, 95, 90, 85, 80])
                         ->value('45.5k', prefix: '$')
@@ -72,6 +74,7 @@ class Dashboard extends Page
 
                 Column::make([
                     SparklineChartMetric::make('Posts')
+                        ->withoutTooltip()
                         ->icon('newspaper')
                         ->values([30, 40, 35, 50, 49, 60, 70, 91, 125])
                         ->value('200')

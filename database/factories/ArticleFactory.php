@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use MoonShine\Permissions\Models\MoonshineUser;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Article>
@@ -13,6 +14,7 @@ class ArticleFactory extends Factory
     {
         return [
             'title' => ucfirst($this->faker->words(2, true)),
+            'author_id' => MoonshineUser::query()->inRandomOrder()->value('id'),
             'description' => $this->faker->text(),
             'slug' => $this->faker->slug(),
             'rating' => $this->faker->numberBetween(0,5),
