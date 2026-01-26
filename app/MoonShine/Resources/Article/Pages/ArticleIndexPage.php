@@ -289,9 +289,15 @@ final class ArticleIndexPage extends IndexPage
         } else {
             $component
                 ->trAttributes(static function (?DataWrapperContract $data, int $row): array {
-                    if ($data?->getOriginal()->author?->moonshine_user_role_id === 1) {
+                    if ($row === 1 && $data?->getOriginal()->author?->moonshine_user_role_id === 1) {
                         return [
                             'class' => 'bgc-blue',
+                        ];
+                    }
+
+                    if ($row === 5) {
+                        return [
+                            'class' => 'bgc-green',
                         ];
                     }
 
