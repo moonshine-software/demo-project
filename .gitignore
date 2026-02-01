@@ -20,6 +20,7 @@ yarn-error.log
 /.idea
 /.vscode
 /.zed
+/packages
 docker-compose.override.yml
 #docker
 /docker/volumes/mysql

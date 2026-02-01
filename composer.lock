@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "86024ab0d73094c47517a740765101f5",
+    "content-hash": "5f557cebee7a261599f595660b20d93c",
     "packages": [
         {
             "name": "brick/math",
@@ -2375,6 +2375,63 @@
                 "source": "https://github.com/lee-to/laravel-thumbnails/tree/2.0.0"
             },
             "time": "2025-10-29T15:43:23+00:00"
+        },
+        {
+            "name": "lee-to/moonshine-kanban-board-resource",
+            "version": "2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lee-to/moonshine-kanban-board-resource.git",
+                "reference": "aa8bd67b360c275cbad8fb07896ca5ee6a013284"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lee-to/moonshine-kanban-board-resource/zipball/aa8bd67b360c275cbad8fb07896ca5ee6a013284",
+                "reference": "aa8bd67b360c275cbad8fb07896ca5ee6a013284",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": "^8.0|^8.1|^8.2"
+            },
+            "conflict": {
+                "moonshine/moonshine": "<4.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Leeto\\MoonShineKanBan\\Providers\\MoonShineKanBanServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Leeto\\MoonShineKanBan\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Danil Shutsky",
+                    "email": "thecutcode@gmail.com",
+                    "homepage": "https://cutcode.dev"
+                }
+            ],
+            "description": "Kanban board resource for moonshine",
+            "homepage": "https://moonshine.cutcode.dev",
+            "keywords": [
+                "moonshine"
+            ],
+            "support": {
+                "issues": "https://github.com/lee-to/moonshine-kanban-board-resource/issues",
+                "source": "https://github.com/lee-to/moonshine-kanban-board-resource"
+            },
+            "time": "2026-02-01T09:22:01+00:00"
         },
         {
             "name": "lee-to/moonshine-tree-resource",

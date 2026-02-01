@@ -10,6 +10,7 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "lee-to/laravel-thumbnails": "^2.0",
+        "lee-to/moonshine-kanban-board-resource": "^2.2",
         "lee-to/moonshine-tree-resource": "^4.0",
         "moonshine/advanced": "^1.0",
         "moonshine/apexcharts": "^3.0",
@@ -20,12 +21,12 @@
         "moonshine/ru": "^1.0",
         "moonshine/tinymce": "^2.0",
         "openspout/openspout": "<4.29",
-        "unisharp/laravel-filemanager": "^2.6",
         "symfony/clock": "^7.4",
         "symfony/css-selector": "^7.4",
-        "symfony/translation": "^7.4",
         "symfony/event-dispatcher": "^7.4",
-        "symfony/string": "^7.4"
+        "symfony/string": "^7.4",
+        "symfony/translation": "^7.4",
+        "unisharp/laravel-filemanager": "^2.6"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.8",

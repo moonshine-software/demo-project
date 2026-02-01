@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\Status;
+use App\Models\Task;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -40,6 +42,19 @@ class DatabaseSeeder extends Seeder
         Article::factory(20)->create();
         Category::factory(10)->create();
         User::factory(10)->create();
+
+        $statuses = [
+            ['name' => 'To Do', 'sorting' => 1],
+            ['name' => 'In Progress', 'sorting' => 2],
+            ['name' => 'Review', 'sorting' => 3],
+            ['name' => 'Done', 'sorting' => 4],
+        ];
+
+        foreach ($statuses as $status) {
+            Status::create($status);
+        }
+
+        Task::factory(50)->create();
 
         DB::table('settings')->insert([
             'id' => 1,
