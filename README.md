@@ -41,3 +41,34 @@ DB_PASSWORD=12345
 - php artisan migrate --seed
 - Go to /admin
 - Optionally, you can configure github or tinymce file manager
+
+## End-to-end tests
+
+This branch runs Laravel 13 and MoonShine 5.x-dev.
+
+Requires PHP 8.4 (with PDO SQLite), Node.js 22.12+ and Composer dependencies.
+
+```sh
+composer install
+php artisan vendor:publish --tag=laravel-assets --force
+npm ci
+npx playwright install chromium
+npm run test:e2e
+```
+
+Playwright builds the frontend, seeds a temporary SQLite database and starts its own
+Laravel server at `http://127.0.0.1:8005`. The database configured in `.env` is not used.
+Keep port 8005 free and stop Vite before running the tests (`public/hot` must be absent).
+
+The suite checks public pages, authentication, the dashboard and its asynchronous tabs,
+the profile, and every registered resource page (lists, create/edit forms and details,
+including resources normally opened in modals). It fails on JavaScript errors, console
+errors and unsuccessful local requests. Screenshots and traces are saved in
+`test-results/` on failure. Browser workflows also cover user and category CRUD,
+profile/settings persistence, XLSX import/export and table/card switching. CSRF protection remains enabled.
+The database and generated storage files are removed after the run.
+
+`php artisan test` additionally checks CRUD for every resource, validation, settings
+and access restrictions using an in-memory SQLite database.
+
+GitHub Actions runs the same checks on pushes to `5.0` and pull requests.

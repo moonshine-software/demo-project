@@ -16,6 +16,7 @@ use MoonShine\Contracts\Core\TypeCasts\DataWrapperContract;
 use MoonShine\Contracts\UI\ActionButtonContract;
 use MoonShine\Contracts\UI\ComponentContract;
 use MoonShine\Crud\JsonResponse;
+use MoonShine\ImportExport\Traits\ImportExportHandlersConcern;
 use MoonShine\Laravel\Fields\Relationships\BelongsTo;
 use MoonShine\Laravel\Fields\Relationships\BelongsToMany;
 use MoonShine\Laravel\Fields\Slug;
@@ -54,6 +55,8 @@ use MoonShine\UI\Fields\Url;
  */
 final class ArticleIndexPage extends IndexPage
 {
+    use ImportExportHandlersConcern;
+
     /**
      * @return bool
      */

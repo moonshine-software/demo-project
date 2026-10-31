@@ -1,8 +1,9 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-Bp-CYfc8.css",
+    "file": "assets/app-Bj0HCL8e.css",
     "src": "resources/css/app.css",
     "isEntry": true,
+    "name": "app",
     "names": [
       "app.css"
     ]
@@ -44,7 +45,7 @@
     "src": "resources/images/icons/time-forward.svg"
   },
   "resources/js/app.js": {
-    "file": "assets/app-DN0QLku3.js",
+    "file": "assets/app-CttKM1tV.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true
@@ -53,6 +54,7 @@
     "file": "assets/main-DyfnTUA3.css",
     "src": "resources/sass/main.sass",
     "isEntry": true,
+    "name": "main",
     "names": [
       "main.css"
     ]

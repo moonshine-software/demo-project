@@ -1,4 +1,4 @@
-FROM php:8.3.4-fpm AS php
+FROM php:8.4-fpm AS php
 
 WORKDIR /var/www/app
 
@@ -34,5 +34,5 @@ COPY ./docker/dockerfiles/php/config/php-fpm.conf /usr/local/etc/php-fpm.d/www.c
 
 FROM php AS dev
 COPY . /var/www/app
-RUN if [[ -d '/var/www/app/storage' ]] ; then chmod -R 775 ./storage ./bootstrap/cache ; fi
+RUN if [ -d '/var/www/app/storage' ]; then chmod -R 775 ./storage ./bootstrap/cache; fi
 USER $user
