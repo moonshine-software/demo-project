@@ -143,6 +143,19 @@ test.describe('authenticated pages', () => {
         await expect(page.getByRole('heading', { name: 'Подписчики', exact: true })).toBeVisible();
     });
 
+    test('async methods require CSRF protection for every HTTP verb', async ({ page }) => {
+        const token = await page.locator('meta[name="csrf-token"]').getAttribute('content');
+        for (const method of ['GET', 'HEAD', 'OPTIONS', 'POST', 'PUT', 'PATCH', 'DELETE']) {
+            const url = '/admin/method/dashboard?method=metrics';
+            const rejected = await page.request.fetch(url, { method, headers: { Accept: 'application/json' } });
+            expect(rejected.status(), `${method} without CSRF`).toBe(419);
+            const accepted = await page.request.fetch(url, {
+                method, headers: { Accept: 'application/json', 'X-CSRF-TOKEN': token },
+            });
+            expect(accepted.status(), `${method} with CSRF`).toBe(200);
+        }
+    });
+
     test('user create, edit and delete through the browser', async ({ page }) => {
         const prefix = '/admin/resource/user-resource';
         await visit(page, `${prefix}/user-form-page`);

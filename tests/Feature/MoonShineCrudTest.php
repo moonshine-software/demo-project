@@ -104,8 +104,12 @@ final class MoonShineCrudTest extends TestCase
         $this->deleteJson(route('moonshine.crud.destroy', [
             'resourceUri' => 'article-resource', 'resourceItem' => 1,
         ]))->assertForbidden();
+        $this->deleteJson(route('moonshine.crud.massDelete', [
+            'resourceUri' => 'dictionary-resource',
+        ]), ['ids' => [1]])->assertForbidden();
 
         $this->assertModelExists(Article::query()->findOrFail(1));
+        $this->assertModelExists(Dictionary::query()->findOrFail(1));
     }
 
     public function test_settings_can_be_saved(): void
@@ -127,5 +131,18 @@ final class MoonShineCrudTest extends TestCase
             'resourceUri' => 'moon-shine-user-resource', 'resourceItem' => 1,
         ]), ['name' => 'Changed admin'])->assertForbidden();
         $this->assertDatabaseHas('moonshine_users', ['id' => 1, 'name' => 'Admin']);
+    }
+
+    public function test_mass_delete_only_removes_selected_items(): void
+    {
+        $original = Dictionary::query()->findOrFail(1);
+        $target = Dictionary::query()->create([
+            'title' => 'Delete target', 'slug' => 'delete-target', 'description' => 'Selected item for deletion.',
+        ]);
+        $url = route('moonshine.crud.massDelete', ['resourceUri' => 'dictionary-resource']);
+
+        $this->deleteJson($url, ['ids' => [$target->getKey()]])->assertOk();
+        $this->assertModelExists($original);
+        $this->assertModelMissing($target);
     }
 }
