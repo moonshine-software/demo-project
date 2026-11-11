@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "083300d53795699f64407adbcc6254a1",
+    "content-hash": "b49856d4fc68de65c1ee5ee2b462ff3f",
     "packages": [
         {
             "name": "brick/math",
@@ -2960,12 +2960,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/moonshine-software/moonshine.git",
-                "reference": "b71d42c05eba0de065566560b6dd753d9d22d253"
+                "reference": "5e9999afd04460100238ebccae9c18a7188c19e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moonshine-software/moonshine/zipball/b71d42c05eba0de065566560b6dd753d9d22d253",
-                "reference": "b71d42c05eba0de065566560b6dd753d9d22d253",
+                "url": "https://api.github.com/repos/moonshine-software/moonshine/zipball/5e9999afd04460100238ebccae9c18a7188c19e7",
+                "reference": "5e9999afd04460100238ebccae9c18a7188c19e7",
                 "shasum": ""
             },
             "require": {
@@ -2981,8 +2981,8 @@
                 "psr/container": "^2.0.2",
                 "psr/http-message": "^2.0",
                 "psr/simple-cache": "^3.0",
-                "symfony/http-foundation": "^7.4|^8.1",
-                "symfony/psr-http-message-bridge": "^7.4|^8.1"
+                "symfony/http-foundation": "^7.4.23|^8.1.11",
+                "symfony/psr-http-message-bridge": "^7.4.21|^8.1.9"
             },
             "replace": {
                 "moonshine/asset-manager": "self.version",
@@ -2996,13 +2996,13 @@
                 "moonshine/ui": "self.version"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.95.24",
-                "larastan/larastan": "^3.11",
+                "friendsofphp/php-cs-fixer": "^3.95.30",
+                "larastan/larastan": "^3.14",
                 "moonshine/import-export": "3.x-dev",
-                "orchestra/testbench": "^9|^10|^11.2",
-                "pestphp/pest": "^4.7|^5.1",
-                "pestphp/pest-plugin-laravel": "^4.1|^5.0",
-                "rector/rector": "^2.6.6",
+                "orchestra/testbench": "^9|^10|^11.3",
+                "pestphp/pest": "^4.7.8|^5.3.5",
+                "pestphp/pest-plugin-laravel": "^4.1|^5.0.1",
+                "rector/rector": "^2.8.4",
                 "symplify/monorepo-builder": "^12.7.2"
             },
             "type": "library",
@@ -3064,7 +3064,7 @@
                     "type": "boosty"
                 }
             ],
-            "time": "2026-11-04T08:21:29+00:00"
+            "time": "2026-11-11T07:32:17+00:00"
         },
         {
             "name": "moonshine/permissions",
@@ -3745,16 +3745,16 @@
         },
         {
             "name": "openspout/openspout",
-            "version": "v4.28.5",
+            "version": "v4.32.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/openspout/openspout.git",
-                "reference": "ab05a09fe6fce57c90338f83280648a9786ce36b"
+                "reference": "41f045c1f632e1474e15d4c7bc3abcb4a153563d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/openspout/openspout/zipball/ab05a09fe6fce57c90338f83280648a9786ce36b",
-                "reference": "ab05a09fe6fce57c90338f83280648a9786ce36b",
+                "url": "https://api.github.com/repos/openspout/openspout/zipball/41f045c1f632e1474e15d4c7bc3abcb4a153563d",
+                "reference": "41f045c1f632e1474e15d4c7bc3abcb4a153563d",
                 "shasum": ""
             },
             "require": {
@@ -3764,17 +3764,17 @@
                 "ext-libxml": "*",
                 "ext-xmlreader": "*",
                 "ext-zip": "*",
-                "php": "~8.2.0 || ~8.3.0 || ~8.4.0"
+                "php": "~8.3.0 || ~8.4.0 || ~8.5.0"
             },
             "require-dev": {
                 "ext-zlib": "*",
-                "friendsofphp/php-cs-fixer": "^3.68.3",
-                "infection/infection": "^0.29.10",
-                "phpbench/phpbench": "^1.4.0",
-                "phpstan/phpstan": "^2.1.2",
-                "phpstan/phpstan-phpunit": "^2.0.4",
-                "phpstan/phpstan-strict-rules": "^2",
-                "phpunit/phpunit": "^11.5.4"
+                "friendsofphp/php-cs-fixer": "^3.86.0",
+                "infection/infection": "^0.31.2",
+                "phpbench/phpbench": "^1.4.1",
+                "phpstan/phpstan": "^2.1.22",
+                "phpstan/phpstan-phpunit": "^2.0.7",
+                "phpstan/phpstan-strict-rules": "^2.0.6",
+                "phpunit/phpunit": "^12.3.7"
             },
             "suggest": {
                 "ext-iconv": "To handle non UTF-8 CSV files (if \"php-mbstring\" is not already installed or is too limited)",
@@ -3822,7 +3822,7 @@
             ],
             "support": {
                 "issues": "https://github.com/openspout/openspout/issues",
-                "source": "https://github.com/openspout/openspout/tree/v4.28.5"
+                "source": "https://github.com/openspout/openspout/tree/v4.32.0"
             },
             "funding": [
                 {
@@ -3834,7 +3834,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-01-30T13:51:11+00:00"
+            "time": "2025-09-03T16:03:54+00:00"
         },
         {
             "name": "phpoption/phpoption",
@@ -5260,16 +5260,16 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v8.1.10",
+            "version": "v8.1.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-foundation.git",
-                "reference": "79325f87c3a2acc7564ddce9f457046e980e7255"
+                "reference": "30fa3efe6e736b0d06f5331cc6abe813582c0a26"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/79325f87c3a2acc7564ddce9f457046e980e7255",
-                "reference": "79325f87c3a2acc7564ddce9f457046e980e7255",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/30fa3efe6e736b0d06f5331cc6abe813582c0a26",
+                "reference": "30fa3efe6e736b0d06f5331cc6abe813582c0a26",
                 "shasum": ""
             },
             "require": {
@@ -5317,7 +5317,7 @@
             "description": "Defines an object-oriented layer for the HTTP specification",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/http-foundation/tree/v8.1.10"
+                "source": "https://github.com/symfony/http-foundation/tree/v8.1.11"
             },
             "funding": [
                 {
@@ -5337,7 +5337,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-10-27T12:24:10+00:00"
+            "time": "2026-11-04T08:39:20+00:00"
         },
         {
             "name": "symfony/http-kernel",
